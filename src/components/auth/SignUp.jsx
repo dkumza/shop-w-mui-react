@@ -118,8 +118,7 @@ export default function SignUp() {
             margin="dense"
             fullWidth
             name="cPassword"
-            label="Confirm Password * 
-"
+            label="Confirm Password *"
             type="password"
             id="cPassword"
             value={formik.values.cPassword}
