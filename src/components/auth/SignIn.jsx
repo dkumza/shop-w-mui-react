@@ -47,7 +47,7 @@ export default function SignIn() {
         </Typography>
         <form onSubmit={formik.handleSubmit}>
           <TextField
-            margin="normal"
+            margin="dense"
             fullWidth
             id="email"
             label={'Email Address'}
@@ -57,19 +57,11 @@ export default function SignIn() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={
-              formik.touched.email && formik.errors.email ? formik.errors.email : '\u00a0' // Non-breaking space
-            }
-            sx={{
-              '.MuiFormHelperText-root': {
-                lineHeight:
-                  formik.touched.email && formik.errors.email ? 'normal' : '1.2',
-              },
-            }}
+            helperText={formik.touched.email && formik.errors.email}
           />
 
           <TextField
-            margin="none"
+            margin="dense"
             fullWidth
             name="password"
             label="Password"
@@ -80,17 +72,7 @@ export default function SignIn() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={
-              formik.touched.password && formik.errors.password
-                ? formik.errors.password
-                : '\u00a0'
-            }
-            sx={{
-              '.MuiFormHelperText-root': {
-                lineHeight:
-                  formik.touched.email && formik.errors.email ? 'normal' : 'normal',
-              },
-            }}
+            helperText={formik.touched.password && formik.errors.password}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
             Sign In

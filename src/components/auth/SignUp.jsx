@@ -118,7 +118,8 @@ export default function SignUp() {
             margin="dense"
             fullWidth
             name="cPassword"
-            label="Confirm Password* "
+            label="Confirm Password * 
+"
             type="password"
             id="cPassword"
             value={formik.values.cPassword}
@@ -140,7 +141,7 @@ export default function SignUp() {
             <Grid item xs></Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {'Already have account? Sign In'}
               </Link>
             </Grid>
           </Grid>
