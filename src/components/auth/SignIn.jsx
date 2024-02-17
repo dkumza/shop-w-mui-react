@@ -42,7 +42,7 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
           SIGN IN
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -50,18 +50,26 @@ export default function SignIn() {
             margin="normal"
             fullWidth
             id="email"
-            label="Email Address"
+            label={'Email Address'}
             name="email"
             autoComplete="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
-            // helperText={formik.touched.email && formik.errors.email}
+            helperText={
+              formik.touched.email && formik.errors.email ? formik.errors.email : '\u00a0' // Non-breaking space
+            }
+            sx={{
+              '.MuiFormHelperText-root': {
+                lineHeight:
+                  formik.touched.email && formik.errors.email ? 'normal' : '1.2',
+              },
+            }}
           />
 
           <TextField
-            margin="normal"
+            margin="none"
             fullWidth
             name="password"
             label="Password"
@@ -72,9 +80,19 @@ export default function SignIn() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
-            // helperText={formik.touched.password && formik.errors.password}
+            helperText={
+              formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : '\u00a0'
+            }
+            sx={{
+              '.MuiFormHelperText-root': {
+                lineHeight:
+                  formik.touched.email && formik.errors.email ? 'normal' : 'normal',
+              },
+            }}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
             Sign In
           </Button>
           <Grid container>
