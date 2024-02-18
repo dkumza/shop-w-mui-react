@@ -49,7 +49,7 @@ export default function SignUp() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       const { cPassword, ...signUpInfo } = values;
       axiosSignUp(signUpInfo);
     },
@@ -63,13 +63,10 @@ export default function SignUp() {
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {
-        console.log(error);
-        const eMsg = error.response.data.error;
-        enqueueSnackbar(eMsg, { variant: 'error' });
-        const newErr = error.response.data.error;
-        const errorFromAPI = newErr.msg;
-
-        formik.setErrors(errorFromAPI);
+        // console.log(error);
+        const valErrorAPI = error.response.data;
+        formik.setErrors(valErrorAPI);
+        enqueueSnackbar(valErrorAPI.error, { variant: 'error' });
       });
   };
 

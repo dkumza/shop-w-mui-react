@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { enqueueSnackbar } from 'notistack';
 
 const AuthContext = createContext({
   login() {},
@@ -31,6 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     setUserName('');
     localStorage.removeItem('session_token');
     localStorage.removeItem('session_username');
+    enqueueSnackbar('See you soon!', { variant: 'success' });
   }
 
   const ctxValues = {

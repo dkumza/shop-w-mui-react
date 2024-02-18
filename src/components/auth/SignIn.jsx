@@ -54,9 +54,10 @@ export default function SignIn() {
         }
       })
       .catch((error) => {
-        enqueueSnackbar(error.response.data.error, { variant: 'error' });
-        const errorFromAPI = error.response.data;
-        formik.setErrors(errorFromAPI);
+        // console.log(error);
+        const valErrorAPI = error.response.data;
+        formik.setErrors(valErrorAPI);
+        enqueueSnackbar(valErrorAPI.error, { variant: 'error' });
       });
   };
 
