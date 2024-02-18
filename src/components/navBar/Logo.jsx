@@ -1,7 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 export const Logo = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -11,10 +14,10 @@ export const Logo = () => {
       }}
     >
       <Typography
+        component={RouterLink}
+        to="/"
         variant="h3"
         noWrap
-        component="a"
-        href="#app-bar-with-responsive-menu"
         sx={{
           mr: 1,
           display: { xs: 'none', md: 'inline' },

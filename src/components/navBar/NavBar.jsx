@@ -6,6 +6,7 @@ import UserMenu from './UserMenu';
 import NavMenu from './NavMenu';
 import { Logo } from './Logo';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
   return (

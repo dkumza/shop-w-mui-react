@@ -8,7 +8,6 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Paper } from '@mui/material';
 import { useAuthContext } from '../../context/autCtx';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';

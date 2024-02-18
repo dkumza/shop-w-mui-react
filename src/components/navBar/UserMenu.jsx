@@ -12,6 +12,7 @@ import {
 
 import { useState } from 'react';
 import { useAuthContext } from '../../context/autCtx';
+import { useNavigate } from 'react-router-dom';
 
 const settings = ['Profile', 'Dashboard', 'My Items', 'Favorites', 'Logout'];
 
@@ -52,8 +53,8 @@ function UserMenu() {
     setAnchorElUser(null);
   };
 
-  const handleSettingClick = (setting) => {
-    if (setting === 'Logout') {
+  const handleSettingClick = (item) => {
+    if (item === 'Logout') {
       logout();
     }
     handleCloseUserMenu();

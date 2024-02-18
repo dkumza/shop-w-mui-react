@@ -8,17 +8,16 @@ import {
   alpha,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { SearchInput } from './SearchInput';
 import { useAuthContext } from '../../context/autCtx';
 import { useState } from 'react';
 import theme from '../../theme';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Products', 'Favorites', 'Sell'];
+const pages = ['Home', 'Favorites', 'Sell'];
 
 export default function NavMenu() {
-  const { name } = useAuthContext();
-  console.log(name);
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -26,6 +25,16 @@ export default function NavMenu() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleMenuClick = (page) => {
+    if (page === 'Sell') {
+      navigate('/sell');
+    }
+    if (page === 'Home') {
+      navigate('/');
+    }
+    handleCloseNavMenu();
   };
   return (
     <>
@@ -68,7 +77,7 @@ export default function NavMenu() {
           }}
         >
           {pages.map((page) => (
-            <MenuItem key={page} onClick={handleCloseNavMenu}>
+            <MenuItem key={page} onClick={() => handleMenuClick(page)}>
               <Typography textAlign="center">{page}</Typography>
             </MenuItem>
           ))}
@@ -78,7 +87,7 @@ export default function NavMenu() {
         {pages.map((page) => (
           <Button
             key={page}
-            onClick={handleCloseNavMenu}
+            onClick={() => handleMenuClick(page)}
             sx={{ my: 2, color: 'white', display: 'block' }}
           >
             {page}
