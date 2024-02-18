@@ -6,7 +6,7 @@ const AuthContext = createContext({
   logout() {},
   isUserLoggedIn: false,
   token: null,
-  username: '',
+  name: '',
   // email: '',
 });
 
@@ -14,24 +14,25 @@ AuthContext.displayName = 'AuthCtx';
 
 export const AuthContextProvider = ({ children }) => {
   const tokenFromStorage = localStorage.getItem('session_token');
-  const usernameFromStorage = localStorage.getItem('session_username');
+  const nameFromStorage = localStorage.getItem('session_name');
   const [sessionToken, setSessionToken] = useState(tokenFromStorage || null);
-  const [username, setUserName] = useState(usernameFromStorage || null);
+  const [name, setName] = useState(nameFromStorage || null);
 
   const isUserLoggedIn = !!sessionToken;
 
-  function login(token, username) {
+  function login(token, name) {
+    console.log(name);
     setSessionToken(token);
-    setUserName(username);
+    setName(name);
     localStorage.setItem('session_token', token);
-    localStorage.setItem('session_username', username);
+    localStorage.setItem('session_name', name);
   }
 
   function logout() {
     setSessionToken(null);
-    setUserName('');
+    setName('');
     localStorage.removeItem('session_token');
-    localStorage.removeItem('session_username');
+    localStorage.removeItem('session_name');
     enqueueSnackbar('See you soon!', { variant: 'success' });
   }
 
@@ -40,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
     isUserLoggedIn,
     login,
     logout,
-    username,
+    name,
     // email,
   };
 
