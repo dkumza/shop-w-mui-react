@@ -1,10 +1,19 @@
-import { Box, Button, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  alpha,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { SearchInput } from './SearchInput';
 import { useAuthContext } from '../../context/autCtx';
 import { useState } from 'react';
+import theme from '../../theme';
 
-const pages = ['All Products', 'Favorites', 'Sell'];
+const pages = ['Products', 'Favorites', 'Sell'];
 
 export default function NavMenu() {
   const { name } = useAuthContext();
@@ -21,9 +30,17 @@ export default function NavMenu() {
   return (
     <>
       {/* HAMBURGER MENU VISIBLE ON SMALL SCREEN */}
-      <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: { xs: 'flex', md: 'none' },
+          backgroundColor: alpha(theme.palette.common.white, 0.15),
+          '&:hover': {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+          },
+        }}
+      >
         <IconButton
-          size="large"
           aria-label="account of current user"
           aria-controls="menu-appbar"
           aria-haspopup="true"
@@ -56,10 +73,6 @@ export default function NavMenu() {
             </MenuItem>
           ))}
         </Menu>
-      </Box>
-      {/* search bar on small screen */}
-      <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-        <SearchInput />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
         {pages.map((page) => (

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { InputBase, alpha } from '@mui/material';
+import { Box, InputBase, alpha } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 const Search = styled('div')(({ theme }) => ({
@@ -13,7 +13,7 @@ const Search = styled('div')(({ theme }) => ({
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(4),
     width: 'auto',
   },
 }));
@@ -44,11 +44,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const SearchInput = () => {
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
-    </Search>
+    <Box sx={{ flexGrow: 1, display: 'flex', marginLeft: 2 }}>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+      </Search>
+    </Box>
   );
 };
