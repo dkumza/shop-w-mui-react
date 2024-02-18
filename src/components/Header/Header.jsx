@@ -12,11 +12,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { SearchInput } from './SearchInput';
+import { useAuthContext } from '../../context/autCtx';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['All Products', 'Favorites', 'Sell'];
+const settings = ['Profile', 'Dashboard', 'My Items', 'Favorites', 'Logout'];
 
 function Header() {
+  const { logout } = useAuthContext();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -35,6 +37,13 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const handleSettingClick = (setting) => {
+    if (setting === 'Logout') {
+      logout();
+    }
+    handleCloseUserMenu();
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -48,20 +57,34 @@ function Header() {
             }}
           >
             <Typography
-              variant="h5"
+              variant="h3"
               noWrap
               component="a"
               href="#app-bar-with-responsive-menu"
               sx={{
-                mr: 2,
+                mr: 1,
                 display: { xs: 'none', md: 'inline' },
-                fontWeight: 700,
+                // fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
             >
-              SHOPPING
+              trade
+            </Typography>
+            <Typography
+              variant="body4"
+              noWrap
+              sx={{
+                mr: 4,
+                display: { xs: 'none', md: 'inline' },
+                // fontWeight: 700,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Trade partner <br />
+              that all we trust
             </Typography>
             <SearchInput />
           </Box>
@@ -103,9 +126,12 @@ function Header() {
               ))}
             </Menu>
           </Box>
-
+          {/* search bar on small screen */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <SearchInput />
+          </Box>
           {/* TITLE ON SMALL SCREEN */}
-          <Typography
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -122,7 +148,7 @@ function Header() {
             }}
           >
             SHOPPING
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -139,7 +165,7 @@ function Header() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Username" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -159,7 +185,7 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

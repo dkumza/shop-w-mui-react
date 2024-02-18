@@ -24,6 +24,13 @@ const theme = createTheme({
       contrastText: '#000',
     },
   },
+  typography: {
+    body4: {
+      fontSize: '0.85rem', // Set the font size you want
+      fontWeight: 400,
+      lineHeight: 1.5,
+    },
+  },
 });
 
 root.render(
