@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -39,6 +39,8 @@ const validationSchema = yup.object({
 });
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -60,6 +62,7 @@ export default function SignUp() {
       .post(REG_URL, signUpInfo)
       .then((res) => {
         formik.resetForm();
+        navigate('/login');
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {
