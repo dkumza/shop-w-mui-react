@@ -5,9 +5,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { Paper } from '@mui/material';
 
 const validationSchema = yup.object({
   email: yup
@@ -33,60 +35,61 @@ export default function SignIn() {
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
-          SIGN IN
-        </Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            margin="dense"
-            fullWidth
-            id="email"
-            label={'Email Address'}
-            name="email"
-            autoComplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
+    <Container component="main" maxWidth="sm" sx={{ marginTop: 8 }}>
+      <Paper elevation={2} variant="elevation" sx={{ padding: 10 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
+            SIGN IN
+          </Typography>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              margin="dense"
+              fullWidth
+              id="email"
+              label={'Email Address'}
+              name="email"
+              autoComplete="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
 
-          <TextField
-            margin="dense"
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs></Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+            <TextField
+              margin="dense"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs></Grid>
+              <Grid item>
+                <Link component={RouterLink} to="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Box>
+      </Paper>
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,6 +9,7 @@ import Container from '@mui/material/Container';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { Paper } from '@mui/material';
 
 const validationSchema = yup.object({
   username: yup.string('Enter username').trim().min(3).required('Username is required'),
@@ -48,104 +50,105 @@ export default function SignUp() {
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
-          Sign Up
-        </Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            margin="dense"
-            fullWidth
-            id="username"
-            label="Username *"
-            name="username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            id="email"
-            label="Email Address *"
-            name="email"
-            autoComplete="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            id="phone"
-            label="Phone Number *"
-            name="phone"
-            type="number"
-            autoComplete="phone"
-            value={formik.values.phone}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.phone && Boolean(formik.errors.phone)}
-            helperText={formik.touched.phone && formik.errors.phone}
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            name="password"
-            label="Password *"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            name="cPassword"
-            label="Confirm Password *"
-            type="password"
-            id="cPassword"
-            value={formik.values.cPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.password && Boolean(formik.errors.cPassword)}
-            helperText={formik.touched.cPassword && formik.errors.cPassword}
-          />
-          <Button
-            margin="dense"
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 2, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs></Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {'Already have account? Sign In'}
-              </Link>
+    <Container component="main" maxWidth="sm" sx={{ marginTop: 8 }}>
+      <Paper elevation={2} variant="elevation" sx={{ padding: 10 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
+            Sign Up
+          </Typography>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              margin="dense"
+              fullWidth
+              id="username"
+              label="Username *"
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              id="email"
+              label="Email Address *"
+              name="email"
+              autoComplete="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              id="phone"
+              label="Phone Number *"
+              name="phone"
+              type="number"
+              autoComplete="phone"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={formik.touched.phone && formik.errors.phone}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              name="password"
+              label="Password *"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              name="cPassword"
+              label="Confirm Password *"
+              type="password"
+              id="cPassword"
+              value={formik.values.cPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.cPassword)}
+              helperText={formik.touched.cPassword && formik.errors.cPassword}
+            />
+            <Button
+              margin="dense"
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 2, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs></Grid>
+              <Grid item>
+                <Link component={RouterLink} to="/login" variant="body2">
+                  {'Already have account? Sign In'}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Box>
+      </Paper>
     </Container>
   );
 }
