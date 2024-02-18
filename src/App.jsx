@@ -1,9 +1,9 @@
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AllProducts } from './components/products/AllProducts';
 import './App.css';
 import { useAuthContext } from './context/autCtx';
+import { Layout } from './components/Layout';
 
 export default function App() {
   const { isUserLoggedIn } = useAuthContext();
@@ -13,7 +13,7 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={isUserLoggedIn ? <AllProducts /> : <Navigate to="/login" />}
+          element={isUserLoggedIn ? <Layout /> : <Navigate to="/login" />}
         />
         <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<SignUp />} />

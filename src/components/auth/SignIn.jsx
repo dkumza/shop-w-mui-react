@@ -46,16 +46,15 @@ export default function SignIn() {
       .post(LOGIN_URL, loginInfo)
       .then((res) => {
         const { token, username } = res.data;
-
         if (token) {
           login(token, username);
           formik.resetForm();
           navigate('/');
-          enqueueSnackbar('Login success', { vertical: 'top', variant: 'success' });
+          enqueueSnackbar(res.data.msg, { variant: 'success' });
         }
       })
       .catch((error) => {
-        // addMsg('bg-red-200', `${error.response.data.error}`);
+        enqueueSnackbar(error.response.data.error, { variant: 'error' });
         const errorFromAPI = error.response.data;
         formik.setErrors(errorFromAPI);
       });

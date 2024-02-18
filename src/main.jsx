@@ -14,7 +14,7 @@ root.render(
     <AuthContextProvider>
       <SnackbarProvider
         dense
-        autoHideDuration={1500}
+        autoHideDuration={2000}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',

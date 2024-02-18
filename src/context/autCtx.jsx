@@ -27,7 +27,6 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   function logout() {
-    console.log('logout');
     setSessionToken(null);
     setUserName('');
     localStorage.removeItem('session_token');

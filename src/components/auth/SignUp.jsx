@@ -10,15 +10,19 @@ import Container from '@mui/material/Container';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Paper } from '@mui/material';
+import axios from 'axios';
+import { enqueueSnackbar } from 'notistack';
+
+const REG_URL = 'http://localhost:3000/api/auth/register';
 
 const validationSchema = yup.object({
-  username: yup.string('Enter username').trim().min(3).required('Username is required'),
+  name: yup.string('Enter name').trim().min(3).required('Name is required'),
   email: yup
     .string('Enter your email')
     .trim()
     .email('Enter a valid email')
     .required('Email is required'),
-  phone: yup.string().trim().required('Phone is required'),
+  telephone: yup.string().trim().required('Telephone is required'),
   password: yup
     .string('Enter your password')
     .trim()
@@ -37,17 +41,37 @@ const validationSchema = yup.object({
 export default function SignUp() {
   const formik = useFormik({
     initialValues: {
-      username: '',
+      name: '',
       email: '',
-      phone: '',
+      telephone: '',
       password: '',
       cPassword: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
+      const { cPassword, ...signUpInfo } = values;
+      axiosSignUp(signUpInfo);
     },
   });
+
+  const axiosSignUp = (signUpInfo) => {
+    axios
+      .post(REG_URL, signUpInfo)
+      .then((res) => {
+        formik.resetForm();
+        enqueueSnackbar(res.data.msg, { variant: 'success' });
+      })
+      .catch((error) => {
+        console.log(error);
+        const eMsg = error.response.data.error;
+        enqueueSnackbar(eMsg, { variant: 'error' });
+        const newErr = error.response.data.error;
+        const errorFromAPI = newErr.msg;
+
+        formik.setErrors(errorFromAPI);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 8 }}>
@@ -66,14 +90,14 @@ export default function SignUp() {
           <TextField
             margin="dense"
             fullWidth
-            id="username"
-            label="Username *"
-            name="username"
-            value={formik.values.username}
+            id="name"
+            label="Name *"
+            name="name"
+            value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
           />
           <TextField
             margin="dense"
@@ -91,16 +115,16 @@ export default function SignUp() {
           <TextField
             margin="dense"
             fullWidth
-            id="phone"
-            label="Phone Number *"
-            name="phone"
+            id="telephone"
+            label="Telephone Number *"
+            name="telephone"
             type="number"
-            autoComplete="phone"
-            value={formik.values.phone}
+            autoComplete="telephone"
+            value={formik.values.telephone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.phone && Boolean(formik.errors.phone)}
-            helperText={formik.touched.phone && formik.errors.phone}
+            error={formik.touched.telephone && Boolean(formik.errors.telephone)}
+            helperText={formik.touched.telephone && formik.errors.telephone}
           />
           <TextField
             margin="dense"
