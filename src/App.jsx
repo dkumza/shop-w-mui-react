@@ -1,17 +1,15 @@
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { AllProducts } from './components/products/AllProducts';
 
 import './App.css';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AllProducts } from './components/auth/products/AllProducts';
 
 export default function App() {
   const isUserLoggedIn = false;
 
   return (
     <>
-      {isUserLoggedIn && <SignIn />}
-      {/* <SignUp /> */}
       <Routes>
         <Route
           path="/"

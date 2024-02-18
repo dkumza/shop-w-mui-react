@@ -10,6 +10,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Paper } from '@mui/material';
+import { useAuthContext } from '../../context/autCtx';
 
 const validationSchema = yup.object({
   email: yup
@@ -23,10 +24,12 @@ const validationSchema = yup.object({
 });
 
 export default function SignIn() {
+  const { login } = useAuthContext();
+
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'admin@admin.qq',
+      password: '123456',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -35,61 +38,67 @@ export default function SignIn() {
   });
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ marginTop: 8 }}>
-      <Paper elevation={2} variant="elevation" sx={{ padding: 10 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
-            SIGN IN
-          </Typography>
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              margin="dense"
-              fullWidth
-              id="email"
-              label={'Email Address'}
-              name="email"
-              autoComplete="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
+    <Container component="main" maxWidth="xs" sx={{ marginTop: 8 }}>
+      {/* <Paper elevation={2} variant="elevation" sx={{ padding: 2 }}> */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
+          Sign In
+        </Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            margin="dense"
+            fullWidth
+            id="email"
+            label={'Email Address'}
+            name="email"
+            autoComplete="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
 
-            <TextField
-              margin="dense"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs></Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+          <TextField
+            margin="dense"
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+          <Button
+            onClick={login}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs></Grid>
+            <Grid item>
+              <Link component={RouterLink} to="/register" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
             </Grid>
-          </form>
-        </Box>
-      </Paper>
+          </Grid>
+        </form>
+      </Box>
+      {/* </Paper> */}
     </Container>
   );
 }
