@@ -12,7 +12,14 @@ root.render(
   <BrowserRouter>
     <CssBaseline />
     <AuthContextProvider>
-      <SnackbarProvider autoHideDuration={1500}>
+      <SnackbarProvider
+        dense
+        autoHideDuration={1500}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
         <App />
       </SnackbarProvider>
     </AuthContextProvider>

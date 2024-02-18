@@ -26,7 +26,7 @@ export const AuthContextProvider = ({ children }) => {
     // setUserName(username);
     // localStorage.setItem('session_token', token);
     // localStorage.setItem('session_username', username);
-    enqueueSnackbar('I love hooks', { vertical: 'top', variant: 'success' });
+    enqueueSnackbar('Login success', { vertical: 'top', variant: 'success' });
   }
 
   function logout() {
