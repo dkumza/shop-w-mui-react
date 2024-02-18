@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
+import { SearchInput } from './SearchInput';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -39,16 +40,21 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* DISABLED ON SMALL SCREEN */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexGrow: 1,
+              alignItems: 'center',
+            }}
+          >
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               component="a"
               href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'inline' },
-                fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
@@ -57,6 +63,7 @@ function Header() {
             >
               SHOPPING
             </Typography>
+            <SearchInput />
           </Box>
 
           {/* HAMBURGER MENU VISIBLE ON SMALL SCREEN */}
