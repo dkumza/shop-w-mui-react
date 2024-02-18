@@ -1,4 +1,3 @@
-import { enqueueSnackbar } from 'notistack';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext({
@@ -20,13 +19,11 @@ export const AuthContextProvider = ({ children }) => {
 
   const isUserLoggedIn = !!sessionToken;
 
-  function login() {
-    console.log('login');
-    // setSessionToken(token);
-    // setUserName(username);
-    // localStorage.setItem('session_token', token);
-    // localStorage.setItem('session_username', username);
-    enqueueSnackbar('Login success', { vertical: 'top', variant: 'success' });
+  function login(token, username) {
+    setSessionToken(token);
+    setUserName(username);
+    localStorage.setItem('session_token', token);
+    localStorage.setItem('session_username', username);
   }
 
   function logout() {

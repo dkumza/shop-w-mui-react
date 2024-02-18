@@ -5,12 +5,15 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link as RouterLink } from 'react-router-dom';
-
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Paper } from '@mui/material';
 import { useAuthContext } from '../../context/autCtx';
+import axios from 'axios';
+import { enqueueSnackbar } from 'notistack';
+
+const LOGIN_URL = 'http://localhost:3000/api/auth/login';
 
 const validationSchema = yup.object({
   email: yup
@@ -24,6 +27,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const { login } = useAuthContext();
 
   const formik = useFormik({
@@ -33,9 +37,29 @@ export default function SignIn() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      axiosLogin(values);
     },
   });
+
+  const axiosLogin = (loginInfo) => {
+    axios
+      .post(LOGIN_URL, loginInfo)
+      .then((res) => {
+        const { token, username } = res.data;
+
+        if (token) {
+          login(token, username);
+          formik.resetForm();
+          navigate('/');
+          enqueueSnackbar('Login success', { vertical: 'top', variant: 'success' });
+        }
+      })
+      .catch((error) => {
+        // addMsg('bg-red-200', `${error.response.data.error}`);
+        const errorFromAPI = error.response.data;
+        formik.setErrors(errorFromAPI);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 8 }}>
