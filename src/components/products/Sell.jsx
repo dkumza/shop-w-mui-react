@@ -4,6 +4,7 @@ import {
   Container,
   FormControl,
   FormHelperText,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -15,6 +16,7 @@ import { useProductsContext } from '../../context/productsCtx';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -36,6 +38,7 @@ const validationSchema = yup.object({
 
 export const Sell = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
+  const [previewUrls, setPreviewUrls] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -74,6 +77,26 @@ export const Sell = () => {
   // if user is selected subcategory and changes category, to prevent MUI warning - reset subCategory to default - 0
   const handleCategoryChange = (event) => {
     formik.setFieldValue('selectSub', 0);
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) {
+      setPreviewUrls([]);
+      return;
+    }
+
+    const urls = files.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      return new Promise((resolve) => {
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+      });
+    });
+
+    Promise.all(urls).then((values) => setPreviewUrls(values));
   };
 
   return (
@@ -207,6 +230,22 @@ export const Sell = () => {
               />
             </Box>
           </Box>
+          <Grid container spacing={1} sx={{ mt: 0 }}>
+            {previewUrls.map((url, index) => (
+              <Grid item xs={6} key={index}>
+                <img
+                  src={url}
+                  alt={`Preview ${index}`}
+                  style={{
+                    width: '100%',
+                    height: '200px',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
           <Button
             variant="outlined"
             component="label"
@@ -218,12 +257,17 @@ export const Sell = () => {
               display: 'flex',
               alignItems: 'center',
               position: 'relative',
-              lineHeight: '1', // fix for horizontal align of icon ant text
+              lineHeight: '1',
             }}
             startIcon={<InsertPhotoIcon />}
           >
             Upload image
-            <VisuallyHiddenInput type="file" sx={{ position: 'absolute' }} />
+            <VisuallyHiddenInput
+              type="file"
+              multiple
+              onChange={handleImageChange}
+              sx={{ position: 'absolute' }}
+            />
           </Button>
 
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
