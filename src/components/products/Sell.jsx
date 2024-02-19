@@ -4,18 +4,29 @@ import {
   Container,
   FormControl,
   FormHelperText,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from '@mui/material';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import { useProductsContext } from '../../context/productsCtx';
-import { Link, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useState } from 'react';
+import styled from '@emotion/styled';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').required('Title is required'),
@@ -141,7 +152,7 @@ export const Sell = () => {
                 error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
               >
                 <MenuItem disabled value={0}>
-                  Select Subcategory
+                  Subcategory
                 </MenuItem>
                 {sub &&
                   sub.map((s) => (
@@ -156,6 +167,64 @@ export const Sell = () => {
               </FormHelperText>
             </FormControl>
           </Box>
+          {/* description */}
+          <TextField
+            id="description"
+            name="description"
+            label="Description"
+            margin="dense"
+            multiline
+            rows={4}
+            // value={formik.values.description}
+            // onChange={formik.handleChange}
+            // onBlur={formik.handleBlur}
+            // error={formik.touched.description && Boolean(formik.errors.description)}
+          />
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ width: '30%' }}>
+              <TextField
+                id="price"
+                label="Price €"
+                margin="dense"
+                type="number"
+                // value={formik.values.selectSub}
+                // onChange={formik.handleChange}
+                // onBlur={formik.handleBlur}
+                // error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+              />
+            </Box>
+            <Box sx={{ width: '70%' }}>
+              <TextField
+                sx={{ width: '100%' }}
+                id="city"
+                label="City"
+                margin="dense"
+                type="number"
+                // value={formik.values.selectSub}
+                // onChange={formik.handleChange}
+                // onBlur={formik.handleBlur}
+                // error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+              />
+            </Box>
+          </Box>
+          <Button
+            variant="outlined"
+            component="label"
+            role={undefined}
+            tabIndex={-1}
+            sx={{
+              mt: 1,
+              padding: 1.8,
+              display: 'flex',
+              alignItems: 'center',
+              position: 'relative',
+              lineHeight: '1', // fix for horizontal align of icon ant text
+            }}
+            startIcon={<InsertPhotoIcon />}
+          >
+            Upload image
+            <VisuallyHiddenInput type="file" sx={{ position: 'absolute' }} />
+          </Button>
 
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
             Sign In
