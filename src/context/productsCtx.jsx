@@ -15,6 +15,7 @@ ProductsContext.displayName = 'ProductsCtx';
 
 export const ProductsContextProvider = ({ children }) => {
   const [cats, setCats] = useState(null);
+  const [sub, setSub] = useState(null);
 
   // fetch categories from API
   useEffect(() => {
@@ -27,9 +28,20 @@ export const ProductsContextProvider = ({ children }) => {
         console.warn('ERROR: ', err);
       });
   }, []);
-  console.log(cats);
 
-  const ctxValues = { cats };
+  const fetchSubCats = (id) => {
+    console.log(id);
+    axios
+      .get(`${SUB_CATs_URL}/${id}`)
+      .then((res) => {
+        setSub(res.data);
+      })
+      .catch((err) => {
+        console.warn('ERROR: ', err);
+      });
+  };
+
+  const ctxValues = { cats, fetchSubCats, sub };
 
   return (
     <ProductsContext.Provider value={ctxValues}>{children}</ProductsContext.Provider>

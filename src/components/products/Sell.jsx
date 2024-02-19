@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -17,34 +18,30 @@ import * as yup from 'yup';
 import { useState } from 'react';
 
 const validationSchema = yup.object({
-  email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: yup
-    .string('Enter your password')
-    .min(6, 'Password should be of minimum 6 characters length')
-    .required('Password is required'),
+  title: yup.string('Enter product title').required('Title is required'),
+  selectCat: yup.number().min(1, 'Category is required').max(3),
+  selectSub: yup.number().min(1, 'Subcategory is required'),
 });
 
 export const Sell = () => {
-  const { cats } = useProductsContext();
-  const [categories, setCategories] = useState('');
+  const { cats, fetchSubCats, sub } = useProductsContext();
 
   const formik = useFormik({
     initialValues: {
-      title: 'admin@admin.qq',
-      password: '123456',
+      title: '',
+      selectCat: 0,
+      selectSub: 0,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      axiosLogin(values);
+      console.log(values);
+      // axiosLogin(values);
     },
   });
 
-  const axiosLogin = (loginInfo) => {
+  const axiosSaveProduct = (product) => {
     axios
-      .post(LOGIN_URL, loginInfo)
+      .post(LOGIN_URL, product)
       .then((res) => {
         const { token, name } = res.data;
         if (token) {
@@ -63,8 +60,9 @@ export const Sell = () => {
       });
   };
 
-  const handleChange = (event) => {
-    setCategories(event.target.value);
+  // if user is selected subcategory and changes category, to prevent MUI warning - reset subCategory to default - 0
+  const handleCategoryChange = (event) => {
+    formik.setFieldValue('selectSub', 0);
   };
 
   return (
@@ -86,26 +84,76 @@ export const Sell = () => {
             id="title"
             label="Product Title"
             name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.title && Boolean(formik.errors.title)}
+            helperText={formik.touched.title && formik.errors.title}
           />
 
-          <Box sx={{ width: '100%', display: 'flex' }}>
-            <FormControl margin="dense" sx={{ flexGrow: 1 }}>
+          <Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
+            <FormControl margin="dense" sx={{ width: '50%' }}>
               <InputLabel id="cats">Select Category</InputLabel>
               <Select
                 labelId="cats"
                 id="selectCat"
                 name="selectCat"
-                value={categories}
                 label="Select Category"
-                onChange={handleChange}
+                value={formik.values.selectCat}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.selectCat && Boolean(formik.errors.selectCat)}
               >
+                <MenuItem disabled value={0}>
+                  Category
+                </MenuItem>
                 {cats &&
                   cats.map((cat) => (
-                    <MenuItem key={cat.id} value={cat.id}>
+                    <MenuItem
+                      key={cat.id}
+                      value={cat.id}
+                      onClick={(e) => {
+                        fetchSubCats(cat.id);
+                        handleCategoryChange(e);
+                      }}
+                    >
                       {cat.name}
                     </MenuItem>
                   ))}
               </Select>
+              {/* helper for form validation */}
+              <FormHelperText error id="selectCats-v-helper">
+                {formik.touched.selectCat && formik.errors.selectCat}
+              </FormHelperText>
+            </FormControl>
+
+            {/* sub category */}
+            <FormControl margin="dense" sx={{ width: '50%' }}>
+              <InputLabel id="subCat">Select Subcategory</InputLabel>
+              <Select
+                labelId="subCat"
+                id="selectSub"
+                name="selectSub"
+                label="Select Subcategory"
+                value={formik.values.selectSub}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+              >
+                <MenuItem disabled value={0}>
+                  Select Subcategory
+                </MenuItem>
+                {sub &&
+                  sub.map((s) => (
+                    <MenuItem key={s.id} value={s.id}>
+                      {s.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+              {/* helper for form validation */}
+              <FormHelperText error id="selectSubs-v-helper">
+                {formik.touched.selectSub && formik.errors.selectSub}
+              </FormHelperText>
             </FormControl>
           </Box>
 
