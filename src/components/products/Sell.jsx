@@ -17,6 +17,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { enqueueSnackbar } from 'notistack';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -81,11 +82,20 @@ export const Sell = () => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+
+    // if no images - preview is empty array
     if (files.length === 0) {
       setPreviewUrls([]);
       return;
     }
 
+    // check for maximum images
+    if (files.length > 4) {
+      enqueueSnackbar('Maximum 4 images allowed', { variant: 'error' });
+      return;
+    }
+
+    // map image preview using JS FileReader
     const urls = files.map((file) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -96,6 +106,7 @@ export const Sell = () => {
       });
     });
 
+    // waits till all urls are availible then updated state of previewUrls
     Promise.all(urls).then((values) => setPreviewUrls(values));
   };
 
@@ -231,20 +242,23 @@ export const Sell = () => {
             </Box>
           </Box>
           <Grid container spacing={1} sx={{ mt: 0 }}>
-            {previewUrls.map((url, index) => (
-              <Grid item xs={6} key={index}>
-                <img
-                  src={url}
-                  alt={`Preview ${index}`}
-                  style={{
-                    width: '100%',
-                    height: '200px',
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                />
-              </Grid>
-            ))}
+            {previewUrls &&
+              previewUrls.map((url, index) => (
+                // show children's of main grid dynamically by previewUrls length
+                <Grid item xs={12 / previewUrls.length} key={index}>
+                  <img
+                    src={url}
+                    alt={`Preview ${index}`}
+                    style={{
+                      width: '100%',
+                      height: '100px',
+                      objectFit: 'cover',
+                      display: 'block',
+                      borderRadius: 3,
+                    }}
+                  />
+                </Grid>
+              ))}
           </Grid>
           <Button
             variant="outlined"
@@ -261,16 +275,16 @@ export const Sell = () => {
             }}
             startIcon={<InsertPhotoIcon />}
           >
-            Upload image
+            Add up to 4 images
             <VisuallyHiddenInput
               type="file"
-              multiple
+              multiple={2}
               onChange={handleImageChange}
               sx={{ position: 'absolute' }}
             />
           </Button>
 
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2, mb: 2 }}>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
         </form>
