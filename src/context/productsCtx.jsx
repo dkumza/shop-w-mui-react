@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const CATs_URL = 'http://localhost:3000/api/categories';
+const SUB_CATs_URL = 'http://localhost:3000/api/sub-categories';
 const PRODUCTS_URL = `http://localhost:3000/api/products`;
 
 const ProductsContext = createContext({
