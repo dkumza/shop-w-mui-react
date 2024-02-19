@@ -32,7 +32,7 @@ export const Logo = () => {
         variant="body4"
         noWrap
         sx={{
-          mr: 0,
+          mt: 0.5,
           display: { xs: 'none', md: 'flex' },
           // fontWeight: 700,
           color: 'inherit',

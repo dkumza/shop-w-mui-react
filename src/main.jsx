@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import { AuthContextProvider } from './context/autCtx';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ProductsContextProvider } from './context/productsCtx';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -37,18 +38,20 @@ root.render(
   <BrowserRouter>
     <CssBaseline />
     <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider
-          dense
-          autoHideDuration={3000}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-        >
-          <App />
-        </SnackbarProvider>
-      </ThemeProvider>
+      <ProductsContextProvider>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider
+            dense
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+          >
+            <App />
+          </SnackbarProvider>
+        </ThemeProvider>
+      </ProductsContextProvider>
     </AuthContextProvider>
   </BrowserRouter>,
 );

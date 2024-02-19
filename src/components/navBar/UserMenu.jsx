@@ -46,7 +46,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function UserMenu() {
-  const { logout } = useAuthContext();
+  const { logout, name } = useAuthContext();
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleCloseUserMenu = () => {
@@ -72,7 +72,7 @@ function UserMenu() {
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             variant="dot"
           >
-            <Avatar>{name.slice(0, 1)}</Avatar>
+            <Avatar>{name && name.slice(0, 1)}</Avatar>
           </StyledBadge>
         </IconButton>
       </Tooltip>
