@@ -150,7 +150,7 @@ export const Sell = () => {
                 error={formik.touched.selectCat && Boolean(formik.errors.selectCat)}
               >
                 <MenuItem disabled value={0}>
-                  Category
+                  Select Category
                 </MenuItem>
                 {cats &&
                   cats.map((cat) => (
@@ -186,7 +186,7 @@ export const Sell = () => {
                 error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
               >
                 <MenuItem disabled value={0}>
-                  Subcategory
+                  Select Subcategory
                 </MenuItem>
                 {sub &&
                   sub.map((s) => (
