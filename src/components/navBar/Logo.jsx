@@ -9,7 +9,7 @@ export const Logo = () => {
     <Box
       sx={{
         display: 'flex',
-        flexGrow: 1,
+        // flexGrow: 1,
         alignItems: 'center',
       }}
     >
@@ -20,7 +20,7 @@ export const Logo = () => {
         noWrap
         sx={{
           mr: 1,
-          display: { xs: 'none', md: 'inline' },
+          display: { xs: 'none', md: 'flex' },
           letterSpacing: '.3rem',
           color: 'inherit',
           textDecoration: 'none',
@@ -32,8 +32,8 @@ export const Logo = () => {
         variant="body4"
         noWrap
         sx={{
-          mr: 4,
-          display: { xs: 'none', md: 'inline' },
+          mr: 0,
+          display: { xs: 'none', md: 'flex' },
           // fontWeight: 700,
           color: 'inherit',
           textDecoration: 'none',
@@ -42,7 +42,6 @@ export const Logo = () => {
         Trade partner <br />
         that all we trust
       </Typography>
-      {/* search bar on small screen */}
     </Box>
   );
 };

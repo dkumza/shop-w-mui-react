@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 
 export const AllProducts = () => {
   return (
-    <Container>
+    <Container maxWidth="md">
       <h1>AllProducts</h1>
     </Container>
   );

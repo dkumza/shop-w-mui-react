@@ -31,8 +31,9 @@ function NavBar() {
         {/* desktop view */}
         <Box
           sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'none', md: 'inline' },
             flexGrow: 1,
+            justifyContent: 'center',
             alignItems: 'center',
           }}
         >
@@ -40,8 +41,8 @@ function NavBar() {
             <Logo />
             <SearchInput />
             <NavMenu />
+            <UserMenu />
           </Toolbar>
-          <UserMenu />
         </Box>
       </Container>
     </AppBar>
