@@ -54,7 +54,10 @@ export default function SelectCity({ formik }) {
       loading={loading}
       // if no city selected - return 0 for validation
       onChange={(event, value) => {
+        // Update 'city' field in Formik with selected city's ID or empty string if no city is selected.
         formik.setFieldValue('city', value ? value.id : 0);
+        // Mark 'city' field as visited (touched) but prevent immediate validation.
+        formik.setFieldTouched('city', true, false);
       }}
       // renderInput is a prop that takes a function. This function is responsible for rendering the input component.
       // The function receives an object 'params' which contains properties and methods that can be spread onto the input component.

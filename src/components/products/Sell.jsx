@@ -24,7 +24,7 @@ const validationSchema = yup.object({
   selectSub: yup.number().min(1, 'Subcategory is required'),
   description: yup.string().trim().min(6).max(255).required('Description is required'),
   price: yup.number().required('Price is required'),
-  city: yup.number().min(1).required('City is required'),
+  city: yup.number().min(1, 'City is required').required('City is required'),
 });
 
 export const Sell = () => {
@@ -195,19 +195,6 @@ export const Sell = () => {
               />
             </Box>
             <Box sx={{ width: '70%' }}>
-              {/* <TextField
-                sx={{ width: '100%' }}
-                id="city"
-                name="city"
-                label="City"
-                margin="dense"
-                type="text"
-                value={formik.values.city}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.city && Boolean(formik.errors.city)}
-                helperText={formik.touched.city && formik.errors.city}
-              /> */}
               <SelectCity formik={formik} />
             </Box>
           </Box>
