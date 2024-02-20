@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import { enqueueSnackbar } from 'notistack';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -15,12 +16,21 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const AddImg = ({ setFieldValue, images, previewUrls }) => {
+export const AddImg = ({ setFieldValue, images }) => {
+  const [previewUrls, setPreviewUrls] = useState([]);
+
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+    const allFiles = Array.from(e.target.files);
+    const files = allFiles.filter((file) => file.type.startsWith('image/'));
+
+    if (allFiles.length !== files.length) {
+      enqueueSnackbar('Only image files are allowed', { variant: 'error' });
+      return;
+    }
 
     if (files.length === 0) {
       setFieldValue('images', []);
+      setPreviewUrls([]);
       return;
     }
 
@@ -41,7 +51,7 @@ export const AddImg = ({ setFieldValue, images, previewUrls }) => {
       });
     });
 
-    Promise.all(urls).then((values) => setFieldValue('previewUrls', values));
+    Promise.all(urls).then((values) => setPreviewUrls(values));
   };
 
   return (

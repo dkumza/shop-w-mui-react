@@ -17,6 +17,9 @@ import { enqueueSnackbar } from 'notistack';
 import { AddImg } from './AddImg';
 import axios from 'axios';
 import SelectCity from './SelectCity';
+import { useAuthContext } from '../../context/autCtx';
+
+const PRODUCTS_URL = 'http://localhost:3000/api/products';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
@@ -29,6 +32,7 @@ const validationSchema = yup.object({
 
 export const Sell = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
+  const { token } = useAuthContext();
 
   const formik = useFormik({
     initialValues: {
@@ -37,35 +41,42 @@ export const Sell = () => {
       selectSub: 0,
       description: '',
       price: '',
-      city: '',
+      city: 0,
       images: [],
-      previewUrls: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      // axiosLogin(values);
+      const formData = new FormData();
+
+      // Append form fields to formData
+      Object.keys(values).forEach((key) => {
+        if (key !== 'images') {
+          formData.append(key, values[key]);
+        }
+      });
+
+      // Append images to formData
+      values.images.forEach((image, index) => {
+        formData.append('image', image); // use 'image' instead of `images[${index}]`
+      });
+
+      axiosNewProduct(formData);
     },
   });
 
-  const axiosSaveProduct = (product) => {
+  const axiosNewProduct = (data) => {
     axios
-      .post(LOGIN_URL, product)
+      .post(PRODUCTS_URL, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((res) => {
-        const { token, name } = res.data;
-        if (token) {
-          console.log(res.data);
-          login(token, name);
-          formik.resetForm();
-          navigate('/');
-          enqueueSnackbar(res.data.msg, { variant: 'success' });
-        }
+        console.log(res);
       })
       .catch((error) => {
-        // console.log(error);
-        const valErrorAPI = error.response.data;
-        formik.setErrors(valErrorAPI);
-        enqueueSnackbar(valErrorAPI.error, { variant: 'error' });
+        console.log(error);
       });
   };
 
@@ -202,7 +213,7 @@ export const Sell = () => {
           <AddImg
             setFieldValue={formik.setFieldValue}
             images={formik.values.images}
-            previewUrls={formik.values.previewUrls}
+            // previewUrls={formik.values.previewUrls}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In

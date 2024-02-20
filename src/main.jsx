@@ -42,7 +42,7 @@ root.render(
         <ThemeProvider theme={theme}>
           <SnackbarProvider
             dense
-            autoHideDuration={3000}
+            autoHideDuration={5000}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'right',
