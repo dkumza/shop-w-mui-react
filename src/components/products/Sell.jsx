@@ -32,9 +32,12 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 const validationSchema = yup.object({
-  title: yup.string('Enter product title').required('Title is required'),
+  title: yup.string('Enter product title').trim().required('Title is required'),
   selectCat: yup.number().min(1, 'Category is required').max(3),
   selectSub: yup.number().min(1, 'Subcategory is required'),
+  description: yup.string().trim().min(6).max(255).required(),
+  price: yup.number().required(),
+  city: yup.string().trim().required(),
 });
 
 export const Sell = () => {
@@ -46,6 +49,9 @@ export const Sell = () => {
       title: '',
       selectCat: 0,
       selectSub: 0,
+      description: '',
+      price: '',
+      city: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -209,35 +215,40 @@ export const Sell = () => {
             margin="dense"
             multiline
             rows={4}
-            // value={formik.values.description}
-            // onChange={formik.handleChange}
-            // onBlur={formik.handleBlur}
-            // error={formik.touched.description && Boolean(formik.errors.description)}
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.description && Boolean(formik.errors.description)}
+            helperText={formik.touched.description && formik.errors.description}
           />
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Box sx={{ width: '30%' }}>
               <TextField
                 id="price"
+                name="price"
                 label="Price €"
                 margin="dense"
                 type="number"
-                // value={formik.values.selectSub}
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+                value={formik.values.price}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.price && Boolean(formik.errors.price)}
+                helperText={formik.touched.price && formik.errors.price}
               />
             </Box>
             <Box sx={{ width: '70%' }}>
               <TextField
                 sx={{ width: '100%' }}
                 id="city"
+                name="city"
                 label="City"
                 margin="dense"
                 type="number"
-                // value={formik.values.selectSub}
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+                value={formik.values.city}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.city && Boolean(formik.errors.city)}
+                helperText={formik.touched.city && formik.errors.city}
               />
             </Box>
           </Box>
