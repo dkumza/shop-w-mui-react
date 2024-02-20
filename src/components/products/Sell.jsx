@@ -23,8 +23,8 @@ const PRODUCTS_URL = 'http://localhost:3000/api/products';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
-  selectCat: yup.number().min(1, 'Category is required').max(3),
-  selectSub: yup.number().min(1, 'Subcategory is required'),
+  cat_id: yup.number().min(1, 'Category is required').max(3),
+  sub_id: yup.number().min(1, 'Subcategory is required'),
   description: yup.string().trim().min(6).max(255).required('Description is required'),
   price: yup.number().required('Price is required'),
   city: yup.number().min(1, 'City is required').required('City is required'),
@@ -37,27 +37,25 @@ export const Sell = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
-      selectCat: 0,
-      selectSub: 0,
+      cat_id: 0,
+      sub_id: 0,
       description: '',
       price: '',
       city: 0,
-      images: [],
+      img_urls: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const formData = new FormData();
-
       // Append form fields to formData
       Object.keys(values).forEach((key) => {
-        if (key !== 'images') {
+        if (key !== 'img_urls') {
           formData.append(key, values[key]);
         }
       });
-
-      // Append images to formData
-      values.images.forEach((image, index) => {
-        formData.append('image', image); // use 'image' instead of `images[${index}]`
+      // Append img_urls to formData
+      values.img_urls.forEach((image, index) => {
+        formData.append('image', image);
       });
 
       axiosNewProduct(formData);
@@ -80,9 +78,10 @@ export const Sell = () => {
       });
   };
 
-  // if user is selected subcategory and changes category, to prevent MUI warning - reset subCategory to default - 0
+  // if user is selected subcategory and changes category, to prevent MUI warning
+  // reset subCategory to default - 0
   const handleCategoryChange = (event) => {
-    formik.setFieldValue('selectSub', 0);
+    formik.setFieldValue('sub_id', 0);
   };
 
   return (
@@ -116,13 +115,13 @@ export const Sell = () => {
               <InputLabel id="cats">Select Category</InputLabel>
               <Select
                 labelId="cats"
-                id="selectCat"
-                name="selectCat"
+                id="cat_id"
+                name="cat_id"
                 label="Select Category"
-                value={formik.values.selectCat}
+                value={formik.values.cat_id}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.selectCat && Boolean(formik.errors.selectCat)}
+                error={formik.touched.cat_id && Boolean(formik.errors.cat_id)}
               >
                 <MenuItem disabled value={0}>
                   Select Category
@@ -142,8 +141,8 @@ export const Sell = () => {
                   ))}
               </Select>
               {/* helper for form validation */}
-              <FormHelperText error id="selectCats-v-helper">
-                {formik.touched.selectCat && formik.errors.selectCat}
+              <FormHelperText error id="cat_ids-v-helper">
+                {formik.touched.cat_id && formik.errors.cat_id}
               </FormHelperText>
             </FormControl>
 
@@ -152,13 +151,13 @@ export const Sell = () => {
               <InputLabel id="subCat">Select Subcategory</InputLabel>
               <Select
                 labelId="subCat"
-                id="selectSub"
-                name="selectSub"
+                id="sub_id"
+                name="sub_id"
                 label="Select Subcategory"
-                value={formik.values.selectSub}
+                value={formik.values.sub_id}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.selectSub && Boolean(formik.errors.selectSub)}
+                error={formik.touched.sub_id && Boolean(formik.errors.sub_id)}
               >
                 <MenuItem disabled value={0}>
                   Select Subcategory
@@ -171,8 +170,8 @@ export const Sell = () => {
                   ))}
               </Select>
               {/* helper for form validation */}
-              <FormHelperText error id="selectSubs-v-helper">
-                {formik.touched.selectSub && formik.errors.selectSub}
+              <FormHelperText error id="sub_ids-v-helper">
+                {formik.touched.sub_id && formik.errors.sub_id}
               </FormHelperText>
             </FormControl>
           </Box>
@@ -212,8 +211,7 @@ export const Sell = () => {
 
           <AddImg
             setFieldValue={formik.setFieldValue}
-            images={formik.values.images}
-            // previewUrls={formik.values.previewUrls}
+            img_urls={formik.values.img_urls}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In

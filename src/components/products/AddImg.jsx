@@ -16,7 +16,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const AddImg = ({ setFieldValue, images }) => {
+export const AddImg = ({ setFieldValue, img_urls }) => {
   const [previewUrls, setPreviewUrls] = useState([]);
 
   const handleImageChange = (e) => {
@@ -29,17 +29,17 @@ export const AddImg = ({ setFieldValue, images }) => {
     }
 
     if (files.length === 0) {
-      setFieldValue('images', []);
+      setFieldValue('img_urls', []);
       setPreviewUrls([]);
       return;
     }
 
     if (files.length > 4) {
-      enqueueSnackbar('Maximum 4 images allowed', { variant: 'error' });
+      enqueueSnackbar('Maximum 4 img_urls allowed', { variant: 'error' });
       return;
     }
 
-    setFieldValue('images', files);
+    setFieldValue('img_urls', files);
 
     const urls = files.map((file) => {
       const reader = new FileReader();
