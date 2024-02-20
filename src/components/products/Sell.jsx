@@ -11,38 +11,25 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import { useProductsContext } from '../../context/productsCtx';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
-
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
+import { AddImg } from './AddImg';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
   selectCat: yup.number().min(1, 'Category is required').max(3),
   selectSub: yup.number().min(1, 'Subcategory is required'),
-  description: yup.string().trim().min(6).max(255).required(),
-  price: yup.number().required(),
-  city: yup.string().trim().required(),
+  description: yup.string().trim().min(6).max(255).required('Description is required'),
+  price: yup.number().required('Price is required'),
+  city: yup.string().trim().required('City is required'),
 });
 
 export const Sell = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
-  const [previewUrls, setPreviewUrls] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -84,36 +71,6 @@ export const Sell = () => {
   // if user is selected subcategory and changes category, to prevent MUI warning - reset subCategory to default - 0
   const handleCategoryChange = (event) => {
     formik.setFieldValue('selectSub', 0);
-  };
-
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-
-    // if no images - preview is empty array
-    if (files.length === 0) {
-      setPreviewUrls([]);
-      return;
-    }
-
-    // check for maximum images
-    if (files.length > 4) {
-      enqueueSnackbar('Maximum 4 images allowed', { variant: 'error' });
-      return;
-    }
-
-    // map image preview using JS FileReader
-    const urls = files.map((file) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      return new Promise((resolve) => {
-        reader.onloadend = () => {
-          resolve(reader.result);
-        };
-      });
-    });
-
-    // waits till all urls are availible then updated state of previewUrls
-    Promise.all(urls).then((values) => setPreviewUrls(values));
   };
 
   return (
@@ -222,7 +179,7 @@ export const Sell = () => {
             helperText={formik.touched.description && formik.errors.description}
           />
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Box sx={{ width: '30%' }}>
+            <Box sx={{ width: '40%' }}>
               <TextField
                 id="price"
                 name="price"
@@ -252,49 +209,7 @@ export const Sell = () => {
               />
             </Box>
           </Box>
-          <Grid container spacing={1} sx={{ mt: 0 }}>
-            {previewUrls &&
-              previewUrls.map((url, index) => (
-                // show children's of main grid dynamically by previewUrls length
-                <Grid item xs={12 / previewUrls.length} key={index}>
-                  <img
-                    src={url}
-                    alt={`Preview ${index}`}
-                    style={{
-                      width: '100%',
-                      height: '100px',
-                      objectFit: 'cover',
-                      display: 'block',
-                      borderRadius: 3,
-                    }}
-                  />
-                </Grid>
-              ))}
-          </Grid>
-          <Button
-            variant="outlined"
-            component="label"
-            role={undefined}
-            tabIndex={-1}
-            sx={{
-              mt: 1,
-              padding: 1.8,
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-              lineHeight: '1',
-            }}
-            startIcon={<InsertPhotoIcon />}
-          >
-            Add up to 4 images
-            <VisuallyHiddenInput
-              type="file"
-              multiple={2}
-              onChange={handleImageChange}
-              sx={{ position: 'absolute' }}
-            />
-          </Button>
-
+          <AddImg />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
