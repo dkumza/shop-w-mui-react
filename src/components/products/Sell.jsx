@@ -4,7 +4,6 @@ import {
   Container,
   FormControl,
   FormHelperText,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -14,10 +13,10 @@ import {
 import { useProductsContext } from '../../context/productsCtx';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import styled from '@emotion/styled';
-import { useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
 import { AddImg } from './AddImg';
+import axios from 'axios';
+import SelectCity from './SelectCity';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
@@ -25,7 +24,7 @@ const validationSchema = yup.object({
   selectSub: yup.number().min(1, 'Subcategory is required'),
   description: yup.string().trim().min(6).max(255).required('Description is required'),
   price: yup.number().required('Price is required'),
-  city: yup.string().trim().required('City is required'),
+  city: yup.number().min(1).required('City is required'),
 });
 
 export const Sell = () => {
@@ -196,7 +195,7 @@ export const Sell = () => {
               />
             </Box>
             <Box sx={{ width: '70%' }}>
-              <TextField
+              {/* <TextField
                 sx={{ width: '100%' }}
                 id="city"
                 name="city"
@@ -208,9 +207,11 @@ export const Sell = () => {
                 onBlur={formik.handleBlur}
                 error={formik.touched.city && Boolean(formik.errors.city)}
                 helperText={formik.touched.city && formik.errors.city}
-              />
+              /> */}
+              <SelectCity formik={formik} />
             </Box>
           </Box>
+
           <AddImg
             setFieldValue={formik.setFieldValue}
             images={formik.values.images}

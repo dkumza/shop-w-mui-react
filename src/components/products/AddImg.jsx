@@ -56,7 +56,7 @@ export const AddImg = ({ setFieldValue, images, previewUrls }) => {
                 alt={`Preview ${index}`}
                 style={{
                   width: '100%',
-                  height: '100px',
+                  height: '60px',
                   objectFit: 'cover',
                   display: 'block',
                   borderRadius: 3,
