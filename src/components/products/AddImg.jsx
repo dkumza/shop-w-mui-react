@@ -15,25 +15,22 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const AddImg = () => {
-  const [previewUrls, setPreviewUrls] = useState([]);
-
+export const AddImg = ({ setFieldValue, images, previewUrls }) => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
-    // if no images - preview is empty array
     if (files.length === 0) {
-      setPreviewUrls([]);
+      setFieldValue('images', []);
       return;
     }
 
-    // check for maximum images
     if (files.length > 4) {
       enqueueSnackbar('Maximum 4 images allowed', { variant: 'error' });
       return;
     }
 
-    // map image preview using JS FileReader
+    setFieldValue('images', files);
+
     const urls = files.map((file) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -44,8 +41,7 @@ export const AddImg = () => {
       });
     });
 
-    // waits till all urls are availible then updated state of previewUrls
-    Promise.all(urls).then((values) => setPreviewUrls(values));
+    Promise.all(urls).then((values) => setFieldValue('previewUrls', values));
   };
 
   return (

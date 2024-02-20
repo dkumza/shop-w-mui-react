@@ -39,6 +39,8 @@ export const Sell = () => {
       description: '',
       price: '',
       city: '',
+      images: [],
+      previewUrls: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -200,7 +202,7 @@ export const Sell = () => {
                 name="city"
                 label="City"
                 margin="dense"
-                type="number"
+                type="text"
                 value={formik.values.city}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -209,7 +211,11 @@ export const Sell = () => {
               />
             </Box>
           </Box>
-          <AddImg />
+          <AddImg
+            setFieldValue={formik.setFieldValue}
+            images={formik.values.images}
+            previewUrls={formik.values.previewUrls}
+          />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
