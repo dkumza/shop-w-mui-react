@@ -1,4 +1,4 @@
-import { Box, Container, ImageList, ImageListItem } from '@mui/material';
+import { Box, Container, Grid, ImageList, ImageListItem } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -37,7 +37,7 @@ export const SingleProductPage = () => {
             display: { md: 'flex', xs: 'none' },
             flexDirection: 'column',
             justifyContent: 'center',
-            gap: 1,
+            gap: 0,
           }}
         >
           <Box>
@@ -54,7 +54,26 @@ export const SingleProductPage = () => {
               alt=""
             />
           </Box>
-          <Box
+          <Grid container spacing={1} sx={{ mt: 0 }}>
+            {correctImgUrl &&
+              // map from index 1 (2nd img)
+              correctImgUrl.slice(1).map((url, index) => (
+                <Grid item xs={12 / correctImgUrl.length + 1} key={index + 1}>
+                  <img
+                    src={`${URL_FOR_IMG}/${url}`}
+                    alt={`Preview ${index + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '145px',
+                      objectFit: 'cover',
+                      display: 'block',
+                      borderRadius: 3,
+                    }}
+                  />
+                </Grid>
+              ))}
+          </Grid>
+          {/* <Box
             sx={{
               display: 'flex',
               flexGrow: 1,
@@ -105,7 +124,7 @@ export const SingleProductPage = () => {
                 alt=""
               />
             </Box>
-          </Box>
+          </Box> */}
         </Box>
 
         {/* options for small screen */}
