@@ -4,9 +4,18 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .f-control {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
+.img-gallery:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}

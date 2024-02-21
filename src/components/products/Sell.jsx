@@ -20,7 +20,7 @@ import SelectCity from './SelectCity';
 import { useAuthContext } from '../../context/autCtx';
 import { useNavigate } from 'react-router-dom';
 
-const PRODUCTS_URL = 'http://localhost:3000/api/products';
+const PRODUCTS_URL = 'http://localhost:3000/api/product';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
@@ -76,7 +76,7 @@ export const Sell = () => {
       .then((res) => {
         const prodID = res.data.id;
         formik.resetForm();
-        navigate(`/products/${prodID}`);
+        navigate(`/product/${prodID}`);
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {

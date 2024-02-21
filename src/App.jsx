@@ -25,7 +25,7 @@ export default function App() {
           path="/sell"
           element={isUserLoggedIn ? <Sell /> : <Navigate to="/login" />}
         />
-        <Route path="/products/:productID" element={<SingleProductPage />} />
+        <Route path="/product/:productID" element={<SingleProductPage />} />
       </Routes>
     </>
   );
