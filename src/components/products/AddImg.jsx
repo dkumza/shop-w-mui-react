@@ -3,6 +3,7 @@ import { Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import { enqueueSnackbar } from 'notistack';
+import { CallMerge } from '@mui/icons-material';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -21,8 +22,10 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
 
   const handleImageChange = (e) => {
     const allFiles = Array.from(e.target.files);
+    // check if files meets image types - jpg, png, etc...
     const files = allFiles.filter((file) => file.type.startsWith('image/'));
 
+    // if there is not images attached show toaster
     if (allFiles.length !== files.length) {
       enqueueSnackbar('Only image files are allowed', { variant: 'error' });
       return;
@@ -34,11 +37,13 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
       return;
     }
 
+    // limit file upload to 4 items
     if (files.length > 4) {
       enqueueSnackbar('Maximum 4 img_urls allowed', { variant: 'error' });
       return;
     }
 
+    // append uploaded files to formik 'img_urls' field
     setFieldValue('img_urls', files);
 
     const urls = files.map((file) => {
@@ -56,10 +61,11 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
 
   return (
     <>
+      {/* img preview grid */}
       <Grid container spacing={1} sx={{ mt: 0 }}>
         {previewUrls &&
           previewUrls.map((url, index) => (
-            // show children's of main grid dynamically by previewUrls length
+            // show children's of main grid dynamically by previewUrls.length
             <Grid item xs={12 / previewUrls.length} key={index}>
               <img
                 src={url}

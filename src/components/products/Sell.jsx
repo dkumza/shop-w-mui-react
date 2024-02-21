@@ -46,14 +46,15 @@ export const Sell = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      // create FormData constructor
       const formData = new FormData();
-      // Append form fields to formData
+      // Append form input values to formData
       Object.keys(values).forEach((key) => {
         if (key !== 'img_urls') {
           formData.append(key, values[key]);
         }
       });
-      // Append img_urls to formData
+      // Append images as img_urls to formData
       values.img_urls.forEach((image, index) => {
         formData.append('image', image);
       });
