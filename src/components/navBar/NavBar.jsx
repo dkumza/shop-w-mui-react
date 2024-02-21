@@ -11,16 +11,17 @@ import { useNavigate } from 'react-router-dom';
 function NavBar() {
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="2xl">
         {/* mobile view */}
         <Box
           sx={{
             display: { xs: 'flex', md: 'none' },
+            justifyContent: 'space-between',
             flexGrow: 1,
             alignItems: 'center',
           }}
         >
-          <Toolbar disableGutters>
+          <Toolbar sx={{ display: 'flex', flexGrow: 1 }} disableGutters>
             <UserMenu />
             <Logo />
             <SearchInput />

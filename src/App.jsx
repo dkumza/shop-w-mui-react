@@ -6,6 +6,7 @@ import { useAuthContext } from './context/autCtx';
 import { Sell } from './components/products/Sell';
 import NavBar from './components/navBar/NavBar';
 import { AllProducts } from './components/products/AllProducts';
+import { SingleProductPage } from './components/products/SingleProductPage';
 
 export default function App() {
   const { isUserLoggedIn } = useAuthContext();
@@ -24,6 +25,7 @@ export default function App() {
           path="/sell"
           element={isUserLoggedIn ? <Sell /> : <Navigate to="/login" />}
         />
+        <Route path="/products/:productID" element={<SingleProductPage />} />
       </Routes>
     </>
   );

@@ -41,7 +41,7 @@ export default function NavMenu() {
       {/* HAMBURGER MENU VISIBLE ON SMALL SCREEN */}
       <Box
         sx={{
-          flexGrow: 1,
+          // flexGrow: 1,
           display: { xs: 'flex', md: 'none' },
           backgroundColor: alpha(theme.palette.common.white, 0.15),
           '&:hover': {

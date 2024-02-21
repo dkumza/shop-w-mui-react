@@ -18,6 +18,7 @@ import { AddImg } from './AddImg';
 import axios from 'axios';
 import SelectCity from './SelectCity';
 import { useAuthContext } from '../../context/autCtx';
+import { useNavigate } from 'react-router-dom';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/products';
 
@@ -33,6 +34,7 @@ const validationSchema = yup.object({
 export const Sell = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
   const { token } = useAuthContext();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -72,7 +74,10 @@ export const Sell = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        const prodID = res.data.id;
+        formik.resetForm();
+        navigate(`/products/${prodID}`);
+        enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {
         console.log(error);

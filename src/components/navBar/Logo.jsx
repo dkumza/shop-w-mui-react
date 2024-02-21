@@ -9,7 +9,6 @@ export const Logo = () => {
     <Box
       sx={{
         display: 'flex',
-        // flexGrow: 1,
         alignItems: 'center',
       }}
     >
@@ -32,7 +31,6 @@ export const Logo = () => {
         variant="body4"
         noWrap
         sx={{
-          mt: 0.5,
           display: { xs: 'none', md: 'flex' },
           // fontWeight: 700,
           color: 'inherit',
