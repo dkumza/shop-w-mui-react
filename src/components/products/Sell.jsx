@@ -33,11 +33,12 @@ const validationSchema = yup.object({
 
 export const Sell = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
-  const { token } = useAuthContext();
+  const { token, userID } = useAuthContext();
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
+      userID,
       title: '',
       cat_id: 0,
       sub_id: 0,

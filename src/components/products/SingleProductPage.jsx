@@ -21,6 +21,7 @@ export const SingleProductPage = () => {
   const [productFromAPI, setProductFromAPI] = useState(null);
   const [imgFromAPI, setImgFromAPI] = useState([]);
   const [mainImg, setMainImg] = useState(null);
+  const [phone, setPhone] = useState('Contact Seller');
   const { productID } = useParams();
 
   useEffect(() => {
@@ -53,6 +54,19 @@ export const SingleProductPage = () => {
 
   if (productFromAPI === null) return;
 
+  let dateDay;
+  if (productFromAPI) {
+    dateDay = Math.floor(
+      (new Date() - new Date(productFromAPI.updated)) / (1000 * 60 * 60 * 24),
+    );
+  }
+
+  const showPhoneNo = () => {
+    phone === 'Contact Seller'
+      ? setPhone(productFromAPI.telephone)
+      : setPhone('Contact Seller');
+  };
+
   return (
     <>
       <Container maxWidth="xl" sx={{ mt: 4, display: 'flex', flexGrow: 1, gap: 2 }}>
@@ -64,7 +78,7 @@ export const SingleProductPage = () => {
               display: { md: 'flex', xs: 'none' },
               flexDirection: 'column',
               justifyContent: 'center',
-              width: '65%',
+              width: '55%',
               p: 4,
             }}
           >
@@ -75,7 +89,7 @@ export const SingleProductPage = () => {
                   src={`${URL_FOR_IMG}/${mainImg}`}
                   style={{
                     width: '100%',
-                    height: '550px',
+                    height: '450px',
                     objectFit: 'cover',
                     display: 'block',
                     borderRadius: 3,
@@ -95,7 +109,7 @@ export const SingleProductPage = () => {
                       onClick={() => handleImgSwitch(url)}
                       style={{
                         width: '100%',
-                        height: '120px',
+                        height: '100px',
                         objectFit: 'cover',
                         display: 'block',
                         borderRadius: 3,
@@ -106,101 +120,107 @@ export const SingleProductPage = () => {
             </Grid>
           </Paper>
           <Paper
-            // elevation={3}
             variant="outlined"
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'space-between',
               alignItems: 'center',
               p: 4,
-              flexGrow: 1,
+              width: '45%',
+              // flexGrow: 1,
             }}
           >
             <Box
               sx={{
                 display: 'flex',
-                width: '80%',
+                width: '100%',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
                 mb: 1,
               }}
             >
-              <Typography component="h1" variant="h4" sx={{}}>
-                Seller Name
-              </Typography>
-              <Typography component="p" variant="body1" sx={{}}>
-                Registered at: 2023-02-21
-              </Typography>
-              <Typography component="p" variant="body1" sx={{}}>
-                Published products: 6
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography align="left" component="h1" variant="h4" sx={{}}>
+                  {productFromAPI.title}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Typography
+                  component="p"
+                  variant="body4"
+                  sx={{
+                    border: 1,
+                    borderRadius: 1,
+                    borderColor: '#e0e0e0',
+                    mt: 1,
+                    py: 0.5,
+                    px: 1,
+                  }}
+                >
+                  {dateDay === 0 ? 'Updated: Today' : `Updated: ${dateDay} days ago`}
+                </Typography>
+                <Typography
+                  component="p"
+                  variant="body4"
+                  sx={{
+                    border: 1,
+                    borderRadius: 1,
+                    borderColor: '#e0e0e0',
+                    mt: 1,
+                    py: 0.5,
+                    px: 1,
+                  }}
+                >
+                  Seller: {productFromAPI.user_name}
+                </Typography>
+              </Box>
+              <Typography align="left" component="p" variant="body5" sx={{ mt: 1 }}>
+                {productFromAPI.description}
               </Typography>
             </Box>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="large"
+            <Box
               sx={{
-                my: 1,
-                px: 4,
-                width: '80%',
-                bgcolor: 'secondary.main',
-                justifyContent: 'flex-start',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%',
               }}
-              startIcon={<Phone />}
             >
-              Contact Seller
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="large"
-              sx={{
-                my: 1,
-                px: 4,
-                width: '80%',
-                bgcolor: 'secondary.main',
-                justifyContent: 'flex-start',
-              }}
-              startIcon={<Chat />}
-            >
-              Start chat online
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="large"
-              sx={{
-                my: 1,
-                px: 4,
-                width: '80%',
-                bgcolor: 'secondary.main',
-                justifyContent: 'flex-start',
-              }}
-              startIcon={<Email />}
-            >
-              Write email to seller
-            </Button>
+              <Typography
+                align="left"
+                component="h1"
+                variant="h3"
+                sx={{ color: 'primary.dark' }}
+              >
+                {productFromAPI.price}€
+              </Typography>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{
+                  my: 1,
+                  px: 4,
+                  width: '220px',
+                  bgcolor: 'primary.dark',
+                  justifyContent: 'flex-start',
+                }}
+                startIcon={<Phone />}
+                onClick={showPhoneNo}
+              >
+                {phone}
+              </Button>
+            </Box>
           </Paper>
         </Box>
-
-        {/* <Box sx={{ flexGrow: 1 }}> */}
-        {/* <Grid container spacing={0}>
-          <Grid item xs={7} sx={{ border: 1 }}>
-            <Typography component="h1" variant="h4" sx={{ marginBottom: 2 }}>
-              {productFromAPI.title}
-            </Typography>
-            <Typography component="p" variant="body1" sx={{ marginBottom: 2 }}>
-              {productFromAPI.description}
-            </Typography>
-          </Grid>
-          <Grid item xs={5} sx={{ border: 1, px: 2 }}>
-            Price and sellers info
-          </Grid>
-        </Grid> */}
-        {/* </Box> */}
 
         {/* options for small screen */}
         {/* <Box

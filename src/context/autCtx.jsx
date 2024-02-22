@@ -17,13 +17,14 @@ export const AuthContextProvider = ({ children }) => {
   const nameFromStorage = localStorage.getItem('session_name');
   const [sessionToken, setSessionToken] = useState(tokenFromStorage || null);
   const [name, setName] = useState(nameFromStorage || null);
+  const [userID, setUserID] = useState(null);
 
   const isUserLoggedIn = !!sessionToken;
 
-  function login(token, name) {
-    console.log(name);
+  function login(token, name, id) {
     setSessionToken(token);
     setName(name);
+    setUserID(id);
     localStorage.setItem('session_token', token);
     localStorage.setItem('session_name', name);
   }
@@ -42,6 +43,7 @@ export const AuthContextProvider = ({ children }) => {
     login,
     logout,
     name,
+    userID,
     // email,
   };
 

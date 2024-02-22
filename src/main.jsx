@@ -20,14 +20,19 @@ const theme = createTheme({
     },
     secondary: {
       light: '#6573c3',
-      main: '#3f51b5',
-      dark: '#2c387e',
+      main: '#1de9b6',
+      dark: '#14a37f',
       contrastText: '#000',
     },
   },
   typography: {
     body4: {
-      fontSize: '0.85rem', // Set the font size you want
+      fontSize: '0.85rem',
+      fontWeight: 400,
+      lineHeight: 1.5,
+    },
+    body5: {
+      fontSize: '1.25rem',
       fontWeight: 400,
       lineHeight: 1.5,
     },
