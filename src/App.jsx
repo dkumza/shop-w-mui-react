@@ -6,7 +6,7 @@ import { useAuthContext } from './context/autCtx';
 import { Sell } from './components/products/Sell';
 import NavBar from './components/navBar/NavBar';
 import { AllProducts } from './components/products/AllProducts';
-import { SingleProductPage } from './components/products/SingleProductPage';
+import { SingleProductPage } from './components/products/singleProduct/SingleProductPage';
 
 export default function App() {
   const { isUserLoggedIn } = useAuthContext();
