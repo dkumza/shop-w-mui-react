@@ -15,18 +15,21 @@ AuthContext.displayName = 'AuthCtx';
 export const AuthContextProvider = ({ children }) => {
   const tokenFromStorage = localStorage.getItem('session_token');
   const nameFromStorage = localStorage.getItem('session_name');
+  const userIdFromStorage = localStorage.getItem('user_id');
   const [sessionToken, setSessionToken] = useState(tokenFromStorage || null);
   const [name, setName] = useState(nameFromStorage || null);
-  const [userID, setUserID] = useState(null);
+  const [userID, setUserID] = useState(userIdFromStorage || null);
 
   const isUserLoggedIn = !!sessionToken;
 
   function login(token, name, id) {
+    console.log(id);
     setSessionToken(token);
     setName(name);
     setUserID(id);
     localStorage.setItem('session_token', token);
     localStorage.setItem('session_name', name);
+    localStorage.setItem('user_id', id);
   }
 
   function logout() {

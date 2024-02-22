@@ -44,10 +44,11 @@ export default function SignIn() {
     axios
       .post(LOGIN_URL, loginInfo)
       .then((res) => {
-        const { token, name, id } = res.data;
+        const { token, name, userID } = res.data;
+        console.log('res.data: ', res.data);
         if (token) {
           console.log(res.data);
-          login(token, name, id);
+          login(token, name, userID);
           formik.resetForm();
           navigate('/');
           enqueueSnackbar(res.data.msg, { variant: 'success' });

@@ -6,12 +6,14 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
+import { useAuthContext } from '../../../context/autCtx';
 
 const PRODUCT_URL = 'http://localhost:3000/api/product';
 
 export const SingleProductPage = () => {
   const [productFromAPI, setProductFromAPI] = useState(null);
   const { productID } = useParams();
+  const { userID } = useAuthContext();
 
   useEffect(() => {
     const URL_P = `${PRODUCT_URL}/${productID}`;
@@ -28,6 +30,7 @@ export const SingleProductPage = () => {
   }, [URL, productID]);
 
   if (productFromAPI === null) return;
+  console.log(userID);
 
   return (
     <>
@@ -53,7 +56,7 @@ export const SingleProductPage = () => {
             <Gallery imgs={productFromAPI.img_urls} />
           </Box>
           <Box sx={{ width: { md: '45%', xs: '100%' } }}>
-            <AboutProduct product={productFromAPI} />
+            <AboutProduct product={productFromAPI} userID={userID} />
           </Box>
         </Box>
       </Container>

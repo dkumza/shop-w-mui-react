@@ -1,9 +1,9 @@
-import { Phone } from '@mui/icons-material';
+import { Edit, Phone } from '@mui/icons-material';
 import { Box, Button, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 
-export const AboutProduct = ({ product }) => {
+export const AboutProduct = ({ product, userID }) => {
   const [phone, setPhone] = useState('Contact Seller');
 
   let dateDay;
@@ -16,6 +16,11 @@ export const AboutProduct = ({ product }) => {
   const showPhoneNo = () => {
     phone === 'Contact Seller' ? setPhone(product.telephone) : setPhone('Contact Seller');
   };
+
+  const handleEdit = () => {
+    console.log('edit');
+  };
+
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
       <Paper
@@ -80,6 +85,20 @@ export const AboutProduct = ({ product }) => {
             >
               Seller: {product.user_name}
             </Typography>
+            <Typography
+              component="p"
+              variant="body4"
+              sx={{
+                border: 1,
+                borderRadius: 1,
+                borderColor: '#e0e0e0',
+                mt: 1,
+                py: 0.5,
+                px: 1,
+              }}
+            >
+              City: {product.city_name}
+            </Typography>
           </Box>
           <Typography align="left" component="p" variant="body5" sx={{ mt: 1 }}>
             {product.description}
@@ -102,21 +121,40 @@ export const AboutProduct = ({ product }) => {
           >
             {product.price}€
           </Typography>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{
-              my: 1,
-              width: { xs: '100%', md: '200px' },
-              bgcolor: 'primary.dark',
-            }}
-            startIcon={<Phone />}
-            onClick={showPhoneNo}
-          >
-            {phone}
-          </Button>
+          {userID && !product.user_id && (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              size="large"
+              sx={{
+                my: 1,
+                width: { xs: '100%', md: '200px' },
+                bgcolor: 'primary.dark',
+              }}
+              startIcon={<Phone />}
+              onClick={showPhoneNo}
+            >
+              {phone}
+            </Button>
+          )}
+          {userID && product.user_id && (
+            <Button
+              // type="submit"
+              fullWidth
+              variant="outlined"
+              size="large"
+              sx={{
+                my: 1,
+                width: { xs: '100%', md: '200px' },
+                color: 'secondary.dark',
+              }}
+              startIcon={<Edit />}
+              onClick={handleEdit}
+            >
+              Edit
+            </Button>
+          )}
         </Box>
       </Paper>
     </Grow>
