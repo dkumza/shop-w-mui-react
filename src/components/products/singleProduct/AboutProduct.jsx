@@ -2,9 +2,15 @@ import { Edit, Phone } from '@mui/icons-material';
 import { Box, Button, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
+import { EditProduct } from '../crud/EditProduct';
 
 export const AboutProduct = ({ product, userID }) => {
   const [phone, setPhone] = useState('Contact Seller');
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+    console.log('open modal?');
+  };
 
   let dateDay;
   if (product) {
@@ -33,7 +39,6 @@ export const AboutProduct = ({ product, userID }) => {
           p: 2,
           width: '100%',
           height: '100%',
-          // border: 1,
         }}
       >
         <Box
@@ -45,6 +50,8 @@ export const AboutProduct = ({ product, userID }) => {
             mb: 1,
           }}
         >
+          {open && <EditProduct open={open} setOpen={setOpen} />}
+
           <Box
             sx={{
               display: 'flex',
@@ -147,10 +154,10 @@ export const AboutProduct = ({ product, userID }) => {
               sx={{
                 my: 1,
                 width: { xs: '100%', md: '200px' },
-                color: 'secondary.dark',
+                color: 'primary.main',
               }}
               startIcon={<Edit />}
-              onClick={handleEdit}
+              onClick={handleOpen}
             >
               Edit
             </Button>

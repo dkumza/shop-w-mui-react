@@ -3,7 +3,7 @@ import SignUp from './components/auth/SignUp';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { useAuthContext } from './context/autCtx';
-import { Sell } from './components/products/Sell';
+import { InsertProduct } from './components/products/crud/InsertProduct';
 import NavBar from './components/navBar/NavBar';
 import { AllProducts } from './components/products/AllProducts';
 import { SingleProductPage } from './components/products/singleProduct/SingleProductPage';
@@ -23,7 +23,7 @@ export default function App() {
         <Route path="/register" element={<SignUp />} />
         <Route
           path="/sell"
-          element={isUserLoggedIn ? <Sell /> : <Navigate to="/login" />}
+          element={isUserLoggedIn ? <InsertProduct /> : <Navigate to="/login" />}
         />
         <Route
           path="/product/:productID"

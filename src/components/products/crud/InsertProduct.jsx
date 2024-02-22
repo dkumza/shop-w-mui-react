@@ -11,14 +11,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useProductsContext } from '../../context/productsCtx';
+import { useProductsContext } from '../../../context/productsCtx';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { enqueueSnackbar } from 'notistack';
-import { AddImg } from './AddImg';
+import { AddImg } from '../AddImg';
 import axios from 'axios';
-import SelectCity from './SelectCity';
-import { useAuthContext } from '../../context/autCtx';
+import SelectCity from '../SelectCity';
+import { useAuthContext } from '../../../context/autCtx';
 import { useNavigate } from 'react-router-dom';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/product';
@@ -32,7 +32,7 @@ const validationSchema = yup.object({
   city: yup.number().min(1, 'City is required').required('City is required'),
 });
 
-export const Sell = () => {
+export const InsertProduct = () => {
   const { cats, fetchSubCats, sub } = useProductsContext();
   const { token, userID } = useAuthContext();
   const navigate = useNavigate();
@@ -223,7 +223,7 @@ export const Sell = () => {
               img_urls={formik.values.img_urls}
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              Publish
             </Button>
           </form>
         </Box>
