@@ -31,37 +31,31 @@ export const SingleProductPage = () => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ mt: 4, display: 'flex', flexGrow: 1, gap: 2 }}>
-        <Box sx={{ display: 'flex', gap: 4, flexGrow: 1 }}>
-          <Gallery imgs={productFromAPI.img_urls} />
-          <AboutProduct product={productFromAPI} />
-        </Box>
-
-        {/* options for small screen */}
-        {/* <Box
+      <Container
+        maxWidth="xl"
+        sx={{
+          mt: 4,
+          display: 'flex',
+          flexGrow: 1,
+          gap: 2,
+          // minHeight: '90vh',
+        }}
+      >
+        <Box
           sx={{
-            display: { md: 'none', xs: 'flex' },
+            display: { md: 'flex' },
+            flexDirection: { md: 'row', xs: 'column' },
+            gap: 1,
             flexGrow: 1,
-            justifyContent: 'center',
           }}
         >
-          <img
-            id="main-img"
-            src={`${URL_FOR_IMG}/${correctImgUrl[0]}`}
-            style={{
-              width: 'auto',
-              height: '400px',
-              objectFit: 'cover',
-              display: 'block',
-              // borderRadius: 3,
-            }}
-            alt=""
-          />
-        </Box> */}
-        {/* <Box sx={{ display: 'flex', border: 1, flexGrow: 1 }}>
-          <Box>Box 2</Box>
-          <Box>Box 3</Box>
-        </Box> */}
+          <Box sx={{ width: { md: '55%', xs: '100%' }, mb: { md: 0, xs: 2 } }}>
+            <Gallery imgs={productFromAPI.img_urls} />
+          </Box>
+          <Box sx={{ width: { md: '45%', xs: '100%' } }}>
+            <AboutProduct product={productFromAPI} />
+          </Box>
+        </Box>
       </Container>
     </>
   );

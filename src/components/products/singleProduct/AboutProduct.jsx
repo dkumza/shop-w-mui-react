@@ -25,9 +25,10 @@ export const AboutProduct = ({ product }) => {
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'center',
-          p: 4,
-          width: '45%',
-          // flexGrow: 1,
+          p: 2,
+          width: '100%',
+          height: '100%',
+          // border: 1,
         }}
       >
         <Box
@@ -86,14 +87,15 @@ export const AboutProduct = ({ product }) => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
+            display: { md: 'flex' },
+            gap: 2,
+            justifyContent: { md: 'space-between', xs: 'center' },
             alignItems: 'center',
             width: '100%',
           }}
         >
           <Typography
-            align="left"
+            align="center"
             component="h1"
             variant="h3"
             sx={{ color: 'primary.dark' }}
@@ -107,10 +109,8 @@ export const AboutProduct = ({ product }) => {
             size="large"
             sx={{
               my: 1,
-              px: 4,
-              width: '220px',
+              width: { xs: '100%', md: '200px' },
               bgcolor: 'primary.dark',
-              justifyContent: 'flex-start',
             }}
             startIcon={<Phone />}
             onClick={showPhoneNo}
