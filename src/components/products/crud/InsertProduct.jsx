@@ -102,7 +102,12 @@ export const InsertProduct = () => {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h4" sx={{ marginBottom: 2, marginTop: 4 }}>
+          <Typography
+            align="left"
+            component="h1"
+            variant="h4"
+            sx={{ mb: 2, mt: 4, pl: 1, width: '100%' }}
+          >
             Sell Item
           </Typography>
           <form className="f-control" onSubmit={formik.handleSubmit}>

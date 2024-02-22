@@ -76,7 +76,7 @@ export const AboutProduct = ({ product, userID }) => {
                 px: 1,
               }}
             >
-              {dateDay === 0 ? 'Updated: Today' : `Updated: ${dateDay} days ago`}
+              {dateDay === 0 ? 'Today' : `${dateDay} days ago`}
             </Typography>
             <Typography
               component="p"
@@ -90,7 +90,7 @@ export const AboutProduct = ({ product, userID }) => {
                 px: 1,
               }}
             >
-              Seller: {product.user_name}
+              {product.user_name}
             </Typography>
             <Typography
               component="p"
@@ -104,7 +104,7 @@ export const AboutProduct = ({ product, userID }) => {
                 px: 1,
               }}
             >
-              City: {product.city_name}
+              {product.city_name}
             </Typography>
           </Box>
           <Typography align="left" component="p" variant="body5" sx={{ mt: 1 }}>

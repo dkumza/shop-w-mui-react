@@ -19,6 +19,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useProductsContext } from '../../../context/productsCtx';
 import { useAuthContext } from '../../../context/autCtx';
+import { Close } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -95,9 +96,18 @@ export const EditProduct = ({ open, setOpen }) => {
         },
       }}
     >
-      <Fade in={open} timeout={1000}>
+      <Fade in={open} timeout={500}>
         <Box sx={style}>
-          <Typography component="h1" variant="h4" sx={{ marginBottom: 2, marginTop: 4 }}>
+          <Close
+            className="exit-icon"
+            onClick={handleClose}
+            sx={{ position: 'absolute', right: '7%' }}
+          />
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ marginBottom: 2, pl: 1, width: '100%' }}
+          >
             Edit Item
           </Typography>
           <form className="f-control" onSubmit={formik.handleSubmit}>

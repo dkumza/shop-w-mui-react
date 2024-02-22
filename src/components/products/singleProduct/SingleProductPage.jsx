@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
 import { useAuthContext } from '../../../context/autCtx';
-import { EditProduct } from '../crud/EditProduct';
 
 const PRODUCT_URL = 'http://localhost:3000/api/product';
 
@@ -28,7 +27,7 @@ export const SingleProductPage = () => {
       .catch((error) => {
         console.log('error ===', error);
       });
-  }, [URL, productID]);
+  }, [productID]);
 
   if (productFromAPI === null) return;
   console.log(userID);

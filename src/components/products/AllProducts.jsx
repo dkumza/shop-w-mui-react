@@ -1,10 +1,18 @@
 import React from 'react';
-import { Container } from '@mui/material';
+import { Box, Container, LinearProgress } from '@mui/material';
+import { useState } from 'react';
 
 export const AllProducts = () => {
+  const [spinner, setSpinner] = useState(false);
   return (
-    <Container maxWidth="lg">
-      <h1>AllProducts</h1>
-    </Container>
+    <>
+      {/* <Box sx={{ width: '100%', position: 'absolute' }}>
+        {!spinner && <LinearProgress />}
+      </Box> */}
+
+      <Container maxWidth="lg">
+        <h1>AllProducts</h1>
+      </Container>
+    </>
   );
 };

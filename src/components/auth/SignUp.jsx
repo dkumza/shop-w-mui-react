@@ -83,7 +83,12 @@ export default function SignUp() {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h4" sx={{ marginBottom: 3 }}>
+        <Typography
+          align="left"
+          component="h1"
+          variant="h4"
+          sx={{ marginBottom: 2, pl: 1, width: '100%' }}
+        >
           Sign Up
         </Typography>
         <form onSubmit={formik.handleSubmit}>
