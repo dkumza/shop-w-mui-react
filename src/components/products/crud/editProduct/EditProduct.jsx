@@ -47,7 +47,7 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
   const { token, userID } = useAuthContext();
   const { cats, sub, fetchSubCats } = useProductsContext();
 
-  // console.log('product: ', product);
+  console.log('product: ', product);
 
   useEffect(() => {
     fetchSubCats(product.cat_id);
@@ -231,7 +231,7 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
                 />
               </Box>
               <Box sx={{ width: '70%' }}>
-                <SelectCity formik={formik} />
+                <SelectCity formik={formik} show={product} />
               </Box>
             </Box>
 

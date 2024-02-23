@@ -24,8 +24,6 @@ export const AddImg = ({ setFieldValue, img_urls, prevImages, setPrevImages }) =
   const [previewUrls, setPreviewUrls] = useState([]);
   const [imgFromAPI, setImgFromAPI] = useState([]);
 
-  // console.log(img_urls);
-
   useEffect(() => {
     // wait till images appears (async)
     if (img_urls.length !== 0 && prevImages) {
@@ -35,7 +33,7 @@ export const AddImg = ({ setFieldValue, img_urls, prevImages, setPrevImages }) =
     }
   }, [img_urls]);
 
-  console.log('img_urls: ', img_urls);
+  // console.log('img_urls: ', img_urls);
 
   const handleImageChange = (e) => {
     const allFiles = Array.from(e.target.files);
