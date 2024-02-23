@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import { enqueueSnackbar } from 'notistack';
 import { CallMerge } from '@mui/icons-material';
+import { useEffect } from 'react';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -17,8 +18,24 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export const AddImg = ({ setFieldValue, img_urls }) => {
+const URL_FOR_IMG = 'http://localhost:3000';
+
+export const AddImg = ({ setFieldValue, img_urls, prevImages, setPrevImages }) => {
   const [previewUrls, setPreviewUrls] = useState([]);
+  const [imgFromAPI, setImgFromAPI] = useState([]);
+
+  // console.log(img_urls);
+
+  useEffect(() => {
+    // wait till images appears (async)
+    if (img_urls.length !== 0 && prevImages) {
+      setPrevImages(true);
+      const parsedImgUrls = JSON.parse(img_urls);
+      setImgFromAPI(parsedImgUrls);
+    }
+  }, [img_urls]);
+
+  console.log('img_urls: ', img_urls);
 
   const handleImageChange = (e) => {
     const allFiles = Array.from(e.target.files);
@@ -63,7 +80,7 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
     <>
       {/* img preview grid */}
       <Grid container spacing={1} sx={{ mt: 0 }}>
-        {previewUrls &&
+        {previewUrls.length !== 0 &&
           previewUrls.map((url, index) => (
             // show children's of main grid dynamically by previewUrls.length
             <Grid item xs={12 / previewUrls.length} key={index}>
@@ -80,6 +97,26 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
               />
             </Grid>
           ))}
+
+        {/* <Grid container spacing={1} sx={{ mt: 0 }}> */}
+        {prevImages &&
+          imgFromAPI.map((url, index) => (
+            // show children's of main grid dynamically by previewUrls.length
+            <Grid item xs={12 / imgFromAPI.length} key={index}>
+              <img
+                src={img_urls ? `${URL_FOR_IMG}/${url}` : url}
+                alt={`Preview ${index}`}
+                style={{
+                  width: '100%',
+                  height: '60px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  borderRadius: 3,
+                }}
+              />
+            </Grid>
+          ))}
+        {/* </Grid> */}
       </Grid>
       <Button
         variant="outlined"
@@ -96,11 +133,14 @@ export const AddImg = ({ setFieldValue, img_urls }) => {
         }}
         startIcon={<InsertPhotoIcon />}
       >
-        Add up to 4 images
+        {prevImages ? 'Change images' : 'Add up to 4 images'}
         <VisuallyHiddenInput
           type="file"
           multiple={4}
-          onChange={handleImageChange}
+          onChange={(e) => {
+            handleImageChange(e);
+            setPrevImages(false);
+          }}
           sx={{ position: 'absolute' }}
         />
       </Button>

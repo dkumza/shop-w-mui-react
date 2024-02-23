@@ -11,7 +11,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import SelectCity from '../../SelectCity';
 import { AddImg } from '../../AddImg';
@@ -20,8 +19,8 @@ import * as yup from 'yup';
 import { useProductsContext } from '../../../../context/productsCtx';
 import { useAuthContext } from '../../../../context/autCtx';
 import { Close } from '@mui/icons-material';
-import { useEffect } from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const style = {
   position: 'absolute',
@@ -44,17 +43,15 @@ const validationSchema = yup.object({
   city: yup.number().min(1, 'City is required').required('City is required'),
 });
 
-export const EditProduct = ({ open, setOpen, product }) => {
+export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages }) => {
   const { token, userID } = useAuthContext();
-  const { cats, fetchSubCats, sub, allSub } = useProductsContext();
-  const handleClose = () => setOpen(false);
+  const { cats, sub, fetchSubCats } = useProductsContext();
+
+  // console.log('product: ', product);
 
   useEffect(() => {
     fetchSubCats(product.cat_id);
-  }, [product.cat_id]);
-
-  console.log('product: ', product);
-  console.log('allSub: ', allSub);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -64,8 +61,8 @@ export const EditProduct = ({ open, setOpen, product }) => {
       sub_id: product.sub_id,
       description: product.description,
       price: product.price,
-      city: product.name,
-      img_urls: [],
+      city: product.city,
+      img_urls: product.img_urls,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -86,6 +83,10 @@ export const EditProduct = ({ open, setOpen, product }) => {
       // axiosNewProduct(formData);
     },
   });
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleCategoryChange = (event) => {
     formik.setFieldValue('sub_id', 0);
@@ -170,33 +171,35 @@ export const EditProduct = ({ open, setOpen, product }) => {
               </FormControl>
 
               {/* sub category */}
-              <FormControl margin="dense" sx={{ width: '50%' }}>
-                <InputLabel id="subCat">Select Subcategory</InputLabel>
-                <Select
-                  labelId="subCat"
-                  id="sub_id"
-                  name="sub_id"
-                  label="Select Subcategory"
-                  value={formik.values.sub_id}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.sub_id && Boolean(formik.errors.sub_id)}
-                >
-                  <MenuItem disabled value={0}>
-                    Select Subcategory
-                  </MenuItem>
-                  {sub &&
-                    sub.map((s) => (
-                      <MenuItem key={s.id} value={s.id}>
-                        {s.name}
-                      </MenuItem>
-                    ))}
-                </Select>
-                {/* helper for form validation */}
-                <FormHelperText error id="sub_ids-v-helper">
-                  {formik.touched.sub_id && formik.errors.sub_id}
-                </FormHelperText>
-              </FormControl>
+              {sub && (
+                <FormControl margin="dense" sx={{ width: '50%' }}>
+                  <InputLabel id="subCat">Select Subcategory</InputLabel>
+                  <Select
+                    labelId="subCat"
+                    id="sub_id"
+                    name="sub_id"
+                    label="Select Subcategory"
+                    value={formik.values.sub_id}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.sub_id && Boolean(formik.errors.sub_id)}
+                  >
+                    <MenuItem disabled value={0}>
+                      Select Subcategory
+                    </MenuItem>
+                    {sub &&
+                      sub.map((s) => (
+                        <MenuItem key={s.id} value={s.id}>
+                          {s.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                  {/* helper for form validation */}
+                  <FormHelperText error id="sub_ids-v-helper">
+                    {formik.touched.sub_id && formik.errors.sub_id}
+                  </FormHelperText>
+                </FormControl>
+              )}
             </Box>
             {/* description */}
             <TextField
@@ -233,24 +236,13 @@ export const EditProduct = ({ open, setOpen, product }) => {
             </Box>
 
             <AddImg
+              setPrevImages={setPrevImages}
+              prevImages={prevImages}
               setFieldValue={formik.setFieldValue}
               img_urls={formik.values.img_urls}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 1, bgcolor: 'primary.dark' }}
-            >
-              Confirm
-            </Button>
-            <Button
-              onClick={handleClose}
-              fullWidth
-              variant="outlined"
-              sx={{ color: 'primary.dark' }}
-            >
-              Cancel
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Publish
             </Button>
           </form>
         </Box>

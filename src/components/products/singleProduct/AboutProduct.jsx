@@ -7,9 +7,9 @@ import { EditProduct } from '../crud/editProduct/EditProduct';
 export const AboutProduct = ({ product, userID }) => {
   const [phone, setPhone] = useState('Contact Seller');
   const [open, setOpen] = React.useState(false);
+  const [prevImages, setPrevImages] = useState(false);
   const handleOpen = () => {
     setOpen(true);
-    console.log('open modal?');
   };
 
   let dateDay;
@@ -27,7 +27,6 @@ export const AboutProduct = ({ product, userID }) => {
     console.log('edit');
   };
 
-  console.log('product: ', product);
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
       <Paper
@@ -51,7 +50,15 @@ export const AboutProduct = ({ product, userID }) => {
             mb: 1,
           }}
         >
-          {open && <EditProduct product={product} open={open} setOpen={setOpen} />}
+          {open && (
+            <EditProduct
+              setPrevImages={setPrevImages}
+              prevImages={prevImages}
+              product={product}
+              open={open}
+              setOpen={setOpen}
+            />
+          )}
 
           <Box
             sx={{
@@ -158,7 +165,10 @@ export const AboutProduct = ({ product, userID }) => {
                 color: 'primary.main',
               }}
               startIcon={<Edit />}
-              onClick={handleOpen}
+              onClick={() => {
+                handleOpen();
+                setPrevImages(true);
+              }}
             >
               Edit
             </Button>
