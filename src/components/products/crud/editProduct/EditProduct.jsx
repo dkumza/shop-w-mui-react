@@ -13,13 +13,15 @@ import {
 } from '@mui/material';
 import React from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import SelectCity from '../SelectCity';
-import { AddImg } from '../AddImg';
+import SelectCity from '../../SelectCity';
+import { AddImg } from '../../AddImg';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useProductsContext } from '../../../context/productsCtx';
-import { useAuthContext } from '../../../context/autCtx';
+import { useProductsContext } from '../../../../context/productsCtx';
+import { useAuthContext } from '../../../../context/autCtx';
 import { Close } from '@mui/icons-material';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -44,19 +46,25 @@ const validationSchema = yup.object({
 
 export const EditProduct = ({ open, setOpen, product }) => {
   const { token, userID } = useAuthContext();
-  const { cats, fetchSubCats, sub } = useProductsContext();
+  const { cats, fetchSubCats, sub, allSub } = useProductsContext();
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    fetchSubCats(product.cat_id);
+  }, [product.cat_id]);
+
   console.log('product: ', product);
+  console.log('allSub: ', allSub);
 
   const formik = useFormik({
     initialValues: {
       userID,
       title: product.title,
       cat_id: product.cat_id,
-      sub_id: 0,
+      sub_id: product.sub_id,
       description: product.description,
       price: product.price,
-      city: 0,
+      city: product.name,
       img_urls: [],
     },
     validationSchema: validationSchema,

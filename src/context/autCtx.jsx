@@ -23,7 +23,6 @@ export const AuthContextProvider = ({ children }) => {
   const isUserLoggedIn = !!sessionToken;
 
   function login(token, name, id) {
-    console.log(id);
     setSessionToken(token);
     setName(name);
     setUserID(id);

@@ -2,7 +2,7 @@ import { Edit, Phone } from '@mui/icons-material';
 import { Box, Button, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
-import { EditProduct } from '../crud/EditProduct';
+import { EditProduct } from '../crud/editProduct/EditProduct';
 
 export const AboutProduct = ({ product, userID }) => {
   const [phone, setPhone] = useState('Contact Seller');

@@ -47,7 +47,7 @@ export default function SignIn() {
       .post(LOGIN_URL, loginInfo)
       .then((res) => {
         const { token, name, userID } = res.data;
-        console.log('res.data: ', res.data);
+        console.log('user data: ', res.data);
         if (token) {
           login(token, name, userID);
           formik.resetForm();
