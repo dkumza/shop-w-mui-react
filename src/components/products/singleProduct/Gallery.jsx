@@ -19,7 +19,6 @@ export const Gallery = ({ imgs }) => {
   }, [imgs]);
 
   const handleImgSwitch = (url) => {
-    console.log('switch');
     setMainImg(url);
   };
   return (

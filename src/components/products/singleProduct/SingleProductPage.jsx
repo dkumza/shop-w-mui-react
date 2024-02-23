@@ -3,22 +3,27 @@ import { Box, Container } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
 import { useAuthContext } from '../../../context/autCtx';
+import { enqueueSnackbar } from 'notistack';
 
 const PRODUCT_URL = 'http://localhost:3000/api/product';
 
 export const SingleProductPage = () => {
   const [productFromAPI, setProductFromAPI] = useState(null);
   const { productID } = useParams();
-  const { userID } = useAuthContext();
+  const { userID, token, logout } = useAuthContext();
 
   useEffect(() => {
     const URL_P = `${PRODUCT_URL}/${productID}`;
     axios
-      .get(URL_P)
+      .get(URL_P, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         const product = response.data;
         console.log(product);
@@ -26,11 +31,13 @@ export const SingleProductPage = () => {
       })
       .catch((error) => {
         console.log('error ===', error);
+        const errorA = error.response.data.msg;
+        enqueueSnackbar(errorA, { variant: 'warning' });
+        logout();
       });
   }, [productID]);
 
   if (productFromAPI === null) return;
-  console.log(userID);
 
   return (
     <>

@@ -35,8 +35,10 @@ export const AuthContextProvider = ({ children }) => {
   function logout() {
     setSessionToken(null);
     setName('');
+    setUserID('');
     localStorage.removeItem('session_token');
     localStorage.removeItem('session_name');
+    localStorage.removeItem('user_id');
     enqueueSnackbar('See you soon!', { variant: 'success' });
   }
 
