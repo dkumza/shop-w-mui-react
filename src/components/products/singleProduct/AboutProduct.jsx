@@ -27,6 +27,7 @@ export const AboutProduct = ({ product, userID }) => {
     console.log('edit');
   };
 
+  console.log('product: ', product);
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
       <Paper
@@ -50,7 +51,7 @@ export const AboutProduct = ({ product, userID }) => {
             mb: 1,
           }}
         >
-          {open && <EditProduct open={open} setOpen={setOpen} />}
+          {open && <EditProduct product={product} open={open} setOpen={setOpen} />}
 
           <Box
             sx={{

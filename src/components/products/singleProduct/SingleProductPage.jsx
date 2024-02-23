@@ -26,7 +26,6 @@ export const SingleProductPage = () => {
       })
       .then((response) => {
         const product = response.data;
-        console.log(product);
         setProductFromAPI(product);
       })
       .catch((error) => {

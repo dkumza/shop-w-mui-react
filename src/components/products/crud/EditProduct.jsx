@@ -42,19 +42,20 @@ const validationSchema = yup.object({
   city: yup.number().min(1, 'City is required').required('City is required'),
 });
 
-export const EditProduct = ({ open, setOpen }) => {
+export const EditProduct = ({ open, setOpen, product }) => {
   const { token, userID } = useAuthContext();
   const { cats, fetchSubCats, sub } = useProductsContext();
   const handleClose = () => setOpen(false);
+  console.log('product: ', product);
 
   const formik = useFormik({
     initialValues: {
       userID,
-      title: '',
-      cat_id: 0,
+      title: product.title,
+      cat_id: product.cat_id,
       sub_id: 0,
-      description: '',
-      price: '',
+      description: product.description,
+      price: product.price,
       city: 0,
       img_urls: [],
     },
@@ -231,7 +232,7 @@ export const EditProduct = ({ open, setOpen }) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, bgcolor: 'primary.dark' }}
+              sx={{ mt: 3, mb: 1, bgcolor: 'primary.dark' }}
             >
               Confirm
             </Button>

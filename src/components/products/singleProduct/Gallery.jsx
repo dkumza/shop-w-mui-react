@@ -29,19 +29,20 @@ export const Gallery = ({ imgs }) => {
           // display: { md: 'flex', xs: 'none' },
           flexDirection: 'column',
           justifyContent: 'center',
+          objectFit: 'cover',
           width: '100%',
           height: '100%',
           p: 2,
         }}
       >
-        <Box>
+        <Box sx={{ height: { md: '445px' } }}>
           {mainImg && (
             <img
               id="main-img"
               src={`${URL_FOR_IMG}/${mainImg}`}
               style={{
                 width: '100%',
-                height: 'auto',
+                height: '100%',
                 objectFit: 'cover',
                 display: 'block',
                 borderRadius: 3,
