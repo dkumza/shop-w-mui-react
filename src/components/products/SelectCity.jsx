@@ -13,8 +13,6 @@ export default function SelectCity({ formik, show }) {
 
   const loading = open && cities.length === 0;
 
-  console.log(formik);
-
   useEffect(() => {
     let active = true;
 

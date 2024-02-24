@@ -137,7 +137,7 @@ export const AddImg = ({ setFieldValue, img_urls, prevImages, setPrevImages }) =
           multiple={4}
           onChange={(e) => {
             handleImageChange(e);
-            setPrevImages(false);
+            prevImages && setPrevImages(false);
           }}
           sx={{ position: 'absolute' }}
         />

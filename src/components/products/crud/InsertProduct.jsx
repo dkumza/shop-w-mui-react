@@ -21,7 +21,7 @@ import SelectCity from '../SelectCity';
 import { useAuthContext } from '../../../context/autCtx';
 import { useNavigate } from 'react-router-dom';
 
-const PRODUCTS_URL = 'http://localhost:3000/api/product';
+const PRODUCTS_URL = 'http://localhost:3000/api/products';
 
 const validationSchema = yup.object({
   title: yup.string('Enter product title').trim().required('Title is required'),
@@ -39,7 +39,7 @@ export const InsertProduct = () => {
 
   const formik = useFormik({
     initialValues: {
-      userID,
+      user_id: userID,
       title: '',
       cat_id: 0,
       sub_id: 0,
@@ -72,7 +72,6 @@ export const InsertProduct = () => {
       .post(PRODUCTS_URL, data, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
         },
       })
       .then((res) => {

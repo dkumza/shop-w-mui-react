@@ -21,6 +21,10 @@ import { useAuthContext } from '../../../../context/autCtx';
 import { Close } from '@mui/icons-material';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { enqueueSnackbar } from 'notistack';
+
+const PRODUCTS_URL = 'http://localhost:3000/api/product';
 
 const style = {
   position: 'absolute',
@@ -44,18 +48,40 @@ const validationSchema = yup.object({
 });
 
 export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages }) => {
-  const { token, userID } = useAuthContext();
+  const [path, setPath] = useState(null);
+  const { token, userID, logout } = useAuthContext();
   const { cats, sub, fetchSubCats } = useProductsContext();
 
-  console.log('product: ', product);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
+  // fetch sub-categories
   useEffect(() => {
     fetchSubCats(product.cat_id);
   }, []);
 
+  useEffect(() => {
+    // wait till images appears (async)
+    if (product.img_urls) {
+      const parsedImgUrls = JSON.parse(product.img_urls);
+      // console.log('parsedImgUrls: ', parsedImgUrls[0]);
+      const fullPath = parsedImgUrls[0];
+      const parts = fullPath.split('/');
+      setPath(parts.slice(0, 3).join('/') + '/');
+      console.log(parts.slice(0, 3).join('/') + '/');
+      formik.setFieldValue('img_old_url', path);
+    }
+  }, [product.img_urls, path]);
+
+  // useEffect(() => {
+  //   formik.setFieldValue('img_old_url', path);
+  // }, [path]);
+  // console.log(typeof path);
+
   const formik = useFormik({
     initialValues: {
-      userID,
+      user_id: product.user_id,
       title: product.title,
       cat_id: product.cat_id,
       sub_id: product.sub_id,
@@ -63,29 +89,59 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
       price: product.price,
       city: product.city,
       img_urls: product.img_urls,
+      img_old_url: path,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      // // create FormData constructor
-      // const formData = new FormData();
-      // // Append form input values to formData
-      // Object.keys(values).forEach((key) => {
-      //   if (key !== 'img_urls') {
-      //     formData.append(key, values[key]);
-      //   }
-      // });
-      // // Append images as img_urls to formData
-      // values.img_urls.forEach((image, index) => {
-      //   formData.append('image', image);
-      // });
 
-      // axiosNewProduct(formData);
+      console.log('prevImages: ', prevImages);
+
+      // if user changes images on edit, we need use FormData to send images to API
+      if (!prevImages) {
+        // create FormData constructor
+        const formData = new FormData();
+        // Append form input values to formData
+        Object.keys(values).forEach((key) => {
+          if (key !== 'img_urls') {
+            formData.append(key, values[key]);
+          }
+        });
+        // Append images as img_urls to formData
+        values.img_urls.forEach((image, index) => {
+          formData.append('image', image);
+        });
+        axiosUpdateProduct(formData);
+      }
+      prevImages && axiosUpdateProduct(values);
     },
   });
 
-  const handleClose = () => {
-    setOpen(false);
+  // send updated product data to API
+  const axiosUpdateProduct = (data) => {
+    axios
+      .put(`${PRODUCTS_URL}/${product.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log('res.data: ', res.data);
+        handleClose();
+        formik.resetForm();
+        // setInitialValues(null);
+        // navigate(`/product/${id}`);
+      })
+      .catch((error) => {
+        console.warn('axiosLogin:', error);
+        // if (error.response.data.msg === 'Unauthorized') {
+        //   enqueueSnackbar(error.response.data.msg, { variant: 'warning' });
+        //   logout();
+        //   navigate('/login');
+        // }
+        // const errorFromAPI = error.response.data;
+        // formik.setErrors(errorFromAPI);
+      });
   };
 
   const handleCategoryChange = (event) => {
