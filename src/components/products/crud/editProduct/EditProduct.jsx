@@ -62,8 +62,10 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
   }, []);
 
   useEffect(() => {
+    console.log('product: ', product);
+    console.log('product.img_urls.length: ', product.img_urls.length);
     // wait till images appears (async)
-    if (product.img_urls) {
+    if (product.img_urls.length > 2) {
       const parsedImgUrls = JSON.parse(product.img_urls);
       // console.log('parsedImgUrls: ', parsedImgUrls[0]);
       const fullPath = parsedImgUrls[0];

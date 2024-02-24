@@ -26,7 +26,6 @@ export const Gallery = ({ imgs }) => {
       <Paper
         variant="outlined"
         sx={{
-          // display: { md: 'flex', xs: 'none' },
           flexDirection: 'column',
           justifyContent: 'center',
           objectFit: 'cover',
@@ -54,7 +53,7 @@ export const Gallery = ({ imgs }) => {
         <Grid container spacing={1} sx={{ mt: 0 }}>
           {imgFromAPI &&
             imgFromAPI.map((url, index) => (
-              <Grid item xs={12 / imgFromAPI.length} key={index}>
+              <Grid item xs={12 / 4} key={index}>
                 <img
                   className="img-gallery"
                   src={`${URL_FOR_IMG}/${url}`}
@@ -62,7 +61,7 @@ export const Gallery = ({ imgs }) => {
                   onClick={() => handleImgSwitch(url)}
                   style={{
                     width: '100%',
-                    height: 'auto',
+                    height: '111px',
                     objectFit: 'cover',
                     display: 'block',
                     borderRadius: 3,
