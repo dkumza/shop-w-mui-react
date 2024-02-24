@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/product';
 
@@ -47,10 +48,18 @@ const validationSchema = yup.object({
   city: yup.number().min(1, 'City is required').required('City is required'),
 });
 
-export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages }) => {
+export const EditProduct = ({
+  open,
+  setOpen,
+  product,
+  prevImages,
+  setPrevImages,
+  setProductFromAPI,
+}) => {
   const [path, setPath] = useState(null);
   const { token, userID, logout } = useAuthContext();
   const { cats, sub, fetchSubCats } = useProductsContext();
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setOpen(false);
@@ -61,25 +70,17 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
     fetchSubCats(product.cat_id);
   }, []);
 
+  // get image url to send to backend to delete old folder on update
   useEffect(() => {
-    console.log('product: ', product);
-    console.log('product.img_urls.length: ', product.img_urls.length);
     // wait till images appears (async)
     if (product.img_urls.length > 2) {
       const parsedImgUrls = JSON.parse(product.img_urls);
-      // console.log('parsedImgUrls: ', parsedImgUrls[0]);
       const fullPath = parsedImgUrls[0];
       const parts = fullPath.split('/');
       setPath(parts.slice(0, 3).join('/') + '/');
-      console.log(parts.slice(0, 3).join('/') + '/');
       formik.setFieldValue('img_old_url', path);
     }
   }, [product.img_urls, path]);
-
-  // useEffect(() => {
-  //   formik.setFieldValue('img_old_url', path);
-  // }, [path]);
-  // console.log(typeof path);
 
   const formik = useFormik({
     initialValues: {
@@ -119,30 +120,42 @@ export const EditProduct = ({ open, setOpen, product, prevImages, setPrevImages 
     },
   });
 
-  // send updated product data to API
-  const axiosUpdateProduct = (data) => {
+  // Fetch product data after product is updated
+  const fetchProductData = (id) => {
     axios
-      .put(`${PRODUCTS_URL}/${product.id}`, data, {
+      .get(`${PRODUCTS_URL}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        console.log('res.data: ', res.data);
-        handleClose();
-        formik.resetForm();
-        // setInitialValues(null);
-        // navigate(`/product/${id}`);
+        // Update your state with the new product data
+        setProductFromAPI(res.data);
       })
       .catch((error) => {
-        console.warn('axiosLogin:', error);
-        // if (error.response.data.msg === 'Unauthorized') {
-        //   enqueueSnackbar(error.response.data.msg, { variant: 'warning' });
-        //   logout();
-        //   navigate('/login');
-        // }
-        // const errorFromAPI = error.response.data;
-        // formik.setErrors(errorFromAPI);
+        console.error(error);
+      });
+  };
+
+  // send updated product data to API
+  const axiosUpdateProduct = (data) => {
+    const id = product.id;
+    axios
+      .put(`${PRODUCTS_URL}/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        handleClose();
+        formik.resetForm();
+        fetchProductData(id);
+        enqueueSnackbar(res.data.msg, { variant: 'success' });
+      })
+      .catch((err) => {
+        console.warn('axiosLogin:', err);
+        const eAPI = err.response.data.error;
+        enqueueSnackbar(eAPI, { variant: 'warning' });
       });
   };
 

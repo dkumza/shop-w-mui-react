@@ -62,7 +62,11 @@ export const SingleProductPage = () => {
             <Gallery imgs={productFromAPI.img_urls} />
           </Box>
           <Box sx={{ width: { md: '45%', xs: '100%' } }}>
-            <AboutProduct product={productFromAPI} userID={userID} />
+            <AboutProduct
+              setProductFromAPI={setProductFromAPI}
+              product={productFromAPI}
+              userID={userID}
+            />
           </Box>
         </Box>
       </Container>

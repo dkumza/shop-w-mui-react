@@ -61,7 +61,7 @@ export const Gallery = ({ imgs }) => {
                   onClick={() => handleImgSwitch(url)}
                   style={{
                     width: '100%',
-                    height: '111px',
+                    height: '85px',
                     objectFit: 'cover',
                     display: 'block',
                     borderRadius: 3,

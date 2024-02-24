@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { EditProduct } from '../crud/editProduct/EditProduct';
 
-export const AboutProduct = ({ product, userID }) => {
+export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
   const [phone, setPhone] = useState('Contact Seller');
   const [open, setOpen] = React.useState(false);
   const [prevImages, setPrevImages] = useState(false);
@@ -52,6 +52,7 @@ export const AboutProduct = ({ product, userID }) => {
         >
           {open && (
             <EditProduct
+              setProductFromAPI={setProductFromAPI}
               setPrevImages={setPrevImages}
               prevImages={prevImages}
               product={product}
