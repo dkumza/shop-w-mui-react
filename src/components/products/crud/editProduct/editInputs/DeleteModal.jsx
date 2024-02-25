@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import axios from 'axios';
 import { useAuthContext } from '../../../../../context/autCtx';
+import { enqueueSnackbar } from 'notistack';
 
 const DEL_URL = 'http://localhost:3000/api/product';
 
@@ -26,6 +27,7 @@ export const DeleteModal = ({
   handleShowChildModal,
   productID,
   productUserID,
+  handleClose,
 }) => {
   const { token } = useAuthContext();
 
@@ -42,7 +44,9 @@ export const DeleteModal = ({
         },
       })
       .then((res) => {
-        console.log('res: ', res.data);
+        handleClose();
+        // formik.resetForm();
+        enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {
         console.log('error: ', error);

@@ -67,6 +67,7 @@ export const EditProduct = ({
 
   const handleClose = () => {
     setOpen(false);
+    formik.resetForm();
   };
 
   // fetch sub-categories
@@ -150,7 +151,6 @@ export const EditProduct = ({
       })
       .then((res) => {
         handleClose();
-        formik.resetForm();
         fetchProductData(id);
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
@@ -337,6 +337,7 @@ export const EditProduct = ({
             deleteModal={deleteModal}
             productID={product.id}
             productUserID={product.user_id}
+            handleClose={handleClose}
           />
         </Box>
       </Fade>
