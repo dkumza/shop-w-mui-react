@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import axios from 'axios';
@@ -49,15 +49,12 @@ export const DeleteModal = ({
       .then((res) => {
         handleClose();
         fetchProductData(productID);
-        // formik.resetForm();
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })
       .catch((error) => {
         console.log('error: ', error);
       });
   };
-
-  console.log('isDeleted: ', isDeleted);
 
   return (
     <Fragment>
@@ -80,9 +77,6 @@ export const DeleteModal = ({
             {!isDeleted ? 'Are you sure to delete?' : 'Show product again'}
           </p>
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            {/* <Button variant="contained" onClick={handleShowChildModal} sx={{ mt: 1 }}>
-              Sold
-            </Button> */}
             <Button
               variant="text"
               onClick={() => {

@@ -57,7 +57,7 @@ export const EditProduct = ({
   setProductFromAPI,
 }) => {
   const [path, setPath] = useState(null);
-  const { token, userID, logout } = useAuthContext();
+  const { token } = useAuthContext();
   const { cats, sub, fetchSubCats } = useProductsContext();
   const [deleteModal, setDeleteModal] = useState(false);
 

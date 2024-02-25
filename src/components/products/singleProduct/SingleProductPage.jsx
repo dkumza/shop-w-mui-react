@@ -1,9 +1,9 @@
-import { Chat, Close, Email, Phone } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import { Box, Container, Modal, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
 import { useAuthContext } from '../../../context/autCtx';
@@ -52,7 +52,6 @@ export const SingleProductPage = () => {
   if (productFromAPI === null) return;
   const deleted = !!productFromAPI.isDeleted;
 
-  console.log('productFromAPI: ', productFromAPI);
   return (
     <>
       <Container
@@ -62,7 +61,6 @@ export const SingleProductPage = () => {
           display: 'flex',
           flexGrow: 1,
           gap: 2,
-          // minHeight: '90vh',
         }}
       >
         <Box
