@@ -23,10 +23,6 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
     phone === 'Contact Seller' ? setPhone(product.telephone) : setPhone('Contact Seller');
   };
 
-  // const handleEdit = () => {
-  //   console.log('edit');
-  // };
-
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
       <Paper
@@ -137,7 +133,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
           >
             {!deleted ? `${product.price} €` : 'DELETED'}
           </Typography>
-          {+userID !== product.user_id && (
+          {+userID !== product.user_id && !deleted && (
             <Button
               type="submit"
               fullWidth

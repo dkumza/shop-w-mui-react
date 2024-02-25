@@ -29,6 +29,7 @@ export const DeleteModal = ({
   productUserID,
   handleClose,
   fetchProductData,
+  isDeleted,
 }) => {
   const { token } = useAuthContext();
 
@@ -42,6 +43,7 @@ export const DeleteModal = ({
         // send productUserID to API
         data: {
           productUserID,
+          isDeleted: isDeleted === 1 ? 0 : 1,
         },
       })
       .then((res) => {
@@ -54,6 +56,9 @@ export const DeleteModal = ({
         console.log('error: ', error);
       });
   };
+
+  console.log('isDeleted: ', isDeleted);
+
   return (
     <Fragment>
       <Modal
@@ -71,7 +76,9 @@ export const DeleteModal = ({
           <Typography component="h1" variant="h5" sx={{ marginBottom: 1, width: 'auto' }}>
             Warning!
           </Typography>
-          <p id="child-modal-description">Are you sure to delete?</p>
+          <p id="child-modal-description">
+            {!isDeleted ? 'Are you sure to delete?' : 'Show product again'}
+          </p>
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             {/* <Button variant="contained" onClick={handleShowChildModal} sx={{ mt: 1 }}>
               Sold

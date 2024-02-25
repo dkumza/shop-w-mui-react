@@ -18,7 +18,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useProductsContext } from '../../../../context/productsCtx';
 import { useAuthContext } from '../../../../context/autCtx';
-import { Check, Close, Delete } from '@mui/icons-material';
+import { Check, Close, Delete, RestartAlt } from '@mui/icons-material';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -325,9 +325,15 @@ export const EditProduct = ({
               onClick={() => handleShowChildModal()}
               fullWidth
               variant="outlined"
-              startIcon={<Delete sx={{ mb: 0.3 }} />}
+              startIcon={
+                !product.isDeleted ? (
+                  <Delete sx={{ mb: 0.3 }} />
+                ) : (
+                  <RestartAlt sx={{ mb: 0.3 }} />
+                )
+              }
             >
-              Delete
+              {!product.isDeleted ? 'Delete' : 'Restore'}
             </Button>
           </form>
           <DeleteModal
@@ -337,6 +343,7 @@ export const EditProduct = ({
             productID={product.id}
             productUserID={product.user_id}
             handleClose={handleClose}
+            isDeleted={product.isDeleted}
           />
         </Box>
       </Fade>

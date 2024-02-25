@@ -71,6 +71,7 @@ export const SingleProductPage = () => {
             flexDirection: { md: 'row', xs: 'column' },
             gap: 1,
             flexGrow: 1,
+            opacity: deleted ? 0.5 : 1,
           }}
         >
           {deleted && (
