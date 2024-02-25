@@ -18,7 +18,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useProductsContext } from '../../../../context/productsCtx';
 import { useAuthContext } from '../../../../context/autCtx';
-import { Close } from '@mui/icons-material';
+import { Check, Close, Delete } from '@mui/icons-material';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -36,7 +36,7 @@ const style = {
   bgcolor: 'background.paper',
   borderRadius: 1,
   boxShadow: 10,
-  p: 4,
+  p: 3,
 };
 
 const validationSchema = yup.object({
@@ -152,13 +152,17 @@ export const EditProduct = ({
       })
       .catch((err) => {
         console.warn('axiosLogin:', err);
-        const eAPI = err.response.data.error;
-        enqueueSnackbar(eAPI, { variant: 'warning' });
+        const errAPI = err.response.data.msg;
+        enqueueSnackbar(errAPI, { variant: 'warning' });
       });
   };
 
   const handleCategoryChange = (event) => {
     formik.setFieldValue('sub_id', 0);
+  };
+
+  const handleDelete = (id) => {
+    console.log('delete:', id);
   };
 
   return (
@@ -310,8 +314,22 @@ export const EditProduct = ({
               setFieldValue={formik.setFieldValue}
               img_urls={formik.values.img_urls}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Publish
+            <Button
+              startIcon={<Check sx={{ mb: 0.3 }} />}
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 1 }}
+            >
+              Update
+            </Button>
+            <Button
+              onClick={() => handleDelete(product.user_id)}
+              fullWidth
+              variant="outlined"
+              startIcon={<Delete sx={{ mb: 0.3 }} />}
+            >
+              Delete
             </Button>
           </form>
         </Box>

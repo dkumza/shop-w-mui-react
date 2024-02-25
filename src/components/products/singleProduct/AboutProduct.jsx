@@ -6,7 +6,7 @@ import { EditProduct } from '../crud/editProduct/EditProduct';
 
 export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
   const [phone, setPhone] = useState('Contact Seller');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [prevImages, setPrevImages] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -137,7 +137,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
           >
             {product.price}€
           </Typography>
-          {userID && !product.user_id && (
+          {+userID !== product.user_id && (
             <Button
               type="submit"
               fullWidth
@@ -154,7 +154,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
               {phone}
             </Button>
           )}
-          {userID && product.user_id && (
+          {+userID === product.user_id && (
             <Button
               // type="submit"
               fullWidth

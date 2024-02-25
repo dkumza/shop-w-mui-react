@@ -82,6 +82,8 @@ export const InsertProduct = () => {
       })
       .catch((error) => {
         console.log(error);
+        const errAPI = error.response.data.msg;
+        enqueueSnackbar(errAPI, { variant: 'warning' });
       });
   };
 
