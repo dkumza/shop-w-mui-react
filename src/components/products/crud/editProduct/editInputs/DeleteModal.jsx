@@ -28,6 +28,7 @@ export const DeleteModal = ({
   productID,
   productUserID,
   handleClose,
+  fetchProductData,
 }) => {
   const { token } = useAuthContext();
 
@@ -45,6 +46,7 @@ export const DeleteModal = ({
       })
       .then((res) => {
         handleClose();
+        fetchProductData(productID);
         // formik.resetForm();
         enqueueSnackbar(res.data.msg, { variant: 'success' });
       })

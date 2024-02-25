@@ -101,8 +101,6 @@ export const EditProduct = ({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-
       // if user changes images on edit, we need use FormData to send images to API
       if (!prevImages) {
         // create FormData constructor
@@ -333,6 +331,7 @@ export const EditProduct = ({
             </Button>
           </form>
           <DeleteModal
+            fetchProductData={fetchProductData}
             handleShowChildModal={handleShowChildModal}
             deleteModal={deleteModal}
             productID={product.id}

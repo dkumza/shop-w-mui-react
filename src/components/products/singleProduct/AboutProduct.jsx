@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { EditProduct } from '../crud/editProduct/EditProduct';
 
-export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
+export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) => {
   const [phone, setPhone] = useState('Contact Seller');
   const [open, setOpen] = useState(false);
   const [prevImages, setPrevImages] = useState(false);
@@ -23,9 +23,9 @@ export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
     phone === 'Contact Seller' ? setPhone(product.telephone) : setPhone('Contact Seller');
   };
 
-  const handleEdit = () => {
-    console.log('edit');
-  };
+  // const handleEdit = () => {
+  //   console.log('edit');
+  // };
 
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
@@ -135,7 +135,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI }) => {
             variant="h3"
             sx={{ color: 'primary.dark' }}
           >
-            {product.price}€
+            {!deleted ? `${product.price} €` : 'DELETED'}
           </Typography>
           {+userID !== product.user_id && (
             <Button
