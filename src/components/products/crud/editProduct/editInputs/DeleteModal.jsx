@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import { useState, Fragment } from 'react';
 import { Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
+import axios from 'axios';
+import { useAuthContext } from '../../../../../context/autCtx';
+
+const DEL_URL = 'http://localhost:3000/api/product';
 
 const style = {
   position: 'absolute',
@@ -13,14 +17,37 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: '400px',
   bgcolor: 'background.paper',
-  // border: '2px solid #000',
   boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
+  p: 3,
 };
 
-export const DeleteModal = ({ deleteModal, handleShowChildModal }) => {
+export const DeleteModal = ({
+  deleteModal,
+  handleShowChildModal,
+  productID,
+  productUserID,
+}) => {
+  const { token } = useAuthContext();
+
+  const handleDeleteProduct = () => {
+    const url = `${DEL_URL}/${productID}`;
+    axios
+      .delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        // send productUserID to API
+        data: {
+          productUserID,
+        },
+      })
+      .then((res) => {
+        console.log('res: ', res.data);
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+  };
   return (
     <Fragment>
       <Modal
@@ -29,24 +56,31 @@ export const DeleteModal = ({ deleteModal, handleShowChildModal }) => {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: '380px', borderRadius: 1 }}>
+        <Box sx={{ ...style, width: '320px', borderRadius: 1 }}>
           <Close
             className="exit-icon"
             onClick={handleShowChildModal}
-            sx={{ position: 'absolute', right: '7%' }}
+            sx={{ position: 'absolute', right: '5%', top: '12%' }}
           />
-          <Typography component="h1" variant="h4" sx={{ marginBottom: 1, width: 'auto' }}>
-            Delete
+          <Typography component="h1" variant="h5" sx={{ marginBottom: 1, width: 'auto' }}>
+            Warning!
           </Typography>
           <p id="child-modal-description">Are you sure to delete?</p>
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             {/* <Button variant="contained" onClick={handleShowChildModal} sx={{ mt: 1 }}>
               Sold
             </Button> */}
-            <Button variant="text" onClick={handleShowChildModal} sx={{ mt: 1 }}>
-              Yes, delete
+            <Button
+              variant="text"
+              onClick={() => {
+                handleShowChildModal();
+                handleDeleteProduct(productID);
+              }}
+              sx={{ mt: 1, p: 0 }}
+            >
+              Confirm
             </Button>
-            <Button variant="text" onClick={handleShowChildModal} sx={{ mt: 1 }}>
+            <Button variant="text" onClick={handleShowChildModal} sx={{ mt: 1, p: 0 }}>
               Cancel
             </Button>
           </Box>

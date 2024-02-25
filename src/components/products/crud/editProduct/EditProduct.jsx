@@ -165,10 +165,6 @@ export const EditProduct = ({
     formik.setFieldValue('sub_id', 0);
   };
 
-  const handleDelete = (id) => {
-    console.log('delete:', id);
-  };
-
   return (
     <Modal
       open={open}
@@ -339,6 +335,8 @@ export const EditProduct = ({
           <DeleteModal
             handleShowChildModal={handleShowChildModal}
             deleteModal={deleteModal}
+            productID={product.id}
+            productUserID={product.user_id}
           />
         </Box>
       </Fade>
