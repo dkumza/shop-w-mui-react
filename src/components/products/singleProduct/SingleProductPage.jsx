@@ -13,7 +13,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 'auto',
+  width: '380px',
   bgcolor: 'background.paper',
   borderRadius: 1,
   boxShadow: 24,
@@ -69,7 +69,7 @@ export const SingleProductPage = () => {
             flexDirection: { md: 'row', xs: 'column' },
             gap: 1,
             flexGrow: 1,
-            opacity: deleted ? 0.5 : 1,
+            // opacity: deleted ? 0.5 : 1,
           }}
         >
           {deleted && (

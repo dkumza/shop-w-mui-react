@@ -16,9 +16,10 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '400px',
+  width: '380px',
   bgcolor: 'background.paper',
   boxShadow: 24,
+  borderRadius: 1,
   p: 3,
 };
 
@@ -64,7 +65,7 @@ export const DeleteModal = ({
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: '320px', borderRadius: 1 }}>
+        <Box sx={{ ...style }}>
           <Close
             className="exit-icon"
             onClick={handleShowChildModal}
@@ -76,7 +77,7 @@ export const DeleteModal = ({
           <p id="child-modal-description">
             {!isDeleted ? 'Are you sure to delete?' : 'Show product again'}
           </p>
-          <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', width: 'auto', justifyContent: 'space-between' }}>
             <Button
               variant="text"
               onClick={() => {
