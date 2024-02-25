@@ -98,8 +98,6 @@ export const EditProduct = ({
     onSubmit: (values) => {
       console.log(values);
 
-      console.log('prevImages: ', prevImages);
-
       // if user changes images on edit, we need use FormData to send images to API
       if (!prevImages) {
         // create FormData constructor

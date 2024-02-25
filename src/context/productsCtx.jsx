@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuthContext } from './autCtx';
+import { enqueueSnackbar } from 'notistack';
 
 const CATs_URL = 'http://localhost:3000/api/categories';
 const SUB_CATs_URL = 'http://localhost:3000/api/sub-category';
@@ -18,16 +20,24 @@ export const ProductsContextProvider = ({ children }) => {
   const [cats, setCats] = useState(null);
   const [sub, setSub] = useState(null);
   const [allSub, setAllSub] = useState(null);
+  const { token, logout } = useAuthContext();
 
   // fetch categories from API
   useEffect(() => {
     axios
-      .get(CATs_URL)
+      .get(CATs_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setCats(res.data);
       })
-      .catch((err) => {
-        console.warn('ERROR: ', err);
+      .catch((error) => {
+        console.log('error ===', error);
+        const errorA = error.response.data.msg;
+        enqueueSnackbar(errorA, { variant: 'warning' });
+        logout();
       });
   }, []);
 
@@ -44,7 +54,6 @@ export const ProductsContextProvider = ({ children }) => {
   }, []);
 
   const fetchSubCats = (id) => {
-    console.log(id);
     axios
       .get(`${SUB_CATs_URL}/${id}`)
       .then((res) => {
