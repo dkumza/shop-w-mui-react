@@ -23,7 +23,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { DeleteModal } from './editInputs/DeleteModal';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/product';
 
@@ -59,7 +59,11 @@ export const EditProduct = ({
   const [path, setPath] = useState(null);
   const { token, userID, logout } = useAuthContext();
   const { cats, sub, fetchSubCats } = useProductsContext();
-  const navigate = useNavigate();
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const handleShowChildModal = () => {
+    setDeleteModal((prev) => !prev);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -324,7 +328,7 @@ export const EditProduct = ({
               Update
             </Button>
             <Button
-              onClick={() => handleDelete(product.user_id)}
+              onClick={() => handleShowChildModal()}
               fullWidth
               variant="outlined"
               startIcon={<Delete sx={{ mb: 0.3 }} />}
@@ -332,6 +336,10 @@ export const EditProduct = ({
               Delete
             </Button>
           </form>
+          <DeleteModal
+            handleShowChildModal={handleShowChildModal}
+            deleteModal={deleteModal}
+          />
         </Box>
       </Fade>
     </Modal>

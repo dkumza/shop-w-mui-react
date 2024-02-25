@@ -25,18 +25,14 @@ export const ProductsContextProvider = ({ children }) => {
   // fetch categories from API
   useEffect(() => {
     axios
-      .get(CATs_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(CATs_URL)
       .then((res) => {
         setCats(res.data);
       })
       .catch((error) => {
         console.log('error ===', error);
-        const errorA = error.response.data.msg;
-        enqueueSnackbar(errorA, { variant: 'warning' });
+        // const errorA = error.response.data.msg;
+        // enqueueSnackbar(errorA, { variant: 'warning' });
         logout();
       });
   }, []);
