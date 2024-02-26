@@ -1,4 +1,4 @@
-import { Edit, Phone } from '@mui/icons-material';
+import { Edit, Phone, StarBorder, StarRate } from '@mui/icons-material';
 import { Box, Button, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
@@ -8,6 +8,8 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
   const [phone, setPhone] = useState('Contact Seller');
   const [open, setOpen] = useState(false);
   const [prevImages, setPrevImages] = useState(false);
+  const [star, setStar] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -21,6 +23,11 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
 
   const showPhoneNo = () => {
     phone === 'Contact Seller' ? setPhone(product.telephone) : setPhone('Contact Seller');
+  };
+
+  const addFavorite = () => {
+    console.log('favorited');
+    setStar((prev) => !prev);
   };
 
   return (
@@ -39,6 +46,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
       >
         <Box
           sx={{
+            position: 'relative',
             display: 'flex',
             width: '100%',
             flexDirection: 'column',
@@ -46,6 +54,32 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
             mb: 1,
           }}
         >
+          {!star && (
+            <StarBorder
+              onClick={addFavorite}
+              fontSize="large"
+              className="exit-icon"
+              sx={{
+                position: 'absolute',
+                right: '0',
+                top: '0',
+                color: 'primary.light',
+              }}
+            />
+          )}
+          {star && (
+            <StarRate
+              onClick={addFavorite}
+              fontSize="large"
+              className="exit-icon"
+              sx={{
+                position: 'absolute',
+                right: '0',
+                top: '0',
+                color: 'primary.main',
+              }}
+            />
+          )}
           {open && (
             <EditProduct
               setProductFromAPI={setProductFromAPI}

@@ -6,6 +6,7 @@ import { useAuthContext } from '../../context/autCtx';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
 import { Close, StarBorder, StarRate } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 
@@ -13,6 +14,7 @@ export const AllProducts = () => {
   const { token } = useAuthContext();
   const [spinner, setSpinner] = useState(true);
   const [allProducts, setAllProducts] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -31,6 +33,10 @@ export const AllProducts = () => {
       });
   }, []);
 
+  const linkToProduct = (productID) => {
+    navigate(`/product/${productID}`);
+  };
+
   return (
     <>
       <Box sx={{ width: '100%', position: 'absolute' }}>
@@ -41,7 +47,14 @@ export const AllProducts = () => {
         <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
           {allProducts &&
             allProducts.map((product) => (
-              <Grid item key={product.id} xs={3} sx={{}}>
+              <Grid
+                id="prod-wrap"
+                onClick={() => linkToProduct(product.id)}
+                item
+                key={product.id}
+                xs={3}
+                sx={{}}
+              >
                 <Paper
                   variant="outlined"
                   sx={{ p: 0, height: 'auto', position: 'relative' }}
