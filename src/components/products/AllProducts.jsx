@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useAuthContext } from '../../context/autCtx';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
+import { Close, StarBorder, StarRate } from '@mui/icons-material';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 
@@ -21,7 +22,6 @@ export const AllProducts = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setAllProducts(res.data);
         setSpinner(false);
       })
@@ -38,11 +38,14 @@ export const AllProducts = () => {
       </Box>
 
       <Container sx={{ mt: 4 }} maxWidth="lg">
-        <Grid sx={{ display: { md: 'grid', xs: 'none' } }} container spacing={2}>
+        <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
           {allProducts &&
             allProducts.map((product) => (
               <Grid item key={product.id} xs={3} sx={{}}>
-                <Paper variant="outlined" sx={{ p: 0, height: 'auto' }}>
+                <Paper
+                  variant="outlined"
+                  sx={{ p: 0, height: 'auto', position: 'relative' }}
+                >
                   <SingleItem product={product} />
                   <ShortAbout product={product} />
                 </Paper>
@@ -55,7 +58,20 @@ export const AllProducts = () => {
           {allProducts &&
             allProducts.map((product) => (
               <Box key={product.id} sx={{ mb: 2 }}>
-                <Paper variant="outlined" sx={{ p: 0, height: 'auto' }}>
+                <Paper
+                  variant="outlined"
+                  sx={{ p: 0, height: 'auto', position: 'relative' }}
+                >
+                  <StarBorder
+                    fontSize="large"
+                    className="exit-icon"
+                    sx={{
+                      position: 'absolute',
+                      right: '2%',
+                      top: '2%',
+                      color: 'primary.light',
+                    }}
+                  />
                   <SingleItem product={product} />
                   <ShortAbout product={product} />
                 </Paper>
