@@ -1,5 +1,15 @@
 import React, { useEffect } from 'react';
-import { Box, Container, Grid, LinearProgress, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  Fade,
+  Grid,
+  Grow,
+  LinearProgress,
+  Paper,
+  Slide,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../../context/autCtx';
@@ -47,22 +57,23 @@ export const AllProducts = () => {
         <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
           {allProducts &&
             allProducts.map((product) => (
-              <Grid
-                id="prod-wrap"
-                onClick={() => linkToProduct(product.id)}
-                item
-                key={product.id}
-                xs={3}
-                sx={{}}
-              >
-                <Paper
-                  variant="outlined"
-                  sx={{ p: 0, height: 'auto', position: 'relative' }}
+              <Slide direction="left" key={product.id} in={true} timeout={300}>
+                <Grid
+                  id="prod-wrap"
+                  onClick={() => linkToProduct(product.id)}
+                  item
+                  xs={3}
+                  sx={{}}
                 >
-                  <SingleItem product={product} />
-                  <ShortAbout product={product} />
-                </Paper>
-              </Grid>
+                  <Paper
+                    variant="outlined"
+                    sx={{ p: 0, height: 'auto', position: 'relative' }}
+                  >
+                    <SingleItem product={product} />
+                    <ShortAbout product={product} />
+                  </Paper>
+                </Grid>
+              </Slide>
             ))}
         </Grid>
 

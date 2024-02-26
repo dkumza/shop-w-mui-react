@@ -1,5 +1,5 @@
 import { Close } from '@mui/icons-material';
-import { Box, Container, Modal, Typography } from '@mui/material';
+import { Box, Container, LinearProgress, Modal, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -27,6 +27,8 @@ export const SingleProductPage = () => {
   const { productID } = useParams();
   const { userID, token, logout } = useAuthContext();
   const [open, setOpen] = useState(true);
+  const [spinner, setSpinner] = useState(true);
+
   const handleStatusModal = () => setOpen((prev) => !prev);
 
   useEffect(() => {
@@ -40,8 +42,10 @@ export const SingleProductPage = () => {
       .then((response) => {
         const product = response.data;
         setProductFromAPI(product);
+        setSpinner(false);
       })
       .catch((error) => {
+        setSpinner(false);
         console.log('error ===', error);
         const errorA = error.response.data.msg;
         enqueueSnackbar(errorA, { variant: 'warning' });
@@ -54,6 +58,9 @@ export const SingleProductPage = () => {
 
   return (
     <>
+      <Box sx={{ width: '100%', position: 'absolute' }}>
+        {spinner && <LinearProgress />}
+      </Box>
       <Container
         maxWidth="xl"
         sx={{
@@ -69,7 +76,6 @@ export const SingleProductPage = () => {
             flexDirection: { md: 'row', xs: 'column' },
             gap: 1,
             flexGrow: 1,
-            // opacity: deleted ? 0.5 : 1,
           }}
         >
           {deleted && (
