@@ -12,11 +12,11 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
-import { useAuthContext } from '../../context/autCtx';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
 import { Close, StarBorder, StarRate } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../context/autCtx';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 

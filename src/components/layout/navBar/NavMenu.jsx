@@ -8,9 +8,8 @@ import {
   alpha,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuthContext } from '../../context/autCtx';
 import { useState } from 'react';
-import theme from '../../theme';
+import theme from '../../../theme';
 import { useNavigate } from 'react-router-dom';
 
 const pages = ['Home', 'Favorites', 'Sell'];

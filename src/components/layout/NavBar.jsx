@@ -1,10 +1,10 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import { SearchInput } from './SearchInput';
-import UserMenu from './UserMenu';
-import NavMenu from './NavMenu';
-import { Logo } from './Logo';
+import { SearchInput } from './navBar/SearchInput';
+import UserMenu from './navBar/UserMenu';
+import NavMenu from './navBar/NavMenu';
+import { Logo } from './navBar/Logo';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 

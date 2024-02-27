@@ -1,12 +1,12 @@
-import SignIn from './components/auth/SignIn';
-import SignUp from './components/auth/SignUp';
+import SignIn from './components/pages/auth/SignIn';
+import SignUp from './components/pages/auth/SignUp';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { useAuthContext } from './context/autCtx';
-import { InsertProduct } from './components/products/crud/InsertProduct';
-import NavBar from './components/navBar/NavBar';
-import { AllProducts } from './components/products/AllProducts';
-import { SingleProductPage } from './components/products/singleProduct/SingleProductPage';
+import { useAuthContext } from './components/context/autCtx';
+import { InsertProduct } from './components/pages/products/crud/InsertProduct';
+import NavBar from './components/layout/NavBar';
+import { AllProducts } from './components/pages/products/AllProducts';
+import { SingleProductPage } from './components/pages/products/singleProduct/SingleProductPage';
 
 export default function App() {
   const { isUserLoggedIn } = useAuthContext();

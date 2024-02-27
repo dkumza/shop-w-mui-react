@@ -17,13 +17,13 @@ import { AddImg } from '../../AddImg';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useProductsContext } from '../../../../context/productsCtx';
-import { useAuthContext } from '../../../../context/autCtx';
 import { Check, Close, Delete, RestartAlt } from '@mui/icons-material';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { DeleteModal } from './editInputs/DeleteModal';
+import { useAuthContext } from '../../../../context/autCtx';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/product';
 

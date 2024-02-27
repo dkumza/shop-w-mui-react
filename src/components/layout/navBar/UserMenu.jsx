@@ -11,9 +11,8 @@ import {
 } from '@mui/material';
 
 import { useState } from 'react';
-import { useAuthContext } from '../../context/autCtx';
-import { useNavigate } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
+import { useAuthContext } from '../../context/autCtx';
 
 const settings = ['Profile', 'Dashboard', 'My Items', 'Favorites', 'Logout'];
 

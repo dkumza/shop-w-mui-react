@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
-import { useAuthContext } from '../../../context/autCtx';
 import { enqueueSnackbar } from 'notistack';
 import { Comments } from './Comments';
+import { useAuthContext } from '../../../context/autCtx';
 const style = {
   position: 'absolute',
   top: '50%',

@@ -6,8 +6,8 @@ import { Fragment } from 'react';
 import { Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import axios from 'axios';
-import { useAuthContext } from '../../../../../context/autCtx';
 import { enqueueSnackbar } from 'notistack';
+import { useAuthContext } from '../../../../../context/autCtx';
 
 const DEL_URL = 'http://localhost:3000/api/product';
 

@@ -3,9 +3,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import { AuthContextProvider } from './context/autCtx';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { ProductsContextProvider } from './context/productsCtx';
+import { AuthContextProvider } from './components/context/autCtx';
+import { ProductsContextProvider } from './components/context/productsCtx';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);

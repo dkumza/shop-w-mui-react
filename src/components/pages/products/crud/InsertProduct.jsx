@@ -18,8 +18,8 @@ import { enqueueSnackbar } from 'notistack';
 import { AddImg } from '../AddImg';
 import axios from 'axios';
 import SelectCity from '../SelectCity';
-import { useAuthContext } from '../../../context/autCtx';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../../context/autCtx';
 
 const PRODUCTS_URL = 'http://localhost:3000/api/products';
 
