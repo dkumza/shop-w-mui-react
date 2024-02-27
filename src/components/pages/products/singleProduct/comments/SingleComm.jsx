@@ -9,9 +9,16 @@ export const SingleComm = ({ comm }) => {
   });
 
   return (
-    <Paper variant="outlined" sx={{ p: 2 }}>
+    <Paper
+      variant="outlined"
+      sx={{ p: 2, width: { md: '54.8%', sx: '100%' }, height: '100%' }}
+    >
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
         <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
           {comm.userName}

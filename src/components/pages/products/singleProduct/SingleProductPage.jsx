@@ -65,7 +65,7 @@ export const SingleProductPage = () => {
       <Container
         maxWidth="xl"
         sx={{
-          mt: 4,
+          my: 4,
           display: 'flex',
           flexDirection: 'column',
           flexGrow: 1,
@@ -114,7 +114,7 @@ export const SingleProductPage = () => {
             />
           </Box>
         </Box>
-        <Box sx={{ width: { md: '45%', xs: '100%' } }}>
+        <Box sx={{ width: { md: '100%', xs: '100%' } }}>
           <Comments />
         </Box>
       </Container>
