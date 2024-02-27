@@ -57,7 +57,7 @@ export const AllProducts = () => {
         <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
           {allProducts &&
             allProducts.map((product) => (
-              <Slide direction="left" key={product.id} in={true} timeout={300}>
+              <Grow key={product.id} in={true} timeout={2000}>
                 <Grid
                   id="prod-wrap"
                   onClick={() => linkToProduct(product.id)}
@@ -73,7 +73,7 @@ export const AllProducts = () => {
                     <ShortAbout product={product} />
                   </Paper>
                 </Grid>
-              </Slide>
+              </Grow>
             ))}
         </Grid>
 

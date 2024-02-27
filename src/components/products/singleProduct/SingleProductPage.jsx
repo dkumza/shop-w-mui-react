@@ -8,6 +8,7 @@ import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
 import { useAuthContext } from '../../../context/autCtx';
 import { enqueueSnackbar } from 'notistack';
+import { Comments } from './Comments';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -66,6 +67,7 @@ export const SingleProductPage = () => {
         sx={{
           mt: 4,
           display: 'flex',
+          flexDirection: 'column',
           flexGrow: 1,
           gap: 2,
         }}
@@ -111,6 +113,9 @@ export const SingleProductPage = () => {
               deleted={deleted}
             />
           </Box>
+        </Box>
+        <Box sx={{ width: { md: '45%', xs: '100%' } }}>
+          <Comments />
         </Box>
       </Container>
     </>

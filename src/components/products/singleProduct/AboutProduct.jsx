@@ -31,7 +31,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
   };
 
   return (
-    <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={1000}>
+    <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={2000}>
       <Paper
         variant="outlined"
         sx={{
