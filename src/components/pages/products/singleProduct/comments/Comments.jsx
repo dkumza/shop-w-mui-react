@@ -41,8 +41,6 @@ export const Comments = () => {
     setCreateComm((prev) => !prev);
   };
 
-  if (!comments) return;
-
   return (
     <Box
       sx={{
@@ -55,7 +53,7 @@ export const Comments = () => {
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
-          Comments ({comments.length})
+          Comments ({comments ? comments.length : 0})
         </Typography>
         <Button onClick={handleShowComm}>Comment</Button>
       </Box>

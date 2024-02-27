@@ -38,7 +38,6 @@ export const CreateComm = ({ productID, handleComments, handleShowComm }) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         handleComments();
         handleShowComm();
         formik.resetForm();

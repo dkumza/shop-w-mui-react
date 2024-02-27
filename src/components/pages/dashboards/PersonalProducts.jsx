@@ -25,10 +25,14 @@ export const PersonalProducts = () => {
   const { userID } = useParams();
   const navigate = useNavigate();
 
+  // if user ID do not match with owner - return back
   useEffect(() => {
     if (uID !== userID) {
       navigate(-1);
     }
+  }, []);
+
+  useEffect(() => {
     const URL_P = `${PRODUCT_URL}/${userID}`;
     axios
       .get(URL_P, {

@@ -3,6 +3,7 @@ import { Box, IconButton, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useAuthContext } from '../../../../context/autCtx';
 import axios from 'axios';
+import { enqueueSnackbar } from 'notistack';
 
 const COMM_URL = 'http://localhost:3000/api/comments';
 
@@ -12,7 +13,6 @@ export const SingleComm = ({ comm, handleComments }) => {
   if (!comm) return;
 
   const axiosDelComm = (commID) => {
-    console.log('commID: ', commID);
     axios
       .delete(`${COMM_URL}/${commID}`, {
         headers: {
@@ -21,10 +21,9 @@ export const SingleComm = ({ comm, handleComments }) => {
         data: { userID },
       })
       .then((res) => {
-        console.log(res.data);
         handleComments();
-        // const msgAPI = res.data.msg;
-        // enqueueSnackbar(msgAPI, { variant: 'success' });
+        const msgAPI = res.data.msg;
+        enqueueSnackbar(msgAPI, { variant: 'success' });
       })
       .catch((error) => {
         console.log('error: ', error);
