@@ -50,7 +50,7 @@ export const SingleProductPage = () => {
         console.log('error ===', error);
         const errorA = error.response.data.msg;
         enqueueSnackbar(errorA, { variant: 'warning' });
-        logout();
+        // logout();
       });
   }, [productID]);
 

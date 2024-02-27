@@ -54,8 +54,6 @@ export const PersonalProducts = () => {
     navigate(`/product/${productID}`);
   };
 
-  productFromAPI && console.log(productFromAPI);
-
   return (
     <>
       <Box sx={{ width: '100%', position: 'absolute' }}>
@@ -68,7 +66,7 @@ export const PersonalProducts = () => {
             variant="h4"
             sx={{ marginBottom: 2, pl: 1, width: '100%' }}
           >
-            Your Items
+            My Items
           </Typography>
           <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
             {productFromAPI &&

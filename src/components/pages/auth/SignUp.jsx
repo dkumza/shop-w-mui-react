@@ -69,7 +69,7 @@ export default function SignUp() {
         // console.log(error);
         const valErrorAPI = error.response.data;
         formik.setErrors(valErrorAPI);
-        enqueueSnackbar(valErrorAPI.error, { variant: 'error' });
+        enqueueSnackbar(valErrorAPI.msg, { variant: 'error' });
       });
   };
 
