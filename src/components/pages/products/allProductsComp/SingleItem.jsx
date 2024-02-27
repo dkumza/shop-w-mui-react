@@ -1,10 +1,13 @@
 import { Close, StarBorder, StarRate } from '@mui/icons-material';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useMatch } from 'react-router-dom';
+
 const URL_FOR_IMG = 'http://localhost:3000';
 
 export const SingleItem = ({ product }) => {
   const [mainImg, setMainImg] = useState(null);
+  const match = useMatch('/personal/:id');
 
   useEffect(() => {
     // wait till images appears (async)
@@ -16,6 +19,23 @@ export const SingleItem = ({ product }) => {
 
   return (
     <Box sx={{ height: '300px' }}>
+      {match && (
+        <Box
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            bgcolor: product.isDeleted ? '#f43f5e' : 'primary.light',
+            color: 'white',
+            top: 0,
+            left: 0,
+            py: 0.3,
+          }}
+        >
+          {product.isDeleted ? 'Deleted' : 'Published'}
+        </Box>
+      )}
       <img
         src={`${URL_FOR_IMG}/${mainImg}`}
         alt=""
