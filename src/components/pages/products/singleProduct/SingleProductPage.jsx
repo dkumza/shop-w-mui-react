@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom';
 import { Gallery } from './Gallery';
 import { AboutProduct } from './AboutProduct';
 import { enqueueSnackbar } from 'notistack';
-import { Comments } from './Comments';
 import { useAuthContext } from '../../../context/autCtx';
+import { Comments } from './comments/Comments';
 const style = {
   position: 'absolute',
   top: '50%',
