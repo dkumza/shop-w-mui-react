@@ -13,8 +13,9 @@ import {
 import { useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
 import { useAuthContext } from '../../context/autCtx';
+import { useNavigate } from 'react-router-dom';
 
-const settings = ['Profile', 'Dashboard', 'My Items', 'Favorites', 'Logout'];
+const settings = ['My Items', 'Favorites', 'Logout'];
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -46,8 +47,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function UserMenu() {
-  const { logout, name } = useAuthContext();
+  const { logout, name, userID } = useAuthContext();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -57,6 +59,9 @@ function UserMenu() {
     if (item === 'Logout') {
       enqueueSnackbar('See you soon!', { variant: 'success' });
       logout();
+    }
+    if (item === 'My Items') {
+      navigate(`/personal/${userID}`);
     }
     handleCloseUserMenu();
   };

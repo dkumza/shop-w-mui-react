@@ -21,11 +21,14 @@ export const PersonalProducts = () => {
   const [productFromAPI, setProductFromAPI] = useState(null);
   const [spinner, setSpinner] = useState(true);
 
-  const { token, logout } = useAuthContext();
+  const { token, userID: uID, logout } = useAuthContext();
   const { userID } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (uID !== userID) {
+      navigate(-1);
+    }
     const URL_P = `${PRODUCT_URL}/${userID}`;
     axios
       .get(URL_P, {
@@ -58,37 +61,39 @@ export const PersonalProducts = () => {
       <Box sx={{ width: '100%', position: 'absolute' }}>
         {spinner && <LinearProgress />}
       </Box>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{ marginBottom: 2, pl: 1, width: '100%' }}
-        >
-          Your Products
-        </Typography>
-        <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
-          {productFromAPI &&
-            productFromAPI.map((product) => (
-              <Grow key={product.id} in={true} timeout={2000}>
-                <Grid
-                  id="prod-wrap"
-                  onClick={() => linkToProduct(product.id)}
-                  item
-                  xs={3}
-                  sx={{}}
-                >
-                  <Paper
-                    variant="outlined"
-                    sx={{ p: 0, height: 'auto', position: 'relative' }}
+      {uID === userID && (
+        <Container maxWidth="lg" sx={{ mt: 4 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ marginBottom: 2, pl: 1, width: '100%' }}
+          >
+            Your Items
+          </Typography>
+          <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
+            {productFromAPI &&
+              productFromAPI.map((product) => (
+                <Grow key={product.id} in={true} timeout={2000}>
+                  <Grid
+                    id="prod-wrap"
+                    onClick={() => linkToProduct(product.id)}
+                    item
+                    xs={3}
+                    sx={{}}
                   >
-                    <SingleItem product={product} />
-                    <ShortAbout product={product} />
-                  </Paper>
-                </Grid>
-              </Grow>
-            ))}
-        </Grid>
-      </Container>
+                    <Paper
+                      variant="outlined"
+                      sx={{ p: 0, height: 'auto', position: 'relative' }}
+                    >
+                      <SingleItem product={product} />
+                      <ShortAbout product={product} />
+                    </Paper>
+                  </Grid>
+                </Grow>
+              ))}
+          </Grid>
+        </Container>
+      )}
     </>
   );
 };
