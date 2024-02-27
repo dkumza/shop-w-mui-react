@@ -7,6 +7,7 @@ import { InsertProduct } from './components/pages/products/crud/InsertProduct';
 import NavBar from './components/layout/NavBar';
 import { AllProducts } from './components/pages/products/AllProducts';
 import { SingleProductPage } from './components/pages/products/singleProduct/SingleProductPage';
+import { PersonalProducts } from './components/pages/dashboards/PersonalProducts';
 
 export default function App() {
   const { isUserLoggedIn } = useAuthContext();
@@ -28,6 +29,10 @@ export default function App() {
         <Route
           path="/product/:productID"
           element={isUserLoggedIn ? <SingleProductPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/personal/:userID"
+          element={isUserLoggedIn ? <PersonalProducts /> : <Navigate to="/login" />}
         />
       </Routes>
     </>
