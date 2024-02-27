@@ -2,11 +2,34 @@ import { Delete } from '@mui/icons-material';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useAuthContext } from '../../../../context/autCtx';
+import axios from 'axios';
 
-export const SingleComm = ({ comm }) => {
-  const { userID } = useAuthContext();
+const COMM_URL = 'http://localhost:3000/api/comments';
+
+export const SingleComm = ({ comm, handleComments }) => {
+  const { userID, token } = useAuthContext();
 
   if (!comm) return;
+
+  const axiosDelComm = (commID) => {
+    console.log('commID: ', commID);
+    axios
+      .delete(`${COMM_URL}/${commID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { userID },
+      })
+      .then((res) => {
+        console.log(res.data);
+        handleComments();
+        // const msgAPI = res.data.msg;
+        // enqueueSnackbar(msgAPI, { variant: 'success' });
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+  };
 
   const date = new Date(comm.created).toLocaleString('lt', {
     dateStyle: 'short',
@@ -37,7 +60,7 @@ export const SingleComm = ({ comm }) => {
       >
         <Box>{comm.content}</Box>
         {allowDelete && (
-          <IconButton>
+          <IconButton onClick={() => axiosDelComm(comm.id)}>
             <Delete />
           </IconButton>
         )}

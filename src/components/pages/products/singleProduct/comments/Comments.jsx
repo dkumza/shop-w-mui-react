@@ -68,7 +68,10 @@ export const Comments = () => {
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 1 }}>
-          {comments && comments.map((comm) => <SingleComm key={comm.id} comm={comm} />)}
+          {comments &&
+            comments.map((comm) => (
+              <SingleComm key={comm.id} comm={comm} handleComments={handleComments} />
+            ))}
         </Box>
         {createComm && (
           <CreateComm
