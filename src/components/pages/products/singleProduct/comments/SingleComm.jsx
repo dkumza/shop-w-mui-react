@@ -1,12 +1,18 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+import { Box, IconButton, Paper, Typography } from '@mui/material';
 import React from 'react';
+import { useAuthContext } from '../../../../context/autCtx';
 
 export const SingleComm = ({ comm }) => {
+  const { userID } = useAuthContext();
+
   if (!comm) return;
 
   const date = new Date(comm.created).toLocaleString('lt', {
     dateStyle: 'short',
   });
+
+  const allowDelete = +userID === +comm.userID;
 
   return (
     <Paper
@@ -26,7 +32,16 @@ export const SingleComm = ({ comm }) => {
 
         <Box>{date}</Box>
       </Box>
-      <Box>{comm.content}</Box>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+      >
+        <Box>{comm.content}</Box>
+        {allowDelete && (
+          <IconButton>
+            <Delete />
+          </IconButton>
+        )}
+      </Box>
     </Paper>
   );
 };

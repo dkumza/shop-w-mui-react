@@ -1,6 +1,11 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useAuthContext } from '../../../../context/autCtx';
+import axios from 'axios';
+import { enqueueSnackbar } from 'notistack';
+
+const COMM_URL = 'http://localhost:3000/api/comments';
 
 const validationSchema = yup.object({
   content: yup
@@ -10,38 +15,40 @@ const validationSchema = yup.object({
     .required('Field is required'),
 });
 
-export const CreateComm = () => {
+export const CreateComm = ({ productID, handleComments, handleShowComm }) => {
+  const { token, userID } = useAuthContext();
+
   const formik = useFormik({
     initialValues: {
       content: '',
-      // user_id: userID,
-      // title: '',
-      // cat_id: 0,
-      // sub_id: 0,
-      // description: '',
-      // price: '',
-      // city: 0,
-      // img_urls: [],
+      userID,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      // // create FormData constructor
-      // const formData = new FormData();
-      // // Append form input values to formData
-      // Object.keys(values).forEach((key) => {
-      //   if (key !== 'img_urls') {
-      //     formData.append(key, values[key]);
-      //   }
-      // });
-      // // Append images as img_urls to formData
-      // values.img_urls.forEach((image, index) => {
-      //   formData.append('image', image);
-      // });
-
-      // axiosNewProduct(formData);
+      axiosNewComm(values);
     },
   });
+
+  const axiosNewComm = (data) => {
+    axios
+      .post(`${COMM_URL}/${productID}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        handleComments();
+        handleShowComm();
+        formik.resetForm();
+        const msgAPI = res.data.msg;
+        enqueueSnackbar(msgAPI, { variant: 'success' });
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+  };
 
   return (
     <Paper
@@ -69,16 +76,16 @@ export const CreateComm = () => {
             <TextField
               margin="dense"
               fullWidth
-              id="title"
+              id="content"
               label="Enter comment here"
-              name="title"
+              name="content"
               multiline
               rows={4}
-              value={formik.values.title}
+              value={formik.values.content}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
+              error={formik.touched.content && Boolean(formik.errors.content)}
+              helperText={formik.touched.content && formik.errors.content}
             />
 
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>

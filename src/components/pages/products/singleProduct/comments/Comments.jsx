@@ -15,8 +15,9 @@ export const Comments = () => {
   const { productID } = useParams();
   const { token } = useAuthContext();
 
-  useEffect(() => {
-    const URL_P = `${COMM_URL}/${productID}`;
+  const URL_P = `${COMM_URL}/${productID}`;
+
+  const handleComments = () => {
     axios
       .get(URL_P, {
         headers: {
@@ -26,15 +27,14 @@ export const Comments = () => {
       .then((response) => {
         const comments = response.data;
         setComments(comments);
-        // setSpinner(false);
       })
       .catch((error) => {
-        // setSpinner(false);
         console.log('error ===', error);
-        // const errorA = error.response.data.msg;
-        // enqueueSnackbar(errorA, { variant: 'warning' });
-        // logout();
       });
+  };
+
+  useEffect(() => {
+    handleComments();
   }, [productID]);
 
   const handleShowComm = () => {
@@ -67,8 +67,16 @@ export const Comments = () => {
           flexDirection: { xs: 'column-reverse', md: 'row' },
         }}
       >
-        {comments && comments.map((comm) => <SingleComm key={comm.id} comm={comm} />)}
-        {createComm && <CreateComm />}
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 1 }}>
+          {comments && comments.map((comm) => <SingleComm key={comm.id} comm={comm} />)}
+        </Box>
+        {createComm && (
+          <CreateComm
+            handleComments={handleComments}
+            productID={productID}
+            handleShowComm={handleShowComm}
+          />
+        )}
       </Box>
     </Box>
   );
