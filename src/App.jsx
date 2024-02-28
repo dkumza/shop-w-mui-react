@@ -1,6 +1,6 @@
 import SignIn from './components/pages/auth/SignIn';
 import SignUp from './components/pages/auth/SignUp';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom';
 import './App.css';
 import { useAuthContext } from './components/context/autCtx';
 import { InsertProduct } from './components/pages/products/crud/InsertProduct';
@@ -12,10 +12,11 @@ import { AdminPanel } from './components/pages/dashboards/adminPanel/AdminPanel'
 
 export default function App() {
   const { isUserLoggedIn, userID } = useAuthContext();
+  const match = useMatch('/dashboard');
 
   return (
     <>
-      {isUserLoggedIn && <NavBar />}
+      {isUserLoggedIn && !match && <NavBar />}
       <Routes>
         <Route
           path="/"
@@ -37,7 +38,7 @@ export default function App() {
         />
         {/* admin routes */}
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={isUserLoggedIn && +userID === 1 ? <AdminPanel /> : <Navigate to="/" />}
         />
       </Routes>

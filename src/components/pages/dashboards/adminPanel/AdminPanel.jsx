@@ -1,12 +1,16 @@
-import { Container } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from 'react';
+import { AdminNavMain } from './components/AdminNavBar/AdminNavMain';
 
 export const AdminPanel = () => {
   return (
     <>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <p>Admin board</p>
-      </Container>
+      <AdminNavMain />
+      <Routes>
+        {/* <Route path="home" element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+      <Route path="settings" element={<Settings />} /> */}
+      </Routes>
     </>
   );
 };
