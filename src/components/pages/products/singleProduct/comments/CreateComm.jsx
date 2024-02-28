@@ -41,7 +41,6 @@ export const CreateComm = ({ productID, handleComments, handleShowComm, createCo
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
       axiosNewComm(values);
     },
   });
