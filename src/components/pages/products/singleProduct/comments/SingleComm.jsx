@@ -37,10 +37,7 @@ export const SingleComm = ({ comm, handleComments }) => {
   const allowDelete = +userID === +comm.userID;
 
   return (
-    <Paper
-      variant="outlined"
-      sx={{ p: 2, width: { md: '54.8%', sx: '100%' }, height: '100%' }}
-    >
+    <Paper variant="outlined" sx={{ p: 2, width: '100%', height: '100%' }}>
       <Box
         sx={{
           display: 'flex',

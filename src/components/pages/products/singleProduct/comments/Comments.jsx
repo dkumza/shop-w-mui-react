@@ -45,7 +45,7 @@ export const Comments = () => {
     <Box
       sx={{
         p: 0,
-        width: 'auto',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -59,25 +59,35 @@ export const Comments = () => {
       </Box>
       <Box
         sx={{
+          justifyContent: 'center',
           display: 'flex',
           flex: 1,
           gap: 1,
           flexDirection: { xs: 'column-reverse', md: 'row' },
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 1 }}>
+        <Box
+          maxWidth="md"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            gap: 1,
+          }}
+        >
           {comments &&
             comments.map((comm) => (
               <SingleComm key={comm.id} comm={comm} handleComments={handleComments} />
             ))}
         </Box>
-        {createComm && (
+        {
           <CreateComm
+            createComm={createComm}
             handleComments={handleComments}
             productID={productID}
             handleShowComm={handleShowComm}
           />
-        )}
+        }
       </Box>
     </Box>
   );

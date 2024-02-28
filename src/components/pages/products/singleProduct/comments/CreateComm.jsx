@@ -1,9 +1,23 @@
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Fade, Modal, Paper, TextField, Typography } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAuthContext } from '../../../../context/autCtx';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import { useState } from 'react';
+import { Close } from '@mui/icons-material';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 12,
+  p: 3,
+};
 
 const COMM_URL = 'http://localhost:3000/api/comments';
 
@@ -15,7 +29,7 @@ const validationSchema = yup.object({
     .required('Field is required'),
 });
 
-export const CreateComm = ({ productID, handleComments, handleShowComm }) => {
+export const CreateComm = ({ productID, handleComments, handleShowComm, createComm }) => {
   const { token, userID } = useAuthContext();
 
   const formik = useFormik({
@@ -50,49 +64,60 @@ export const CreateComm = ({ productID, handleComments, handleShowComm }) => {
   };
 
   return (
-    <Paper
-      variant="outlined"
-      sx={{
-        p: 2,
-        width: { md: '44.5%', sx: '100%' },
-        position: { xs: 'relative', md: 'absolute' },
-        right: 0,
-        top: 0,
-        mt: { xs: 0, md: 5 },
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={createComm}
+      onClose={handleShowComm}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
-          Create new comment
-        </Typography>
-        <Box sx={{ width: '100%' }}>
-          <form className="f-control" onSubmit={formik.handleSubmit}>
-            <TextField
-              margin="dense"
-              fullWidth
-              id="content"
-              label="Enter comment here"
-              name="content"
-              multiline
-              rows={4}
-              value={formik.values.content}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.content && Boolean(formik.errors.content)}
-              helperText={formik.touched.content && formik.errors.content}
-            />
+      <Fade in={createComm}>
+        <Paper variant="outlined" sx={style}>
+          <Close
+            className="exit-icon"
+            onClick={handleShowComm}
+            sx={{ position: 'absolute', right: '5%', top: '6%' }}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
+              Create new comment
+            </Typography>
+            <Box sx={{ width: '100%' }}>
+              <form className="f-control" onSubmit={formik.handleSubmit}>
+                <TextField
+                  margin="dense"
+                  fullWidth
+                  id="content"
+                  label="Enter comment here"
+                  name="content"
+                  multiline
+                  rows={4}
+                  value={formik.values.content}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.content && Boolean(formik.errors.content)}
+                  helperText={formik.touched.content && formik.errors.content}
+                />
 
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
-              Publish
-            </Button>
-          </form>
-        </Box>
-      </Box>
-    </Paper>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
+                  Publish
+                </Button>
+              </form>
+            </Box>
+          </Box>
+        </Paper>
+      </Fade>
+    </Modal>
   );
 };

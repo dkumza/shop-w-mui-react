@@ -114,7 +114,15 @@ export const SingleProductPage = () => {
             />
           </Box>
         </Box>
-        <Box sx={{ width: { md: '100%', xs: '100%' } }}>
+        <Box
+          sx={{
+            width: { md: '100%', xs: '100%' },
+            // border: 1,
+            justifyContent: 'center',
+            display: 'flex',
+            flexGrow: 1,
+          }}
+        >
           <Comments />
         </Box>
       </Container>
