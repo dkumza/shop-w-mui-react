@@ -1,11 +1,10 @@
-import { Box, Button, Fade, Modal, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Fade, Modal, TextField, Typography } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAuthContext } from '../../../../context/autCtx';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
-import { useState } from 'react';
 import { Close } from '@mui/icons-material';
 
 const style = {
@@ -17,6 +16,9 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 12,
   p: 3,
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: 1,
 };
 
 const COMM_URL = 'http://localhost:3000/api/comments';
@@ -68,7 +70,10 @@ export const CreateComm = ({ productID, handleComments, handleShowComm, createCo
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={createComm}
-      onClose={handleShowComm}
+      onClose={() => {
+        handleShowComm();
+        formik.resetForm();
+      }}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{
@@ -78,45 +83,41 @@ export const CreateComm = ({ productID, handleComments, handleShowComm, createCo
       }}
     >
       <Fade in={createComm}>
-        <Paper variant="outlined" sx={style}>
+        <Box sx={style}>
           <Close
             className="exit-icon"
-            onClick={handleShowComm}
-            sx={{ position: 'absolute', right: '5%', top: '6%' }}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
+            onClick={() => {
+              handleShowComm();
+              formik.resetForm();
             }}
-          >
-            <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
-              Create new comment
-            </Typography>
-            <Box sx={{ width: '100%' }}>
-              <form className="f-control" onSubmit={formik.handleSubmit}>
-                <TextField
-                  margin="dense"
-                  fullWidth
-                  id="content"
-                  label="Enter comment here"
-                  name="content"
-                  multiline
-                  rows={4}
-                  value={formik.values.content}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.content && Boolean(formik.errors.content)}
-                  helperText={formik.touched.content && formik.errors.content}
-                />
+            sx={{ position: 'absolute', right: '4%', top: '5%' }}
+          />
+          <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
+            Create new comment
+          </Typography>
+          <Box sx={{ width: '100%' }}>
+            <form className="f-control" onSubmit={formik.handleSubmit}>
+              <TextField
+                margin="dense"
+                fullWidth
+                id="content"
+                label="Enter comment here"
+                name="content"
+                multiline
+                rows={4}
+                value={formik.values.content}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.content && Boolean(formik.errors.content)}
+                helperText={formik.touched.content && formik.errors.content}
+              />
 
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
-                  Publish
-                </Button>
-              </form>
-            </Box>
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
+                Publish
+              </Button>
+            </form>
           </Box>
-        </Paper>
+        </Box>
       </Fade>
     </Modal>
   );

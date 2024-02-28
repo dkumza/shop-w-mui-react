@@ -1,14 +1,16 @@
 import { Delete } from '@mui/icons-material';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthContext } from '../../../../context/autCtx';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import { DelCommModal } from './DelCommModal';
 
 const COMM_URL = 'http://localhost:3000/api/comments';
 
 export const SingleComm = ({ comm, handleComments }) => {
   const { userID, token } = useAuthContext();
+  const [delComm, setDelComm] = useState(false);
 
   if (!comm) return;
 
@@ -36,6 +38,10 @@ export const SingleComm = ({ comm, handleComments }) => {
 
   const allowDelete = +userID === +comm.userID;
 
+  const handleShowDellModal = () => {
+    setDelComm((prev) => !prev);
+  };
+
   return (
     <Paper variant="outlined" sx={{ p: 2, width: '100%', height: '100%' }}>
       <Box
@@ -45,6 +51,12 @@ export const SingleComm = ({ comm, handleComments }) => {
           alignItems: 'center',
         }}
       >
+        <DelCommModal
+          delComm={delComm}
+          handleShowDellModal={handleShowDellModal}
+          axiosDelComm={axiosDelComm}
+          commID={comm.id}
+        />
         <Typography align="left" component="h1" variant="h5" sx={{ mb: 1 }}>
           {comm.userName}
         </Typography>
@@ -56,7 +68,7 @@ export const SingleComm = ({ comm, handleComments }) => {
       >
         <Box>{comm.content}</Box>
         {allowDelete && (
-          <IconButton onClick={() => axiosDelComm(comm.id)}>
+          <IconButton onClick={handleShowDellModal}>
             <Delete />
           </IconButton>
         )}

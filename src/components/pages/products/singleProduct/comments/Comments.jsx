@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -62,12 +62,10 @@ export const Comments = () => {
           justifyContent: 'center',
           display: 'flex',
           flex: 1,
-          gap: 1,
           flexDirection: { xs: 'column-reverse', md: 'row' },
         }}
       >
         <Box
-          maxWidth="md"
           sx={{
             display: 'flex',
             flexDirection: 'column',

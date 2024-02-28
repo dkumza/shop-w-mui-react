@@ -1,5 +1,5 @@
 import { Close } from '@mui/icons-material';
-import { Box, Container, LinearProgress, Modal, Typography } from '@mui/material';
+import { Box, Container, LinearProgress, Modal, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -114,17 +114,21 @@ export const SingleProductPage = () => {
             />
           </Box>
         </Box>
-        <Box
-          sx={{
-            width: { md: '100%', xs: '100%' },
-            // border: 1,
-            justifyContent: 'center',
-            display: 'flex',
-            flexGrow: 1,
-          }}
-        >
-          <Comments />
-        </Box>
+        {!deleted && (
+          <Paper
+            variant="outlined"
+            sx={{
+              width: { md: '100%', xs: '100%' },
+              // border: 1,
+              justifyContent: 'center',
+              display: 'flex',
+              flexGrow: 1,
+              p: 2,
+            }}
+          >
+            <Comments />
+          </Paper>
+        )}
       </Container>
     </>
   );
