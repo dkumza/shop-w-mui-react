@@ -8,9 +8,10 @@ import NavBar from './components/layout/NavBar';
 import { AllProducts } from './components/pages/products/AllProducts';
 import { SingleProductPage } from './components/pages/products/singleProduct/SingleProductPage';
 import { PersonalProducts } from './components/pages/dashboards/PersonalProducts';
+import { AdminPanel } from './components/pages/dashboards/adminPanel/AdminPanel';
 
 export default function App() {
-  const { isUserLoggedIn } = useAuthContext();
+  const { isUserLoggedIn, userID } = useAuthContext();
 
   return (
     <>
@@ -33,6 +34,11 @@ export default function App() {
         <Route
           path="/personal/:userID"
           element={isUserLoggedIn ? <PersonalProducts /> : <Navigate to="/login" />}
+        />
+        {/* admin routes */}
+        <Route
+          path="/dashboard"
+          element={isUserLoggedIn && +userID === 1 ? <AdminPanel /> : <Navigate to="/" />}
         />
       </Routes>
     </>

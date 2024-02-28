@@ -11,10 +11,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import theme from '../../../theme';
 import { useNavigate } from 'react-router-dom';
-
-const pages = ['Home', 'Favorites', 'Sell'];
+import { useAuthContext } from '../../context/autCtx';
 
 export default function NavMenu() {
+  const { userID } = useAuthContext();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
 
@@ -33,8 +33,21 @@ export default function NavMenu() {
     if (page === 'Home') {
       navigate('/');
     }
+    if (page === 'My Items') {
+      navigate(`/personal/${userID}`);
+    }
+    if (page === 'Dashboard' && +userID === 1) {
+      navigate(`/dashboard`);
+    }
     handleCloseNavMenu();
   };
+
+  // declare pages in nav bar by user ID
+  let pages;
+  +userID === 1
+    ? (pages = ['Home', 'Dashboard'])
+    : (pages = ['Home', 'Favorites', 'My Items', 'Sell']);
+
   return (
     <>
       {/* HAMBURGER MENU VISIBLE ON SMALL SCREEN */}

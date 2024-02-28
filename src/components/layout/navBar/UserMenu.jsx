@@ -3,6 +3,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -98,6 +99,15 @@ function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
+        <Box sx={{ width: '168px', pl: 2, py: 1 }}>
+          <Typography variant="h6" textAlign="left" fontSize={16}>
+            ACCOUNT
+          </Typography>
+          <Typography textAlign="left" color={'gray'}>
+            {name}
+          </Typography>
+        </Box>
+        <Divider />
         {settings.map((setting) => (
           <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
             <Typography textAlign="center">{setting}</Typography>

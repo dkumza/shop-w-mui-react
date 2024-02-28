@@ -3,6 +3,7 @@ import { Box, Button, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { EditProduct } from '../crud/editProduct/EditProduct';
+import { FavoriteIcon } from './FavoriteIcon';
 
 export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) => {
   const [phone, setPhone] = useState('Contact Seller');
@@ -54,32 +55,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
             mb: 1,
           }}
         >
-          {!star && (
-            <StarBorder
-              onClick={addFavorite}
-              fontSize="large"
-              className="exit-icon"
-              sx={{
-                position: 'absolute',
-                right: '0',
-                top: '0',
-                color: 'primary.light',
-              }}
-            />
-          )}
-          {star && (
-            <StarRate
-              onClick={addFavorite}
-              fontSize="large"
-              className="exit-icon"
-              sx={{
-                position: 'absolute',
-                right: '0',
-                top: '0',
-                color: 'primary.main',
-              }}
-            />
-          )}
+          <FavoriteIcon addFavorite={addFavorite} star={star} />
           {open && (
             <EditProduct
               setProductFromAPI={setProductFromAPI}
@@ -167,7 +143,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
           >
             {!deleted ? `${product.price} €` : 'DELETED'}
           </Typography>
-          {+userID !== product.user_id && !deleted && (
+          {+userID !== product.user_id && +userID !== 1 && !deleted && (
             <Button
               type="submit"
               fullWidth
@@ -184,7 +160,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
               {phone}
             </Button>
           )}
-          {+userID === product.user_id && (
+          {(+userID === product.user_id || +userID === 1) && (
             <Button
               // type="submit"
               fullWidth
