@@ -6,24 +6,24 @@ import PersonIcon from '@mui/icons-material/Person';
 export const items = [
   {
     title: 'Overview',
-    path: '/',
+    path: 'overview',
     icon: <BarChartIcon />,
   },
   {
     title: 'Customers',
-    path: '/customers',
+    path: 'customers',
     icon: <PeopleAltIcon />,
   },
   {
     title: 'Products',
-    path: '/products',
+    path: 'products',
     icon: <ShoppingCartIcon />,
   },
-  {
-    title: 'Account',
-    path: '/account',
-    icon: <PersonIcon />,
-  },
+  // {
+  //   title: 'Account',
+  //   path: '/account',
+  //   icon: <PersonIcon />,
+  // },
   // {
   //   title: 'Settings',
   //   path: '/settings',

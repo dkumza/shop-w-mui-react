@@ -12,8 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
-import { SingleItem } from '../products/allProductsComp/SingleItem';
-import { ShortAbout } from '../products/allProductsComp/ShortAbout';
+import { SingleItem } from './allProductsComp/SingleItem';
+import { ShortAbout } from './allProductsComp/ShortAbout';
 
 const PRODUCT_URL = 'http://localhost:3000/api/personal';
 

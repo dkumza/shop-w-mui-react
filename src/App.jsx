@@ -7,12 +7,12 @@ import { InsertProduct } from './components/pages/products/crud/InsertProduct';
 import NavBar from './components/layout/NavBar';
 import { AllProducts } from './components/pages/products/AllProducts';
 import { SingleProductPage } from './components/pages/products/singleProduct/SingleProductPage';
-import { PersonalProducts } from './components/pages/dashboards/PersonalProducts';
-import { AdminPanel } from './components/pages/dashboards/adminPanel/AdminPanel';
+import { AdminPanel } from './components/pages/dashboards/AdminPanel';
+import { PersonalProducts } from './components/pages/products/PersonalProducts';
 
 export default function App() {
   const { isUserLoggedIn, userID } = useAuthContext();
-  const match = useMatch('/dashboard');
+  const match = useMatch('/dashboard/*');
 
   return (
     <>

@@ -1,5 +1,4 @@
 import {
-  AppBar,
   Box,
   Drawer,
   List,
@@ -8,10 +7,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/Inbox';
-import MailIcon from '@mui/icons-material/Mail';
-import React from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { items } from './config';
+import { SingleLink } from './SingleLink';
 
 const pages = ['Inbox', 'Starred', 'Send email', 'Drafts'];
 
@@ -25,17 +24,13 @@ export const AdminNavMain = () => {
           bgcolor: 'primary.main',
           color: 'white',
           py: 4,
-          px: 0,
+          px: 2,
+          position: 'static',
         }}
       >
         <List sx={{ p: 0 }}>
           {items.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ padding: 0 }}>
-              <ListItemButton>
-                <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.title} />
-              </ListItemButton>
-            </ListItem>
+            <SingleLink key={index} item={item} />
           ))}
         </List>
       </Box>
