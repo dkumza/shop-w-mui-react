@@ -23,7 +23,7 @@ function NavBar() {
         >
           <Toolbar sx={{ display: 'flex', flexGrow: 1 }} disableGutters>
             <UserMenu />
-            <Logo />
+            <Logo linkTo="/" />
             <SearchInput />
             <NavMenu />
           </Toolbar>
@@ -39,7 +39,7 @@ function NavBar() {
           }}
         >
           <Toolbar>
-            <Logo />
+            <Logo linkTo="/" />
             <SearchInput />
             <NavMenu />
             <UserMenu />

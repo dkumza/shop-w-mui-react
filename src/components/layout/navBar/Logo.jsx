@@ -2,9 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-export const Logo = () => {
-  const navigate = useNavigate();
-
+export const Logo = ({ linkTo }) => {
   return (
     <Box
       sx={{
@@ -14,7 +12,7 @@ export const Logo = () => {
     >
       <Typography
         component={RouterLink}
-        to="/"
+        to={linkTo}
         variant="h3"
         noWrap
         sx={{

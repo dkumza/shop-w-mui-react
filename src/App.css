@@ -26,3 +26,16 @@ input[type=number]::-webkit-outer-spin-button {
 #prod-wrap:hover {
   cursor: pointer;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.AdminNavMain {
+  width: 20%; /* adjust as needed */
+}
+
+.TopMenu {
+  width: 80%; /* adjust as needed */
+}
