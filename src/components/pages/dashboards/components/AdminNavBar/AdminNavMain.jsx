@@ -10,6 +10,7 @@ export const AdminNavMain = ({ drawerWidth }) => {
   return (
     <Drawer
       sx={{
+        display: { xs: 'none', md: 'block' },
         width: drawerWidth,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
@@ -31,7 +32,6 @@ export const AdminNavMain = ({ drawerWidth }) => {
       >
         <Box sx={{ px: 2, mb: 3 }}>
           <Logo linkTo="overview" />
-          {/* <ShowName /> */}
         </Box>
         <Divider />
         <Box sx={{ px: 2 }}>
