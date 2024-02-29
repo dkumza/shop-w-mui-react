@@ -27,15 +27,3 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-}
-
-.AdminNavMain {
-  width: 20%; /* adjust as needed */
-}
-
-.TopMenu {
-  width: 80%; /* adjust as needed */
-}

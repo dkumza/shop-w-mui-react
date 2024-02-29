@@ -3,15 +3,10 @@ import { Box, Divider, Drawer, List } from '@mui/material';
 import { items } from './config';
 import { SingleLink } from './SingleLink';
 import { Logo } from '../../../../layout/navBar/Logo';
-import { useAuthContext } from '../../../../context/autCtx';
-import { ShowName } from './ShowName';
 
 const pages = ['Inbox', 'Starred', 'Send email', 'Drafts'];
-const drawerWidth = 280;
 
-export const AdminNavMain = () => {
-  console.log(name);
-
+export const AdminNavMain = ({ drawerWidth }) => {
   return (
     <Drawer
       sx={{
@@ -20,6 +15,7 @@ export const AdminNavMain = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          borderColor: 'primary.main',
         },
       }}
       variant="permanent"

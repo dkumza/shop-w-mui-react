@@ -45,7 +45,7 @@ export default function NavMenu() {
   // declare pages in nav bar by user ID
   let pages;
   +userID === 1
-    ? (pages = ['Home', 'Dashboard'])
+    ? (pages = ['Dashboard'])
     : (pages = ['Home', 'Favorites', 'My Items', 'Sell']);
 
   return (

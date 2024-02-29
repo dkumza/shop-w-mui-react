@@ -14,7 +14,9 @@ import {
 import { useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
 import { useAuthContext } from '../../context/autCtx';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+const settings = ['My Items', 'Favorites', 'Logout'];
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -45,20 +47,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-let settings;
-
 function UserMenu() {
   const { logout, name, userID } = useAuthContext();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const currentLoc = location.pathname;
-  const activePath = currentLoc.includes('dashboard');
-
-  activePath
-    ? (settings = ['Shop', 'Logout'])
-    : (settings = ['My Items', 'Favorites', 'Logout']);
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -71,9 +63,6 @@ function UserMenu() {
     }
     if (item === 'My Items') {
       navigate(`/personal/${userID}`);
-    }
-    if (item === 'Shop') {
-      navigate(`/`);
     }
     handleCloseUserMenu();
   };
