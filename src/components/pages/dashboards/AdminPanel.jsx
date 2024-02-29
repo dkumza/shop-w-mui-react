@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React from 'react';
 import { AdminNavMain } from './components/AdminNavBar/AdminNavMain';
-import { OverView } from './components/pages/overview/OverView';
-import { Customers } from './components/pages/customers/Customers';
-import { Products } from './components/pages/products/Products';
+import { OverView } from './pages/overview/OverView';
+import { Customers } from './pages/customers/Customers';
+import { Products } from './pages/products/Products';
 
 export const AdminPanel = () => {
   return (

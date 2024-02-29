@@ -37,7 +37,7 @@ export default function NavMenu() {
       navigate(`/personal/${userID}`);
     }
     if (page === 'Dashboard' && +userID === 1) {
-      navigate(`/dashboard`);
+      navigate(`/dashboard/overview`);
     }
     handleCloseNavMenu();
   };
