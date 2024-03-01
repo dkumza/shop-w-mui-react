@@ -5,7 +5,10 @@ export const OverViewAll = ({ data, icon, bg }) => {
   return (
     <>
       <Grid item xs={3} sx={{ display: { xs: 'none', md: 'block' } }}>
-        <Paper variant="outlined" sx={{ height: '180px', p: 2 }}>
+        <Paper
+          variant="outlined"
+          sx={{ height: '180px', p: 2, backgroundColor: 'white', borderColor: '#f5f5f5' }}
+        >
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography sx={{ border: 0 }}>{data}</Typography>
             <Box

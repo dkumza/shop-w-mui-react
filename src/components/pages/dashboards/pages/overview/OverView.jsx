@@ -12,8 +12,10 @@ export const OverView = ({ drawerWidth }) => {
       sx={{
         width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
         ml: { md: `${drawerWidth}px` },
-        mt: 10,
-        p: 0,
+        pt: 10,
+        // p: 0,
+        backgroundColor: '#fafafa',
+        height: '100vh',
       }}
     >
       <Container maxWidth="xl">

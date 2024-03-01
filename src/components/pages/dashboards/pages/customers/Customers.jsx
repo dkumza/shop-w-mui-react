@@ -1,24 +1,28 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import React from 'react';
 
 export const Customers = ({ drawerWidth }) => {
   return (
     <Box
       sx={{
-        width: `calc(100% - ${drawerWidth}px)`,
-        ml: `${drawerWidth}px`,
-        mt: 8,
-        p: 4,
+        width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
+        ml: { md: `${drawerWidth}px` },
+        pt: 10,
+        // p: 0,
+        backgroundColor: '#fafafa',
+        height: '100vh',
       }}
     >
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor ratione at itaque
-      iusto quasi omnis modi distinctio veritatis eveniet. Porro dolor architecto iure quo
-      minima, labore ipsam rem quisquam qui! Lorem ipsum dolor, sit amet consectetur
-      adipisicing elit. Dolor ratione at itaque iusto quasi omnis modi distinctio
-      veritatis eveniet. Porro dolor architecto iure quo minima, labore ipsam rem quisquam
-      qui! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor ratione at
-      itaque iusto quasi omnis modi distinctio veritatis eveniet. Porro dolor architecto
-      iure quo minima, labore ipsam rem quisquam qui!
+      <Container maxWidth="xl">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor ratione at itaque
+        iusto quasi omnis modi distinctio veritatis eveniet. Porro dolor architecto iure
+        quo minima, labore ipsam rem quisquam qui! Lorem ipsum dolor, sit amet consectetur
+        adipisicing elit. Dolor ratione at itaque iusto quasi omnis modi distinctio
+        veritatis eveniet. Porro dolor architecto iure quo minima, labore ipsam rem
+        quisquam qui! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
+        ratione at itaque iusto quasi omnis modi distinctio veritatis eveniet. Porro dolor
+        architecto iure quo minima, labore ipsam rem quisquam qui!
+      </Container>
     </Box>
   );
 };
