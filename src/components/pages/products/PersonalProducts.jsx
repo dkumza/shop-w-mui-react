@@ -95,6 +95,27 @@ export const PersonalProducts = () => {
                 </Grow>
               ))}
           </Grid>
+          {/* small screen */}
+          <Box sx={{ display: { md: 'none', xs: 'flex' }, flexDirection: 'column' }}>
+            {productFromAPI &&
+              productFromAPI.map((product) => (
+                // <Grow key={product.id} in={true} timeout={2000}>
+                <Box
+                  id="prod-wrap"
+                  onClick={() => linkToProduct(product.id)}
+                  key={product.id}
+                >
+                  <Paper
+                    variant="outlined"
+                    sx={{ mb: 2, height: 'auto', position: 'relative' }}
+                  >
+                    <SingleItem product={product} />
+                    <ShortAbout product={product} />
+                  </Paper>
+                </Box>
+                // </Grow>
+              ))}
+          </Box>
         </Container>
       )}
     </>

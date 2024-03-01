@@ -25,7 +25,6 @@ export const AllProducts = () => {
       })
       .then((res) => {
         setAllProducts(res.data);
-        console.log('res.data: ', res.data);
         setSpinner(false);
       })
       .catch((error) => {
@@ -74,6 +73,7 @@ export const AllProducts = () => {
             allProducts.map((product) => (
               <Box key={product.id} sx={{ mb: 2 }}>
                 <Paper
+                  onClick={() => linkToProduct(product.id)}
                   variant="outlined"
                   sx={{ p: 0, height: 'auto', position: 'relative' }}
                 >
