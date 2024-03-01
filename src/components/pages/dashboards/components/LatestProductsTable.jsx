@@ -15,16 +15,18 @@ function createData(id, title, catID, custID, date, status) {
 export default function LatestProductsTable({ api }) {
   console.log('api: ', api);
 
-  const newRows = api.map((row) =>
-    createData(
-      row.id,
-      row.title,
-      row.cat_id,
-      row.user_id,
-      new Date(row.updated).toLocaleString('lt-LT'),
-      row.isDeleted,
-    ),
-  );
+  const newRows = api
+    .slice(0, 10)
+    .map((row) =>
+      createData(
+        row.id,
+        row.title,
+        row.cat_id,
+        row.user_id,
+        new Date(row.updated).toLocaleString('lt-LT'),
+        row.isDeleted,
+      ),
+    );
 
   return (
     <TableContainer component={Paper} variant="outlined" sx={{ borderColor: '#f5f5f5' }}>
