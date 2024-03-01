@@ -5,6 +5,8 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import { LatestUsers } from '../../components/LatestUsers';
+import { LatestProducts } from '../../components/LatestProducts';
 
 export const OverView = ({ drawerWidth }) => {
   return (
@@ -25,12 +27,12 @@ export const OverView = ({ drawerWidth }) => {
           sx={{ flexDirection: { xs: 'column', md: 'row' } }}
         >
           <OverViewAll
-            data={'Customers'}
+            data={'Total Customers'}
             icon={<PermIdentityIcon sx={{ color: 'white' }} />}
             bg={'#dd583f'}
           />
           <OverViewAll
-            data={'Products'}
+            data={'Total Products'}
             icon={<ShoppingCartCheckoutIcon sx={{ color: 'white' }} />}
             bg={'#57b584'}
           />
@@ -44,6 +46,10 @@ export const OverView = ({ drawerWidth }) => {
             icon={<MonetizationOnIcon sx={{ color: 'white' }} />}
             bg={'#6467ec'}
           />
+        </Grid>
+        <Grid container sx={{ mt: 2 }} spacing={2}>
+          <LatestUsers />
+          <LatestProducts />
         </Grid>
       </Container>
     </Box>
