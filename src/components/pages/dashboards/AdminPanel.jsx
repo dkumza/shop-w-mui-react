@@ -6,14 +6,26 @@ import { Customers } from './pages/customers/Customers';
 import { Products } from './pages/products/Products';
 import { TopMenu } from './components/AdminNavBar/TopMenu';
 import { Box } from '@mui/material';
+import { useState } from 'react';
 
 const drawerWidth = 280;
 
 export const AdminPanel = () => {
+  const [drawer, setDrawer] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawer((prev) => !prev);
+    console.log('clicked');
+  };
+
   return (
     <>
-      <AdminNavMain drawerWidth={drawerWidth} />
-      <TopMenu drawerWidth={drawerWidth} />
+      <AdminNavMain
+        drawerWidth={drawerWidth}
+        drawer={drawer}
+        toggleDrawer={toggleDrawer}
+      />
+      <TopMenu drawerWidth={drawerWidth} toggleDrawer={toggleDrawer} />
       <Routes>
         <Route path="overview" element={<OverView drawerWidth={drawerWidth} />} />
         <Route path="customers" element={<Customers drawerWidth={drawerWidth} />} />

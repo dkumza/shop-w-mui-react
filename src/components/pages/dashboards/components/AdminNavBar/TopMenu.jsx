@@ -1,13 +1,16 @@
-import { AppBar, Box, useTheme } from '@mui/material';
+import { AppBar, Box, Button, Drawer, IconButton, useTheme } from '@mui/material';
 import UserMenu from '../../../../layout/navBar/UserMenu';
+import MenuIcon from '@mui/icons-material/Menu';
 
-export const TopMenu = ({ drawerWidth }) => {
+import { useState } from 'react';
+
+export const TopMenu = ({ drawerWidth, toggleDrawer }) => {
   return (
     <>
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - ${drawerWidth}px)`,
+          width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
           ml: `${drawerWidth}px`,
           backgroundColor: 'white',
           boxShadow: '0',
@@ -19,11 +22,22 @@ export const TopMenu = ({ drawerWidth }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            px: 4,
+            px: { md: 4, xs: 2 },
             py: 1,
           }}
         >
-          <Box>left</Box>
+          <Box>
+            <IconButton
+              sx={{ display: { md: 'none', xs: 'block' } }}
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={toggleDrawer}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
           <UserMenu />
         </Box>
       </AppBar>
