@@ -25,12 +25,13 @@ export const PersonalProducts = () => {
   const { userID } = useParams();
   const navigate = useNavigate();
 
+  const smallAuth = +uID === +userID;
+  if (!smallAuth) navigate(-1);
+
   // if user ID do not match with owner - return back
-  useEffect(() => {
-    if (uID !== userID) {
-      navigate(-1);
-    }
-  }, []);
+  // useEffect(() => {
+  //   }
+  // }, []);
 
   useEffect(() => {
     const URL_P = `${PRODUCT_URL}/${userID}`;
@@ -63,7 +64,7 @@ export const PersonalProducts = () => {
       <Box sx={{ width: '100%', position: 'absolute' }}>
         {spinner && <LinearProgress />}
       </Box>
-      {uID === userID && (
+      {smallAuth && (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
           <Typography
             component="h1"

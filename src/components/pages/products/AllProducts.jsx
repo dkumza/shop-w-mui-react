@@ -1,20 +1,10 @@
 import React, { useEffect } from 'react';
-import {
-  Box,
-  Container,
-  Fade,
-  Grid,
-  Grow,
-  LinearProgress,
-  Paper,
-  Slide,
-  Typography,
-} from '@mui/material';
+import { Box, Container, Fade, Grid, Grow, LinearProgress, Paper } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
-import { Close, StarBorder, StarRate } from '@mui/icons-material';
+import { StarBorder } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/autCtx';
 
@@ -35,6 +25,7 @@ export const AllProducts = () => {
       })
       .then((res) => {
         setAllProducts(res.data);
+        console.log('res.data: ', res.data);
         setSpinner(false);
       })
       .catch((error) => {
