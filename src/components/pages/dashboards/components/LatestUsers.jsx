@@ -3,7 +3,6 @@ import { ArrowForward } from '@mui/icons-material';
 import LatestUsersList from './LatestUsersList';
 
 export const LatestUsers = ({ api }) => {
-  console.log(api);
   return (
     <Grid item xs={5}>
       <Paper variant="outlined" sx={{ borderColor: '#f5f5f5' }}>

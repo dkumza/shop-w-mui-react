@@ -10,6 +10,7 @@ import { LatestProducts } from '../../components/LatestProducts';
 import axios from 'axios';
 import { useAuthContext } from '../../../../context/autCtx';
 import { enqueueSnackbar } from 'notistack';
+import { OverViewValueAll } from './overComp/OverViewValueAll';
 
 const PROD_URL = `http://localhost:3000/api/products-data`;
 const C_URL = `http://localhost:3000/api/auth/users-count`;
@@ -90,11 +91,11 @@ export const OverView = ({ drawerWidth }) => {
               bg={'#57b584'}
               api={productsData.totalProducts}
             />
-            <OverViewAll
+            <OverViewValueAll
               data={'All Products Value'}
               icon={<AttachMoneyIcon sx={{ color: 'white' }} />}
               bg={'#e8972c'}
-              api={`${productsData.productsValue} €`}
+              api={productsData.productsValue}
             />
             <OverViewAll
               data={'Avg. Products Value'}
