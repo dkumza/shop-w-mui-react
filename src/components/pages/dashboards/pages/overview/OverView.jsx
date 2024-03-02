@@ -64,7 +64,7 @@ export const OverView = ({ drawerWidth }) => {
       sx={{
         width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
         ml: { md: `${drawerWidth}px` },
-        pt: 16,
+        pt: { md: 16, xs: 12 },
         backgroundColor: '#fafafa',
         height: '100vh',
       }}
@@ -104,10 +104,27 @@ export const OverView = ({ drawerWidth }) => {
               api={`${productsData.avgPrice} €`}
             />
           </Grid>
-          <Grid container sx={{ mt: 2 }} spacing={2}>
+          <Grid
+            container
+            sx={{ mt: 2, display: { md: 'block', xs: 'none' } }}
+            spacing={2}
+          >
             <LatestUsers api={custData.users} />
             <LatestProducts api={productsData.products} />
           </Grid>
+
+          {/* small screen */}
+          <Box
+            sx={{
+              mt: 2,
+              display: { md: 'none', xs: 'flex' },
+              flexDirection: 'column',
+              gap: 2,
+            }}
+          >
+            <LatestUsers api={custData.users} />
+            <LatestProducts api={productsData.products} />
+          </Box>
         </Container>
       )}
     </Box>

@@ -5,7 +5,7 @@ import { ArrowForward } from '@mui/icons-material';
 export const LatestProducts = ({ api }) => {
   return (
     <Grid item xs={7}>
-      <Paper variant="outlined" sx={{ borderColor: '#f5f5f5' }}>
+      <Paper variant="outlined" sx={{ borderColor: '#f5f5f5', mb: 4 }}>
         <Typography sx={{ p: 2 }}>Latest 10 Products</Typography>
         <LatestProductsTable api={api} />
         <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>

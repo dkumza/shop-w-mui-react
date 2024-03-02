@@ -40,7 +40,7 @@ export const OverViewAll = ({ data, icon, bg, api }) => {
           width: '100%',
         }}
       >
-        <Paper variant="outlined" sx={{ height: '180px', p: 2, width: '100%' }}>
+        <Paper variant="outlined" sx={{ height: '180px', p: 3, width: '100%' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography sx={{}}>{data}</Typography>
             <Box
@@ -56,6 +56,9 @@ export const OverViewAll = ({ data, icon, bg, api }) => {
             >
               {icon}
             </Box>
+          </Box>
+          <Box sx={{}}>
+            <Typography variant="h4">{api} </Typography>
           </Box>
         </Paper>
       </Box>
