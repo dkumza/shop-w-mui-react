@@ -19,7 +19,7 @@ export const LatestProducts = ({ api }) => {
               alignItems: 'center',
             }}
           >
-            <Typography align="right" sx={{ p: 0, pr: 1 }}>
+            <Typography variant="overline" align="right" sx={{ p: 0, pr: 1 }}>
               View All
             </Typography>
             <ArrowForward fontSize="small" />

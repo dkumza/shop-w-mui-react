@@ -7,11 +7,12 @@ import { ShortAbout } from './allProductsComp/ShortAbout';
 import { StarBorder } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/autCtx';
+import { enqueueSnackbar } from 'notistack';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 
 export const AllProducts = () => {
-  const { token } = useAuthContext();
+  const { token, logout } = useAuthContext();
   const [spinner, setSpinner] = useState(true);
   const [allProducts, setAllProducts] = useState(null);
   const navigate = useNavigate();
@@ -30,6 +31,9 @@ export const AllProducts = () => {
       .catch((error) => {
         console.log('error ===', error);
         setSpinner(false);
+        const errAPI = error.response.data.msg;
+        enqueueSnackbar(errAPI, { variant: 'warning' });
+        logout();
       });
   }, []);
 

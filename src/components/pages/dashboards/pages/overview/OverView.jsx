@@ -104,7 +104,7 @@ export const OverView = ({ drawerWidth }) => {
             />
           </Grid>
           <Grid container sx={{ mt: 2 }} spacing={2}>
-            <LatestUsers api={setCustData} />
+            <LatestUsers api={custData.users} />
             <LatestProducts api={productsData.products} />
           </Grid>
         </Container>

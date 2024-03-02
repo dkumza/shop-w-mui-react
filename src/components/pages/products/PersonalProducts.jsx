@@ -26,12 +26,11 @@ export const PersonalProducts = () => {
   const navigate = useNavigate();
 
   const smallAuth = +uID === +userID;
-  if (!smallAuth) navigate(-1);
 
   // if user ID do not match with owner - return back
-  // useEffect(() => {
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!smallAuth) navigate(-1);
+  }, []);
 
   useEffect(() => {
     const URL_P = `${PRODUCT_URL}/${userID}`;

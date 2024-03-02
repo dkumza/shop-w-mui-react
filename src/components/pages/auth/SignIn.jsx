@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { useAuthContext } from '../../context/autCtx';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, Paper } from '@mui/material';
 import { useState } from 'react';
 
 const LOGIN_URL = 'http://localhost:3000/api/auth/login';
@@ -47,7 +47,6 @@ export default function SignIn() {
       .post(LOGIN_URL, loginInfo)
       .then((res) => {
         const { token, name, userID } = res.data;
-        console.log('user data: ', res.data);
         if (token) {
           login(token, name, userID);
           formik.resetForm();
@@ -66,7 +65,6 @@ export default function SignIn() {
   return (
     <Box>
       <Container component="main" maxWidth="xs" sx={{ marginTop: 8 }}>
-        {/* <Paper elevation={2} variant="elevation" sx={{ padding: 2 }}> */}
         <Box
           sx={{
             display: 'flex',
@@ -130,7 +128,6 @@ export default function SignIn() {
             </Grid>
           </form>
         </Box>
-        {/* </Paper> */}
       </Container>
     </Box>
   );

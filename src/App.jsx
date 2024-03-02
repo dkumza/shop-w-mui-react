@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <>
-      {isUserLoggedIn && !match && <NavBar />}
+      {isUserLoggedIn && !match && userID !== undefined && <NavBar />}
       <Routes>
         <Route
           path="/"

@@ -13,18 +13,16 @@ function createData(id, title, catID, custID, date, status) {
 }
 
 export default function LatestProductsTable({ api }) {
-  console.log('api: ', api);
-
   const newRows = api
     .slice(0, 10)
-    .map((row) =>
+    .map((data) =>
       createData(
-        row.id,
-        row.title,
-        row.cat_id,
-        row.user_id,
-        new Date(row.updated).toLocaleString('lt-LT'),
-        row.isDeleted,
+        data.id,
+        data.title,
+        data.cat_id,
+        data.user_id,
+        new Date(data.updated).toLocaleString('lt-LT'),
+        data.isDeleted,
       ),
     );
 
@@ -61,6 +59,7 @@ export default function LatestProductsTable({ api }) {
                     textAlign: 'center',
                     borderRadius: 1,
                     color: 'white',
+                    px: 1,
                   }}
                 >
                   {row.status === 0 ? 'Active' : 'Deleted'}
