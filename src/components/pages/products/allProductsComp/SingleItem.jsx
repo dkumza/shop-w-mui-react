@@ -1,5 +1,5 @@
 import { Close, StarBorder, StarRate } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useMatch } from 'react-router-dom';
 
@@ -36,17 +36,34 @@ export const SingleItem = ({ product }) => {
           {product.isDeleted ? 'Deleted' : 'Published'}
         </Box>
       )}
-      <img
-        src={`${URL_FOR_IMG}/${mainImg}`}
-        alt=""
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-          borderRadius: 3,
-        }}
-      />
+
+      {mainImg && (
+        <img
+          src={`${URL_FOR_IMG}/${mainImg}`}
+          alt=""
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            borderRadius: 3,
+          }}
+        />
+      )}
+      {!mainImg && (
+        <Box
+          sx={{
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h3" color="gray">
+            No Image
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };

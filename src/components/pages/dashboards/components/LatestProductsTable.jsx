@@ -6,25 +6,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-function createData(id, title, catID, custID, date, status) {
-  return { id, title, catID, custID, date, status };
+function createData(id, title, custID, date, status) {
+  return { id, title, custID, date, status };
 }
 
 export default function LatestProductsTable({ api }) {
+  const navigate = useNavigate();
+
   const newRows = api
     .slice(0, 10)
     .map((data) =>
       createData(
         data.id,
         data.title,
-        data.cat_id,
         data.user_id,
         new Date(data.updated).toLocaleString('lt-LT'),
         data.isDeleted,
       ),
     );
+
+  const linkToProduct = (productID) => {
+    navigate(`/product/${productID}`);
+  };
 
   return (
     <TableContainer component={Paper} variant="outlined" sx={{ borderColor: '#f5f5f5' }}>
@@ -33,7 +39,6 @@ export default function LatestProductsTable({ api }) {
           <TableRow sx={{ backgroundColor: '#fafafa' }}>
             <TableCell>ID</TableCell>
             <TableCell>Title</TableCell>
-            {/* <TableCell>Category</TableCell> */}
             <TableCell>Customer ID</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Status</TableCell>
@@ -42,14 +47,18 @@ export default function LatestProductsTable({ api }) {
         <TableBody>
           {newRows.map((row) => (
             <TableRow
+              id="prod-id"
               key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              onClick={() => linkToProduct(row.id)}
+              sx={{
+                '&:last-child td, &:last-child th': { border: 0 },
+                ':hover': { backgroundColor: '#faf5ff', cursor: 'pointer' },
+              }}
             >
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
               <TableCell>{row.title}</TableCell>
-              {/* <TableCell>{row.catID}</TableCell> */}
               <TableCell>{row.custID}</TableCell>
               <TableCell>{row.date}</TableCell>
               <TableCell>

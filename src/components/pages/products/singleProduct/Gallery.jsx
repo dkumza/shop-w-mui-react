@@ -1,4 +1,4 @@
-import { Box, Grid, Grow, Paper } from '@mui/material';
+import { Box, Grid, Grow, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -48,6 +48,22 @@ export const Gallery = ({ imgs }) => {
               }}
               alt=""
             />
+          )}
+          {/* if no img */}
+          {!mainImg && (
+            <Box
+              sx={{
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography variant="h3" color="gray">
+                {' '}
+                No Image
+              </Typography>
+            </Box>
           )}
         </Box>
         <Grid container spacing={1} sx={{ mt: 0 }}>
