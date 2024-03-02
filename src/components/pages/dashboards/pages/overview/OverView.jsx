@@ -104,11 +104,7 @@ export const OverView = ({ drawerWidth }) => {
               api={`${productsData.avgPrice} €`}
             />
           </Grid>
-          <Grid
-            container
-            sx={{ mt: 2, display: { md: 'block', xs: 'none' } }}
-            spacing={2}
-          >
+          <Grid container sx={{ mt: 2, display: { md: 'flex', xs: 'none' } }} spacing={2}>
             <LatestUsers api={custData.users} />
             <LatestProducts api={productsData.products} />
           </Grid>
