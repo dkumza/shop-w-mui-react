@@ -11,35 +11,19 @@ import axios from 'axios';
 import { useAuthContext } from '../../../../context/autCtx';
 import { enqueueSnackbar } from 'notistack';
 import { OverViewValueAll } from './overComp/OverViewValueAll';
+import { useProductsContext } from '../../../../context/productsCtx';
 
 const PROD_URL = `http://localhost:3000/api/products-data`;
 const C_URL = `http://localhost:3000/api/auth/users-count`;
 
 export const OverView = ({ drawerWidth }) => {
   const { token, logout } = useAuthContext();
-  const [productsData, setProductsData] = useState(null);
+  const { adminProducts } = useProductsContext();
   const [custData, setCustData] = useState(null);
-
   const [spinner, setSpinner] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(PROD_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setProductsData(res.data);
-        setSpinner(false);
-      })
-      .catch((error) => {
-        console.log('error ===', error);
-        const errorA = error.response.data.msg;
-        enqueueSnackbar(errorA, { variant: 'warning' });
-        logout();
-        setSpinner(false);
-      });
+    if (adminProducts) setSpinner(false);
   }, []);
 
   useEffect(() => {
@@ -72,7 +56,7 @@ export const OverView = ({ drawerWidth }) => {
       <Box sx={{ width: '100%', position: 'absolute' }}>
         {spinner && <LinearProgress />}
       </Box>
-      {productsData && custData && (
+      {adminProducts && custData && (
         <Container maxWidth="xl">
           <Grid
             container
@@ -89,24 +73,24 @@ export const OverView = ({ drawerWidth }) => {
               data={'Total Products'}
               icon={<ShoppingCartCheckoutIcon sx={{ color: 'white' }} />}
               bg={'#57b584'}
-              api={productsData.totalProducts}
+              api={adminProducts.totalProducts}
             />
             <OverViewValueAll
               data={'All Products Value'}
               icon={<AttachMoneyIcon sx={{ color: 'white' }} />}
               bg={'#e8972c'}
-              api={productsData.productsValue}
+              api={adminProducts.productsValue}
             />
             <OverViewAll
               data={'Avg. Products Value'}
               icon={<MonetizationOnIcon sx={{ color: 'white' }} />}
               bg={'#6467ec'}
-              api={`${productsData.avgPrice} €`}
+              api={`${adminProducts.avgPrice} €`}
             />
           </Grid>
           <Grid container sx={{ mt: 2, display: { md: 'flex', xs: 'none' } }} spacing={2}>
             <LatestUsers api={custData.users} />
-            <LatestProducts api={productsData.products} />
+            <LatestProducts api={adminProducts.products} />
           </Grid>
 
           {/* small screen */}
@@ -119,7 +103,7 @@ export const OverView = ({ drawerWidth }) => {
             }}
           >
             <LatestUsers api={custData.users} />
-            <LatestProducts api={productsData.products} />
+            <LatestProducts api={adminProducts.products} />
           </Box>
         </Container>
       )}

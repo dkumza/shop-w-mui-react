@@ -1,6 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { styled } from '@mui/system';
+import { useProductsContext } from '../../../../context/productsCtx';
 
 const StyledDataGrid = styled(DataGrid)({
   '& .MuiDataGrid-columnHeader': {
@@ -40,9 +41,14 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-// import { DataGrid } from '@mui/x-data-grid';
-
 export default function Products({ drawerWidth }) {
+  const { adminProducts } = useProductsContext();
+
+  if (!adminProducts) return;
+
+  const { products } = adminProducts;
+  console.log('adminProducts: ', products);
+
   return (
     <Box
       sx={{
