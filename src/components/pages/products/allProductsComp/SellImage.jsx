@@ -1,11 +1,21 @@
 import { Box, Button, Typography } from '@mui/material';
 
 import sellImg from '../../../../utils/images/sell-2.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export const SellImage = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <Box sx={{ position: 'relative', height: 600, mb: 2 }}>
+      <Box
+        sx={{
+          position: 'relative',
+          height: 600,
+          mb: 2,
+          boxShadow: 12,
+          transform: 'rotate(1deg)',
+        }}
+      >
         <img
           style={{
             width: '100%',
@@ -23,6 +33,7 @@ export const SellImage = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
+            transform: 'rotate(-1deg)',
             // alignItems: 'center',
 
             p: 4,
@@ -33,10 +44,11 @@ export const SellImage = () => {
             height: 330,
           }}
         >
-          <Typography variant="h2" sx={{ color: 'black', mb: 2 }}>
-            Time to sell your used stuff?
+          <Typography variant="h2" sx={{ color: 'black', mb: 2, fontSize: 50 }}>
+            Sell your stuff with a simple click...
           </Typography>
           <Button
+            onClick={() => navigate('/sell')}
             variant="contained"
             sx={{
               width: '100%',
