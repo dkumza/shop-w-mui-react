@@ -1,37 +1,18 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { ProductsAllAdmin } from './ProductsAllAdmin';
 import { useProductsContext } from '../../../../context/productsCtx';
 import { useEffect, useState } from 'react';
 import { SearchAdmin } from './SearchAdmin';
 
-export default function Products({ drawerWidth }) {
+export default function Products({ drawerWidth, handleSearch, filteredRes }) {
   const { adminProducts } = useProductsContext();
   const [productsAll, setProductsAll] = useState(null);
-  const [filteredProducts, setFilteredProducts] = useState(null);
 
   useEffect(() => {
     if (!adminProducts) return;
     const { products } = adminProducts;
     setProductsAll(products);
   }, [adminProducts]);
-
-  const handleSearch = (value) => {
-    console.log(value);
-    if (productsAll) {
-      // search by each word separated by space
-      const searchWords = value.toLowerCase().split(' ');
-
-      const result = productsAll.filter((p) =>
-        searchWords.every(
-          (word) =>
-            p.title.toLowerCase().includes(word) ||
-            p.description.toLowerCase().includes(word),
-        ),
-      );
-
-      setFilteredProducts(result);
-    }
-  };
 
   return (
     <Box
@@ -49,9 +30,14 @@ export default function Products({ drawerWidth }) {
         <Typography component="h1" variant="h4">
           Products
         </Typography>
-        <SearchAdmin handleSearch={handleSearch} textHolder="Search Products" />
+        <SearchAdmin
+          handleSearch={handleSearch}
+          array={productsAll}
+          textHolder="Search Products"
+          field={['title', 'description']}
+        />
         <ProductsAllAdmin
-          productsAll={filteredProducts !== null ? filteredProducts : productsAll}
+          productsAll={filteredRes !== null ? filteredRes : productsAll}
         />
       </Container>
     </Box>

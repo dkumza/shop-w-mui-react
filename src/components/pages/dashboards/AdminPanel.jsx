@@ -19,6 +19,7 @@ export const AdminPanel = () => {
   const [drawer, setDrawer] = useState(false);
   const [custData, setCustData] = useState(null);
   const [spinner, setSpinner] = useState(true);
+  const [filteredRes, setFilteredRes] = useState(null);
 
   const toggleDrawer = () => {
     setDrawer((prev) => !prev);
@@ -45,6 +46,21 @@ export const AdminPanel = () => {
       });
   }, []);
 
+  // search dynamically by passing input - value, array and witch fields to filter
+  const handleSearch = (value, array, fields) => {
+    if (array) {
+      const searchWords = value.toLowerCase().split(' ');
+
+      const result = array.filter((item) =>
+        searchWords.every((word) =>
+          fields.some((field) => item[field].toLowerCase().includes(word)),
+        ),
+      );
+
+      setFilteredRes(result);
+    }
+  };
+
   return (
     <>
       <AdminNavMain
@@ -63,10 +79,26 @@ export const AdminPanel = () => {
         <Route
           path="customers"
           element={
-            custData && <Customers users={custData.users} drawerWidth={drawerWidth} />
+            custData && (
+              <Customers
+                users={custData.users}
+                drawerWidth={drawerWidth}
+                handleSearch={handleSearch}
+                filteredRes={filteredRes}
+              />
+            )
           }
         />
-        <Route path="products" element={<Products drawerWidth={drawerWidth} />} />
+        <Route
+          path="products"
+          element={
+            <Products
+              drawerWidth={drawerWidth}
+              handleSearch={handleSearch}
+              filteredRes={filteredRes}
+            />
+          }
+        />
       </Routes>
     </>
   );

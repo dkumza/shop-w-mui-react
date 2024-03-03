@@ -5,7 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Search from '@mui/icons-material/Search';
 import { useState } from 'react';
 
-export function SearchAdmin({ handleSearch, textHolder }) {
+export function SearchAdmin({ handleSearch, textHolder, array, field }) {
   const [searchVal, setSearchVal] = useState('');
   return (
     <Box
@@ -25,7 +25,7 @@ export function SearchAdmin({ handleSearch, textHolder }) {
         value={searchVal}
         onChange={(e) => {
           setSearchVal(e.target.value);
-          handleSearch(e.target.value);
+          handleSearch(e.target.value, array, field);
         }}
         id="outlined-basic"
         variant="outlined"

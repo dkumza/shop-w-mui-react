@@ -3,7 +3,7 @@ import React from 'react';
 import { CustomersAllAdmin } from './CustomersAllAdmin';
 import { SearchAdmin } from '../products/SearchAdmin';
 
-export const Customers = ({ drawerWidth, users }) => {
+export const Customers = ({ drawerWidth, users, handleSearch, filteredRes }) => {
   if (!users) return;
 
   return (
@@ -22,8 +22,13 @@ export const Customers = ({ drawerWidth, users }) => {
         <Typography component="h1" variant="h4">
           Customers
         </Typography>
-        <SearchAdmin textHolder="Search Customers" />
-        <CustomersAllAdmin users={users} />
+        <SearchAdmin
+          handleSearch={handleSearch}
+          textHolder="Search Customers"
+          array={users}
+          field={['name', 'email']}
+        />
+        <CustomersAllAdmin users={filteredRes !== null ? filteredRes : users} />
       </Container>
     </Box>
   );
