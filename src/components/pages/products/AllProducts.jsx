@@ -1,41 +1,22 @@
 import React, { useEffect } from 'react';
-import { Box, Container, Fade, Grid, Grow, LinearProgress, Paper } from '@mui/material';
+import { Box, Container, Grid, Grow, LinearProgress, Paper } from '@mui/material';
 import { useState } from 'react';
-import axios from 'axios';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
 import { StarBorder } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/autCtx';
-import { enqueueSnackbar } from 'notistack';
+import { useProductsContext } from '../../context/productsCtx';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 
 export const AllProducts = () => {
-  const { token, logout } = useAuthContext();
+  const { products } = useProductsContext();
   const [spinner, setSpinner] = useState(true);
-  const [allProducts, setAllProducts] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(PRODUCT_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setAllProducts(res.data);
-        setSpinner(false);
-      })
-      .catch((error) => {
-        console.log('error ===', error);
-        setSpinner(false);
-        const errAPI = error.response.data.msg;
-        enqueueSnackbar(errAPI, { variant: 'warning' });
-        logout();
-      });
-  }, []);
+    if (products) setSpinner(false);
+  }, [products]);
 
   const linkToProduct = (productID) => {
     navigate(`/product/${productID}`);
@@ -49,8 +30,8 @@ export const AllProducts = () => {
 
       <Container sx={{ mt: 4 }} maxWidth="lg">
         <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
-          {allProducts &&
-            allProducts.map((product) => (
+          {products &&
+            products.map((product) => (
               <Grow key={product.id} in={true} timeout={2000}>
                 <Grid
                   id="prod-wrap"
@@ -73,8 +54,8 @@ export const AllProducts = () => {
 
         {/* small screen */}
         <Box sx={{ display: { md: 'none', xs: 'block' } }}>
-          {allProducts &&
-            allProducts.map((product) => (
+          {products &&
+            products.map((product) => (
               <Box key={product.id} sx={{ mb: 2 }}>
                 <Paper
                   onClick={() => linkToProduct(product.id)}

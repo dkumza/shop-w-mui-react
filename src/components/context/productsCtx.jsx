@@ -10,6 +10,7 @@ const SUB_Cats_ALL = 'http://localhost:3000/api/sub-categories';
 const PRODUCTS_URL = `http://localhost:3000/api/products`;
 
 const ProductsContext = createContext({
+  products: null,
   cats: null,
   subCats: null,
   products: null,
@@ -90,7 +91,7 @@ export const ProductsContextProvider = ({ children }) => {
       });
   };
 
-  const ctxValues = { initialState, fetchSubCats };
+  const ctxValues = { ...state, fetchSubCats };
 
   return (
     <ProductsContext.Provider value={ctxValues}>{children}</ProductsContext.Provider>
