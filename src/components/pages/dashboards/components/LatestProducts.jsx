@@ -1,8 +1,15 @@
 import { Box, Divider, Grid, IconButton, Paper, Typography } from '@mui/material';
 import LatestProductsTable from './LatestProductsTable';
 import { ArrowForward } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 export const LatestProducts = ({ api }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/dashboard/products');
+  };
+
   return (
     <Grid item xs={7}>
       <Paper variant="outlined" sx={{ borderColor: '#f5f5f5', mb: 4 }}>
@@ -10,6 +17,7 @@ export const LatestProducts = ({ api }) => {
         <LatestProductsTable api={api} />
         <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>
           <IconButton
+            onClick={handleNavigate}
             sx={{
               py: 0.5,
               px: 2,

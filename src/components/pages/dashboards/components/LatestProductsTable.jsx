@@ -36,7 +36,7 @@ export default function LatestProductsTable({ api }) {
     <TableContainer component={Paper} variant="outlined" sx={{ borderColor: '#f5f5f5' }}>
       <Table sx={{ minWidth: '100%' }} aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ backgroundColor: '#fafafa' }}>
+          <TableRow sx={{ backgroundColor: '#f8f9fa' }}>
             <TableCell>ID</TableCell>
             <TableCell>Title</TableCell>
             <TableCell>Customer ID</TableCell>
