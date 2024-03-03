@@ -1,47 +1,30 @@
-// import { Box, Container } from '@mui/material';
-// import React from 'react';
-
-// export const Products = ({ drawerWidth }) => {
-//   return (
-//     <Box
-//       sx={{
-//         width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
-//         ml: { md: `${drawerWidth}px` },
-//         pt: 10,
-//         // p: 0,
-//         backgroundColor: '#fafafa',
-//         height: '100vh',
-//       }}
-//     >
-//       <Container maxWidth="xl">
-//         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor ratione at itaque
-//         iusto quasi omnis modi distinctio veritatis eveniet. Porro dolor architecto iure
-//         quo minima, labore ipsam rem quisquam qui!
-//       </Container>
-//     </Box>
-//   );
-// };
-
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { styled } from '@mui/system';
+
+const StyledDataGrid = styled(DataGrid)({
+  '& .MuiDataGrid-columnHeader': {
+    backgroundColor: '#fafafa',
+  },
+  width: '100%',
+});
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'id', headerName: 'ID', width: 60 },
+  { field: 'firstName', headerName: 'First name', width: 120 },
+  { field: 'lastName', headerName: 'Last name', flex: 1 },
   {
     field: 'age',
     headerName: 'Age',
     type: 'number',
-    width: 90,
   },
   {
     field: 'fullName',
     headerName: 'Full name',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
-    width: 160,
     valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    width: 200,
   },
 ];
 
@@ -57,33 +40,48 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
+// import { DataGrid } from '@mui/x-data-grid';
+
 export default function Products({ drawerWidth }) {
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
-          ml: { md: `${drawerWidth}px` },
-          mt: 10,
+    <Box
+      sx={{
+        width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
+        ml: { md: `${drawerWidth}px` },
+        p: 1,
+        pt: 14,
 
-          // backgroundColor: '#fafafa',
-          // height: '100vh',
-        }}
-      >
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
+        backgroundColor: '#fafafa',
+        height: '100vh',
+      }}
+    >
+      <Container maxWidth="lg">
+        <Typography component="h1" variant="h4">
+          Products
+        </Typography>
+        <Grid
+          container
+          sx={{
+            height: '100%',
+            width: '100%',
+            mt: 1,
+            backgroundColor: 'white',
+            textAlign: 'left',
+          }}
+        >
+          <StyledDataGrid
             rows={rows}
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
+                paginationModel: { page: 0, pageSize: 10 },
               },
             }}
             pageSizeOptions={[5, 10]}
             checkboxSelection
           />
-        </div>
-      </Box>
-    </Container>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

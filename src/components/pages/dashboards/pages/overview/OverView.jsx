@@ -64,7 +64,7 @@ export const OverView = ({ drawerWidth }) => {
       sx={{
         width: { md: `calc(100% - ${drawerWidth}px)`, xs: '100%' },
         ml: { md: `${drawerWidth}px` },
-        pt: { md: 16, xs: 12 },
+        pt: { md: 14, xs: 12 },
         backgroundColor: '#fafafa',
         height: '100vh',
       }}

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuthContext } from './autCtx';
+import { useLocation } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 
 const CATs_URL = 'http://localhost:3000/api/categories';
@@ -17,32 +18,60 @@ const ProductsContext = createContext({
 ProductsContext.displayName = 'ProductsCtx';
 
 export const ProductsContextProvider = ({ children }) => {
-  const [cats, setCats] = useState(null);
-  const [sub, setSub] = useState(null);
-  const [allSub, setAllSub] = useState(null);
-  const { token, logout } = useAuthContext();
+  const initialState = {
+    products: null,
+    cats: null,
+    sub: null,
+    allSub: null, //diff sub for diff components to play around
+  };
 
-  // fetch categories from API
+  const [state, setState] = useState(initialState);
+  const { token, logout } = useAuthContext();
+  const location = useLocation();
+
   useEffect(() => {
+    if (location.pathname === '/login' || location.pathname === '/register') return;
     axios
-      .get(CATs_URL)
+      .get(PRODUCTS_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        setCats(res.data);
+        const apiProd = res.data;
+        setState((prevState) => ({ ...prevState, products: apiProd }));
       })
       .catch((error) => {
         console.log('error ===', error);
-        // const errorA = error.response.data.msg;
-        // enqueueSnackbar(errorA, { variant: 'warning' });
+        const errAPI = error.response.data.msg;
+        enqueueSnackbar(errAPI, { variant: 'warning' });
+        logout();
+      });
+  }, []);
+
+  // fetch categories from API
+  useEffect(() => {
+    if (location.pathname === '/login' || location.pathname === '/register') return;
+    axios
+      .get(CATs_URL)
+      .then((res) => {
+        const apiCats = res.data;
+        setState((prevState) => ({ ...prevState, cats: apiCats }));
+      })
+      .catch((error) => {
+        console.log('error ===', error);
         logout();
       });
   }, []);
 
   // fetch sub-categories from API
   useEffect(() => {
+    if (location.pathname === '/login' || location.pathname === '/register') return;
     axios
       .get(SUB_Cats_ALL)
       .then((res) => {
-        setAllSub(res.data);
+        const apiSubC = res.data;
+        setState((prevState) => ({ ...prevState, allSub: apiSubC }));
       })
       .catch((err) => {
         console.warn('ERROR: ', err);
@@ -53,14 +82,15 @@ export const ProductsContextProvider = ({ children }) => {
     axios
       .get(`${SUB_CATs_URL}/${id}`)
       .then((res) => {
-        setSub(res.data);
+        const apiSubC = res.data;
+        setState((prevState) => ({ ...prevState, sub: apiSubC }));
       })
       .catch((err) => {
         console.warn('ERROR: ', err);
       });
   };
 
-  const ctxValues = { cats, fetchSubCats, sub, allSub };
+  const ctxValues = { initialState, fetchSubCats };
 
   return (
     <ProductsContext.Provider value={ctxValues}>{children}</ProductsContext.Provider>
