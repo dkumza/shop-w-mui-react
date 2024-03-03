@@ -68,6 +68,7 @@ export default function LatestProductsTable({ api }) {
                     textAlign: 'center',
                     borderRadius: 1,
                     color: 'white',
+                    width: 88,
                     px: 1,
                   }}
                 >

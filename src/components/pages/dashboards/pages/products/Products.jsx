@@ -12,33 +12,58 @@ const StyledDataGrid = styled(DataGrid)({
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 60 },
-  { field: 'firstName', headerName: 'First name', width: 120 },
-  { field: 'lastName', headerName: 'Last name', flex: 1 },
+  { field: 'title', headerName: 'Product title', width: 180 },
+  { field: 'cat_id', headerName: 'Category', width: 120 },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
+    field: 'sub_id',
+    headerName: 'Subcategory',
+    width: 120,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    width: 200,
+    field: 'price',
+    headerName: 'Price EUR',
+    width: 120,
   },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  {
+    field: 'updated',
+    headerName: 'Updated',
+    width: 220,
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{
+            textAlign: 'center',
+            borderRadius: 1,
+            width: 88,
+            px: 1,
+          }}
+        >
+          {new Date(params.value).toLocaleString('lt-LT')}
+        </Box>
+      );
+    },
+  },
+  {
+    field: 'isDeleted',
+    headerName: 'Status',
+    flex: 1,
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{
+            bgcolor: params.value === 0 ? '#57b583' : '#dd593f',
+            textAlign: 'center',
+            borderRadius: 1,
+            color: 'white',
+            width: 88,
+            px: 1,
+          }}
+        >
+          {params.value === 0 ? 'Active' : 'Deleted'}
+        </Box>
+      );
+    },
+  },
 ];
 
 export default function Products({ drawerWidth }) {
@@ -47,7 +72,6 @@ export default function Products({ drawerWidth }) {
   if (!adminProducts) return;
 
   const { products } = adminProducts;
-  console.log('adminProducts: ', products);
 
   return (
     <Box
@@ -76,7 +100,7 @@ export default function Products({ drawerWidth }) {
           }}
         >
           <StyledDataGrid
-            rows={rows}
+            rows={products}
             columns={columns}
             initialState={{
               pagination: {

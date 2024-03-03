@@ -48,12 +48,13 @@ export const ProductsContextProvider = ({ children }) => {
         setState((prevState) => ({ ...prevState, products: apiProd }));
       })
       .catch((error) => {
+        if (location.pathname === '/login' || location.pathname === '/register') return;
         console.log('error ===', error);
         const errAPI = error.response.data.msg;
         enqueueSnackbar(errAPI, { variant: 'warning' });
         logout();
       });
-  }, []);
+  }, [location]);
 
   // fetch categories from API
   useEffect(() => {
@@ -82,7 +83,7 @@ export const ProductsContextProvider = ({ children }) => {
       .catch((err) => {
         console.warn('ERROR: ', err);
       });
-  }, []);
+  }, [location]);
 
   const fetchSubCats = (id) => {
     axios
@@ -115,7 +116,7 @@ export const ProductsContextProvider = ({ children }) => {
         enqueueSnackbar(errorA, { variant: 'warning' });
         logout();
       });
-  }, []);
+  }, [match]);
 
   const ctxValues = { ...state, fetchSubCats };
 
