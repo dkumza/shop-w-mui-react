@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react';
-import { Box, Container, Grid, Grow, LinearProgress, Paper } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  Grow,
+  LinearProgress,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
 import { StarBorder } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useProductsContext } from '../../context/productsCtx';
+import { SellImage } from './allProductsComp/SellImage';
 
 const PRODUCT_URL = 'http://localhost:3000/api/products';
 
@@ -29,6 +38,10 @@ export const AllProducts = () => {
       </Box>
 
       <Container sx={{ mt: 4 }} maxWidth="lg">
+        <SellImage />
+        <Typography variant="h5" sx={{ my: 2 }}>
+          Recent Products
+        </Typography>
         <Grid sx={{ display: { md: 'flex', xs: 'none' } }} container spacing={2}>
           {products &&
             products.map((product) => (
