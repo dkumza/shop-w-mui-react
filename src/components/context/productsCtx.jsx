@@ -9,6 +9,7 @@ const SUB_CATs_URL = 'http://localhost:3000/api/sub-category';
 const SUB_Cats_ALL = 'http://localhost:3000/api/sub-categories';
 const PRODUCTS_URL = `http://localhost:3000/api/products`;
 const PROD_URL = `http://localhost:3000/api/products-data`;
+const FAV_URL = `http://localhost:3000/api/favorites`;
 
 const ProductsContext = createContext({
   products: null,
@@ -118,7 +119,28 @@ export const ProductsContextProvider = ({ children }) => {
       });
   }, [match]);
 
-  const ctxValues = { ...state, fetchSubCats };
+  // handle favorites
+  const handleFav = (id, status) => {
+    console.log('status: ', status);
+    axios
+      .post(
+        `${FAV_URL}/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((res) => {
+        console.log('res: ', res.data);
+      })
+      .catch((err) => {
+        console.warn('ERROR: ', err);
+      });
+  };
+
+  const ctxValues = { ...state, fetchSubCats, handleFav };
 
   return (
     <ProductsContext.Provider value={ctxValues}>{children}</ProductsContext.Provider>

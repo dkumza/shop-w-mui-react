@@ -4,12 +4,15 @@ import React from 'react';
 import { useState } from 'react';
 import { EditProduct } from '../crud/editProduct/EditProduct';
 import { FavoriteIcon } from './FavoriteIcon';
+import { useProductsContext } from '../../../context/productsCtx';
 
 export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) => {
   const [phone, setPhone] = useState('Contact Seller');
   const [open, setOpen] = useState(false);
   const [prevImages, setPrevImages] = useState(false);
   const [star, setStar] = useState(false);
+
+  const { handleFav } = useProductsContext();
 
   const handleOpen = () => {
     setOpen(true);
@@ -55,7 +58,12 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
             mb: 1,
           }}
         >
-          <FavoriteIcon addFavorite={addFavorite} star={star} />
+          <FavoriteIcon
+            setStar={setStar}
+            handleFav={handleFav}
+            prodID={product.id}
+            star={star}
+          />
           {open && (
             <EditProduct
               setProductFromAPI={setProductFromAPI}

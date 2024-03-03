@@ -17,6 +17,7 @@ import { AboutProduct } from './AboutProduct';
 import { enqueueSnackbar } from 'notistack';
 import { useAuthContext } from '../../../context/autCtx';
 import { Comments } from './comments/Comments';
+
 const style = {
   position: 'absolute',
   top: '50%',

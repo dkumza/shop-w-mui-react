@@ -45,7 +45,7 @@ export const SellImage = () => {
           }}
         >
           <Typography variant="h2" sx={{ color: 'black', mb: 2, fontSize: 50 }}>
-            Sell your stuff with a simple click...
+            Sell your items with a simple click...
           </Typography>
           <Button
             onClick={() => navigate('/sell')}

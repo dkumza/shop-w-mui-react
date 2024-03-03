@@ -1,12 +1,15 @@
 import { StarBorder, StarRate } from '@mui/icons-material';
 import React from 'react';
 
-export const FavoriteIcon = ({ addFavorite, star }) => {
+export const FavoriteIcon = ({ setStar, star, handleFav, prodID }) => {
   return (
     <>
       {!star && (
         <StarBorder
-          onClick={() => addFavorite()}
+          onClick={() => {
+            handleFav(prodID, 'add');
+            setStar((prev) => !prev);
+          }}
           fontSize="large"
           className="exit-icon"
           sx={{
@@ -19,7 +22,10 @@ export const FavoriteIcon = ({ addFavorite, star }) => {
       )}
       {star && (
         <StarRate
-          onClick={() => addFavorite()}
+          onClick={() => {
+            handleFav(prodID, 'rem');
+            setStar((prev) => !prev);
+          }}
           fontSize="large"
           className="exit-icon"
           sx={{
