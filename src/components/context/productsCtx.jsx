@@ -50,8 +50,8 @@ export const ProductsContextProvider = ({ children }) => {
       .catch((error) => {
         if (location.pathname === '/login' || location.pathname === '/register') return;
         console.log('error ===', error);
-        const errAPI = error.response.data.msg;
-        enqueueSnackbar(errAPI, { variant: 'warning' });
+        // const errAPI = error.response.data.msg;
+        // enqueueSnackbar(errAPI, { variant: 'warning' });
         logout();
       });
   }, [location]);
@@ -67,7 +67,7 @@ export const ProductsContextProvider = ({ children }) => {
       })
       .catch((error) => {
         console.log('error ===', error);
-        logout();
+        // logout();
       });
   }, []);
 

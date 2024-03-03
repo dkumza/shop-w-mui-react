@@ -5,14 +5,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Search from '@mui/icons-material/Search';
 import { useState } from 'react';
 
-export function ProductsSearch({ handleSearch }) {
+export function SearchAdmin({ handleSearch, textHolder }) {
   const [searchVal, setSearchVal] = useState('');
   return (
     <Box
       component="form"
       sx={{
         my: 2,
-        '& > :not(style)': { my: 0, width: '50ch' },
+        '& > :not(style)': { my: 0, width: { xs: '100%', md: '45ch' } },
         width: '100%',
         bgcolor: 'white',
         p: 2,
@@ -29,7 +29,7 @@ export function ProductsSearch({ handleSearch }) {
         }}
         id="outlined-basic"
         variant="outlined"
-        placeholder="Search Products"
+        placeholder={`${textHolder}`}
         sx={{ p: 0, m: 0 }}
         InputProps={{
           startAdornment: (

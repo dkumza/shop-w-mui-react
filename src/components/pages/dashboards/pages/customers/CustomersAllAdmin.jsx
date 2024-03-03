@@ -11,21 +11,21 @@ const StyledDataGrid = styled(DataGrid)({
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 60 },
-  { field: 'title', headerName: 'Product title', width: 180 },
-  { field: 'cat_id', headerName: 'Category', width: 120 },
+  { field: 'name', headerName: 'Username', width: 220 },
+
   {
-    field: 'sub_id',
-    headerName: 'Subcategory',
-    width: 120,
+    field: 'email',
+    headerName: 'Email',
+    width: 250,
   },
   {
-    field: 'price',
-    headerName: 'Price EUR',
-    width: 120,
+    field: 'telephone',
+    headerName: 'Phone No',
+    width: 220,
   },
   {
-    field: 'updated',
-    headerName: 'Updated',
+    field: 'created_at',
+    headerName: 'Created',
     width: 220,
     renderCell: (params) => {
       return (
@@ -42,31 +42,10 @@ const columns = [
       );
     },
   },
-  {
-    field: 'isDeleted',
-    headerName: 'Status',
-    flex: 1,
-    renderCell: (params) => {
-      return (
-        <Box
-          sx={{
-            bgcolor: params.value === 0 ? '#57b583' : '#dd593f',
-            textAlign: 'center',
-            borderRadius: 1,
-            color: 'white',
-            width: 88,
-            px: 1,
-          }}
-        >
-          {params.value === 0 ? 'Active' : 'Deleted'}
-        </Box>
-      );
-    },
-  },
 ];
 
-export const ProductsAllAdmin = ({ productsAll }) => {
-  if (!productsAll) return;
+export const CustomersAllAdmin = ({ users }) => {
+  if (!users) return;
 
   return (
     <Grid
@@ -79,9 +58,9 @@ export const ProductsAllAdmin = ({ productsAll }) => {
         textAlign: 'left',
       }}
     >
-      {productsAll.length > 0 ? (
+      {users.length > 0 ? (
         <StyledDataGrid
-          rows={productsAll}
+          rows={users}
           columns={columns}
           initialState={{
             pagination: {

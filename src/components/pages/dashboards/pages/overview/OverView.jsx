@@ -1,5 +1,4 @@
 import { Box, Container, Grid, LinearProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react';
 import { OverViewAll } from './overComp/OverViewAll';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
@@ -7,41 +6,11 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { LatestUsers } from '../../components/LatestUsers';
 import { LatestProducts } from '../../components/LatestProducts';
-import axios from 'axios';
-import { useAuthContext } from '../../../../context/autCtx';
-import { enqueueSnackbar } from 'notistack';
 import { OverViewValueAll } from './overComp/OverViewValueAll';
 import { useProductsContext } from '../../../../context/productsCtx';
 
-const PROD_URL = `http://localhost:3000/api/products-data`;
-const C_URL = `http://localhost:3000/api/auth/users-count`;
-
-export const OverView = ({ drawerWidth }) => {
-  const { token, logout } = useAuthContext();
+export const OverView = ({ drawerWidth, custData, spinner }) => {
   const { adminProducts } = useProductsContext();
-  const [custData, setCustData] = useState(null);
-  const [spinner, setSpinner] = useState(true);
-
-  useEffect(() => {
-    if (adminProducts) setSpinner(false);
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(C_URL, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setCustData(res.data);
-        setSpinner(false);
-      })
-      .catch((error) => {
-        console.log('error ===', error);
-        setSpinner(false);
-      });
-  }, []);
 
   return (
     <Box

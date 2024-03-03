@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ProductsAllAdmin } from './ProductsAllAdmin';
-import { ProductsSearch } from './ProductsSearch';
 import { useProductsContext } from '../../../../context/productsCtx';
 import { useEffect, useState } from 'react';
+import { SearchAdmin } from './SearchAdmin';
 
 export default function Products({ drawerWidth }) {
   const { adminProducts } = useProductsContext();
@@ -16,11 +16,17 @@ export default function Products({ drawerWidth }) {
   }, [adminProducts]);
 
   const handleSearch = (value) => {
+    console.log(value);
     if (productsAll) {
-      const result = productsAll.filter(
-        (p) =>
-          p.title.toLowerCase().includes(value.toLowerCase()) ||
-          p.description.toLowerCase().includes(value.toLowerCase()),
+      // search by each word separated by space
+      const searchWords = value.toLowerCase().split(' ');
+
+      const result = productsAll.filter((p) =>
+        searchWords.every(
+          (word) =>
+            p.title.toLowerCase().includes(word) ||
+            p.description.toLowerCase().includes(word),
+        ),
       );
 
       setFilteredProducts(result);
@@ -43,7 +49,7 @@ export default function Products({ drawerWidth }) {
         <Typography component="h1" variant="h4">
           Products
         </Typography>
-        <ProductsSearch handleSearch={handleSearch} />
+        <SearchAdmin handleSearch={handleSearch} textHolder="Search Products" />
         <ProductsAllAdmin
           productsAll={filteredProducts !== null ? filteredProducts : productsAll}
         />
