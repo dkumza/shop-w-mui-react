@@ -132,7 +132,6 @@ export const ProductsContextProvider = ({ children }) => {
         },
       )
       .then((res) => {
-        console.log('res: ', res.data);
         const apiMsg = res.data.msg;
         enqueueSnackbar(apiMsg, { variant: 'success' });
       })
@@ -149,7 +148,6 @@ export const ProductsContextProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        console.log('res: ', res.data);
         const apiMsg = res.data.msg;
         enqueueSnackbar(apiMsg, { variant: 'success' });
       })

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export const FavoriteIcon = ({ prodID, userID, fav }) => {
   const favorite = +userID === +fav;
-  const [show, setShow] = useState(favorite ? favorite : false);
+  const [show, setShow] = useState(favorite ? favorite : favorite);
 
   const { handleAddFav, handleRemFav } = useProductsContext();
   return (
