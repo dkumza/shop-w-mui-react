@@ -6,6 +6,14 @@ The client is a React application (part of CRUD) that provides a USER and ADMIN 
 
 Created with mui, formik, yup, react router, axios, notistack and vite.
 
+### Features
+- Users registration with auth from server
+- Products CRUD
+- Comments CRUD
+- Personal items
+- Favorite items
+- Admin dashboard with statistics, products and users data
+
 ### Installation
 
 To install the application, follow these steps:
