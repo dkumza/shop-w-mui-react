@@ -1,13 +1,17 @@
 import { StarBorder, StarRate } from '@mui/icons-material';
-import React from 'react';
+import { useProductsContext } from '../../../context/productsCtx';
+import { useState } from 'react';
 
-export const FavoriteIcon = ({ setStar, star, handleFav, prodID }) => {
+export const FavoriteIcon = ({ prodID }) => {
+  const [star, setStar] = useState(false);
+
+  const { handleAddFav, handleRemFav } = useProductsContext();
   return (
     <>
       {!star && (
         <StarBorder
           onClick={() => {
-            handleFav(prodID, 'add');
+            handleAddFav(prodID);
             setStar((prev) => !prev);
           }}
           fontSize="large"
@@ -23,7 +27,7 @@ export const FavoriteIcon = ({ setStar, star, handleFav, prodID }) => {
       {star && (
         <StarRate
           onClick={() => {
-            handleFav(prodID, 'rem');
+            handleRemFav(prodID);
             setStar((prev) => !prev);
           }}
           fontSize="large"

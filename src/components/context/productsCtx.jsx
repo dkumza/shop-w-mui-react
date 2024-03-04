@@ -120,8 +120,7 @@ export const ProductsContextProvider = ({ children }) => {
   }, [match]);
 
   // handle favorites
-  const handleFav = (id, status) => {
-    console.log('status: ', status);
+  const handleAddFav = (id) => {
     axios
       .post(
         `${FAV_URL}/${id}`,
@@ -140,7 +139,22 @@ export const ProductsContextProvider = ({ children }) => {
       });
   };
 
-  const ctxValues = { ...state, fetchSubCats, handleFav };
+  const handleRemFav = (id) => {
+    axios
+      .delete(`${FAV_URL}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log('res: ', res.data);
+      })
+      .catch((err) => {
+        console.warn('ERROR: ', err);
+      });
+  };
+
+  const ctxValues = { ...state, fetchSubCats, handleAddFav, handleRemFav };
 
   return (
     <ProductsContext.Provider value={ctxValues}>{children}</ProductsContext.Provider>
