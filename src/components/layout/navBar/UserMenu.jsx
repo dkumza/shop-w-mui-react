@@ -69,6 +69,9 @@ function UserMenu() {
       enqueueSnackbar('See you soon!', { variant: 'success' });
       logout();
     }
+    if (item === 'Favorites') {
+      navigate(`/favorites/${userID}`);
+    }
     if (item === 'My Items') {
       navigate(`/personal/${userID}`);
     }

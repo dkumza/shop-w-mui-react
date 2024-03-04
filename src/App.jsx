@@ -9,6 +9,7 @@ import { AllProducts } from './components/pages/products/AllProducts';
 import { SingleProductPage } from './components/pages/products/singleProduct/SingleProductPage';
 import { AdminPanel } from './components/pages/dashboards/AdminPanel';
 import { PersonalProducts } from './components/pages/products/PersonalProducts';
+import { FavProducts } from './components/pages/products/FavProducts';
 
 export default function App() {
   const { isUserLoggedIn, userID } = useAuthContext();
@@ -35,6 +36,10 @@ export default function App() {
         <Route
           path="/personal/:userID"
           element={isUserLoggedIn ? <PersonalProducts /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/favorites/:userID"
+          element={isUserLoggedIn ? <FavProducts /> : <Navigate to="/login" />}
         />
         {/* admin routes */}
         <Route

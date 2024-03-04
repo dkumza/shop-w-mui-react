@@ -33,6 +33,9 @@ export default function NavMenu() {
     if (page === 'Home') {
       navigate('/');
     }
+    if (page === 'Favorites') {
+      navigate(`/favorites/${userID}`);
+    }
     if (page === 'My Items') {
       navigate(`/personal/${userID}`);
     }

@@ -16,9 +16,9 @@ import { enqueueSnackbar } from 'notistack';
 import { SingleItem } from './allProductsComp/SingleItem';
 import { ShortAbout } from './allProductsComp/ShortAbout';
 
-const PRODUCT_URL = 'http://localhost:3000/api/personal';
+const PRODUCT_URL = 'http://localhost:3000/api/favorites';
 
-export const PersonalProducts = () => {
+export const FavProducts = () => {
   const [productFromAPI, setProductFromAPI] = useState(null);
   const [spinner, setSpinner] = useState(true);
 
@@ -71,7 +71,9 @@ export const PersonalProducts = () => {
             variant="h4"
             sx={{ marginBottom: 2, pl: 1, width: '100%' }}
           >
-            {productFromAPI && productFromAPI.length > 0 ? 'My Items' : 'No Items'}
+            {productFromAPI && productFromAPI.length > 0
+              ? 'My Favorites'
+              : 'No Favorites'}
           </Typography>
           {productFromAPI && productFromAPI.length === 0 && (
             <Button
