@@ -57,9 +57,9 @@ export const SingleProductPage = () => {
       .catch((error) => {
         setSpinner(false);
         console.log('error ===', error);
-        const errorA = error.response.data.msg;
-        enqueueSnackbar(errorA, { variant: 'warning' });
-        logout();
+        // const errorA = error.response.data.msg;
+        // enqueueSnackbar(errorA, { variant: 'warning' });
+        // logout();
       });
   }, [productID]);
 

@@ -133,6 +133,8 @@ export const ProductsContextProvider = ({ children }) => {
       )
       .then((res) => {
         console.log('res: ', res.data);
+        const apiMsg = res.data.msg;
+        enqueueSnackbar(apiMsg, { variant: 'success' });
       })
       .catch((err) => {
         console.warn('ERROR: ', err);
@@ -148,6 +150,8 @@ export const ProductsContextProvider = ({ children }) => {
       })
       .then((res) => {
         console.log('res: ', res.data);
+        const apiMsg = res.data.msg;
+        enqueueSnackbar(apiMsg, { variant: 'success' });
       })
       .catch((err) => {
         console.warn('ERROR: ', err);

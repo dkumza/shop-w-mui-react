@@ -25,11 +25,6 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
     phone === 'Contact Seller' ? setPhone(product.telephone) : setPhone('Contact Seller');
   };
 
-  const addFavorite = () => {
-    console.log('favorited');
-    setStar((prev) => !prev);
-  };
-
   return (
     <Grow in={true} style={{ transformOrigin: '0 0 1' }} timeout={2000}>
       <Paper
@@ -54,7 +49,7 @@ export const AboutProduct = ({ product, userID, setProductFromAPI, deleted }) =>
             mb: 1,
           }}
         >
-          <FavoriteIcon prodID={product.id} />
+          <FavoriteIcon prodID={product.id} userID={userID} fav={product.fav_user} />
           {open && (
             <EditProduct
               setProductFromAPI={setProductFromAPI}
